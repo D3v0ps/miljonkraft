@@ -24,4 +24,5 @@ const b = resolveBooking();
       <span class="cta-short">{b.ctaShort}</span>
     </>
   )}
+  {b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}
 </a>

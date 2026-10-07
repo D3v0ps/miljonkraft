@@ -100,5 +100,23 @@
     "bg",
     1,
     "linjer (ej text)"
+  ],
+  [
+    "line-control",
+    "bg",
+    3,
+    "kant på spökknapp"
+  ],
+  [
+    "line-control",
+    "surface",
+    3,
+    "kant på spökknapp, tonad yta"
+  ],
+  [
+    "line-control",
+    "surface-2",
+    3,
+    "kant på spökknapp, kort"
   ]
 ]

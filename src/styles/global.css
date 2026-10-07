@@ -21,6 +21,8 @@
   --muted: #4F5962;
   --line: #D8D2C8;
   --line-strong: #B9B1A5;
+  /* Kant på kontroller utan fyllning. Minst 3:1 mot alla ljusa ytor. */
+  --line-control: #7F776B;
 
   /* Mörk introduktion och sidfot */
   --dark: #161C21;
@@ -87,7 +89,7 @@ address { font-style: normal; }
 button { font: inherit; color: inherit; }
 summary { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-.theme-dark :focus-visible, .site-header :focus-visible, .site-footer :focus-visible { outline-color: var(--accent-dark); }
+.hero :focus-visible, .site-header :focus-visible, .site-footer :focus-visible { outline-color: var(--accent-dark); }
 
 h1, h2, h3 { font-weight: 700; line-height: 1.12; letter-spacing: -0.012em; text-wrap: balance; }
 h2 { font-size: var(--text-h2); letter-spacing: -0.02em; }
@@ -135,7 +137,7 @@ p + p { margin-top: 1em; }
   .button--ghost:hover { border-color: var(--ink); }
   .button--ghost-dark:hover { border-color: var(--on-dark); }
 }
-.button--ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.button--ghost { background: transparent; color: var(--ink); border-color: var(--line-control); }
 .button--ghost-dark { background: transparent; color: var(--on-dark); border-color: rgba(255, 255, 255, 0.4); }
 .button--small { min-height: 2.5rem; padding: 0.375rem 1rem; font-size: 0.9375rem; }
 .button--large { min-height: 3.5rem; padding: 0.875rem 1.75rem; font-size: 1.0625rem; }
@@ -229,7 +231,7 @@ p + p { margin-top: 1em; }
 .hero__lead { margin-top: 1.5rem; font-size: var(--text-lead); line-height: 1.45; font-weight: 500; max-width: 34ch; }
 .hero__body { margin-top: 1rem; color: var(--on-dark-muted); max-width: 48ch; font-weight: 450; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 2rem; }
-.hero__phone { color: var(--on-dark); font-weight: 500; }
+.hero__phone { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--on-dark); font-weight: 500; }
 .hero__graphic { width: 100%; max-width: 40rem; justify-self: end; margin-top: 0.5rem; }
 .hero__graphic svg { width: 100%; height: auto; }
 .stair__line { stroke: var(--on-dark-muted); stroke-dasharray: 1; stroke-dashoffset: 0; }
@@ -464,13 +466,23 @@ p + p { margin-top: 1em; }
   padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
   background: rgba(250, 248, 245, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--line);
-  transform: translateY(110%); transition: transform var(--dur) var(--ease-out);
+  transform: translateY(110%); visibility: hidden;
+  transition: transform var(--dur) var(--ease-out), visibility 0s linear var(--dur);
 }
-.mobile-cta.is-visible { transform: none; }
+.mobile-cta.is-visible { transform: none; visibility: visible; transition: transform var(--dur) var(--ease-out), visibility 0s; }
 .mobile-cta .button { width: 100%; }
 @media (min-width: 900px) { .mobile-cta { display: none; } }
-html.has-mobile-cta { scroll-padding-bottom: 6rem; }
-html.has-mobile-cta .site-footer { padding-bottom: 6.5rem; }
+@media (max-width: 899.98px) {
+  html.has-mobile-cta { scroll-padding-bottom: 6rem; }
+  html.has-mobile-cta .site-footer { padding-bottom: 6.5rem; }
+}
+/* Vid låg skärmhöjd (t.ex. 400 % förstoring) släpper sidhuvudet och den fasta knappen så att innehållet inte täcks. */
+@media (max-height: 500px) {
+  .site-header { position: static; }
+  .mobile-cta { display: none; }
+  html.has-mobile-cta { scroll-padding-bottom: 0; }
+  html.has-mobile-cta .site-footer { padding-bottom: 2.5rem; }
+}
 
 /* ---------- Undersidor (404, integritet) ---------- */
 .subpage, .notfound { padding-block: var(--section); min-height: 70vh; }
