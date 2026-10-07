@@ -45,7 +45,7 @@ Viktiga kontroller i Microsoft-gränssnittet:
 
 ```ts
 export const booking = {
-  mode: 'shared_embed',           // eller 'external_link'
+  mode: 'shared_embed' as BookingMode,   // eller 'external_link'. Behåll typcasten, annars faller npm run check.
   publicUrl: 'https://outlook.office.com/book/....',   // publik länk från Bookings, Dela, Kopiera länk
   embedUrl: 'https://outlook.office.com/book/....',    // iframe-källa från Bookings, Dela, Bädda in
   ...
@@ -59,15 +59,16 @@ export const booking = {
 
 Bygg om (`npm run build`) och kontrollera att bygget går igenom. Saknas en giltig https-adress för valt läge stoppas bygget med ett tydligt fel.
 
-Läget styr automatiskt knapptexter, navigationsetikett, rubrik och instruktion i bokningssektionen.
+Läget styr automatiskt knapptexter, navigationsetikett, rubrik och instruktion i bokningssektionen. I båda riktiga lägena visas också raden `meetingFormatLine` (i dag "Digitalt via Teams · 30 minuter"). Ändra eller töm värdet om tjänsten konfigureras utan Teams-möte, så att sidan bara beskriver det som faktiskt gäller. Justera `embedHeightPx` efter ett höjdtest av inbäddningen på mobil och dator.
 
 ## 4. Verifiera efter anslutning
 
 - Öppna sidan i mobil och dator. Kontrollera att kalendern får plats, att tangentbordet når den och att reservlänken fungerar.
 - Kontrollera att inbäddningen inte visas med en inloggningsruta för externa besökare.
+- Kontrollera i webbläsarens konsol att inbäddningen inte blockeras av X-Frame-Options eller CSP (meddelande i stil med "Refused to display ... in a frame"). En blockerad ram ger inget automatiskt fel på sidan och fångas inte av reservtimern. Byt i så fall till `external_link`.
 - Genomför en godkänd testbokning hela vägen till bekräftelse. Redovisa separat att länken öppnats, att kalenderkonflikter kontrollerats och att bokningen faktiskt slutförts.
 - Om testet skapar en riktig kalenderhändelse eller skickar mejl måste det ingå i behörigheten. Hantera testbokningen i Bookings efteråt.
 
 ## 5. Mätning
 
-Ett klick eller en laddad iframe är inte en genomförd bokning. Huvudknappen bär attributet `data-event` med värdet `booking_open` (riktig bokning) eller `contact_open` (mejlförslag). Webbplatsen har ingen mätning inkopplad. Om mätning läggs till ska `booking_complete` bara registreras när leverantören ger ett verifierat stöd för det, till exempel ett dokumenterat integrationsmeddelande från inbäddningen. Utan sådant stöd följs bekräftade bokningar upp i Bookings.
+Ett klick eller en laddad iframe är inte en genomförd bokning. Knapparna bär attributet `data-event` med ett av tre värden: `booking_open` (öppnar bokningstjänsten, i external_link samt på reservlänken och laddknappen i shared_embed), `booking_section` (huvudknappar som bara skrollar till inbäddningen i shared_embed) och `contact_open` (mejlförslag i contact_only). Webbplatsen har ingen mätning inkopplad. Om mätning läggs till ska `booking_complete` bara registreras när leverantören ger ett verifierat stöd för det, till exempel ett dokumenterat integrationsmeddelande från inbäddningen. Utan sådant stöd följs bekräftade bokningar upp i Bookings.

@@ -28,6 +28,10 @@ const s = copy.bookingSection;
         </p>
         <div class="booking__frame" data-booking-frame>
           <button type="button" class="button button--primary button--large" data-booking-load data-event="booking_open">{s.embedLoadLabel}</button>
+          <noscript>
+            <style>[data-booking-load] { display: none; }</style>
+            <p class="booking__fallback">{s.embedFallback}</p>
+          </noscript>
           <template data-booking-template>
             <iframe
               src={b.embedUrl}
@@ -67,6 +71,8 @@ const s = copy.bookingSection;
         const iframe = node.querySelector('iframe');
         if (!iframe) return;
         let loaded = false;
+        // Timern fångar bara nätverksstopp. En ram som blockeras av X-Frame-Options eller CSP avfyrar ändå load,
+        // därför ska inbäddningen kontrolleras manuellt i webbläsaren innan shared_embed aktiveras (se docs/BOOKING_SETUP.md).
         iframe.addEventListener('load', () => { loaded = true; });
         window.setTimeout(() => { if (!loaded && fallback) fallback.hidden = false; }, 15000);
         loadBtn.replaceWith(node);

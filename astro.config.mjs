@@ -12,7 +12,8 @@ export default defineConfig({
   compressHTML: true,
   build: {
     format: 'directory',
-    inlineStylesheets: 'auto',
+    // Hela stilmallen läggs inline. Sidan är liten och slipper då en renderingsblockerande begäran.
+    inlineStylesheets: 'always',
   },
   integrations: [
     sitemap({

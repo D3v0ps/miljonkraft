@@ -23,6 +23,9 @@ import CtaLink from './CtaLink.astro';
       <span class="menu-toggle__label" data-menu-label-close hidden>Stäng</span>
     </button>
 
+    <noscript>
+      <style>@media (max-width: 899.98px) { .primary-nav { display: block !important; } .menu-toggle { display: none; } }</style>
+    </noscript>
     <nav class="primary-nav" id="primary-nav" aria-label="Huvudmeny" data-primary-nav>
       <ul class="primary-nav__list">
         {nav.items.map((item) => (

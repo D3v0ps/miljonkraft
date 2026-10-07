@@ -11,6 +11,16 @@
   src: url('/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+/* Metriskt anpassad reservfont så att texten inte flödar om när Schibsted Grotesk anländer.
+   Värdena är uppmätta mot Arial/Liberation Sans (scripts: canvas measureText, 100 px). */
+@font-face {
+  font-family: 'Schibsted Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans'), local('Roboto');
+  size-adjust: 103.55%;
+  ascent-override: 94.6%;
+  descent-override: 25.1%;
+  line-gap-override: 0%;
+}
 
 :root {
   /* Ljusa läsytor */
@@ -40,7 +50,7 @@
 
   --radius: 6px;
 
-  --font: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font: 'Schibsted Grotesk', 'Schibsted Fallback', 'Helvetica Neue', Arial, sans-serif;
   --text-body: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
   --text-small: 0.9375rem;
   --text-lead: clamp(1.125rem, 1.05rem + 0.45vw, 1.375rem);
@@ -99,12 +109,13 @@ p + p { margin-top: 1em; }
 .muted { color: var(--muted); }
 
 .skip-link {
-  position: absolute; left: 1rem; top: -4rem; z-index: 100;
+  position: absolute; left: 1rem; top: 1rem; z-index: 100;
   padding: 0.75rem 1rem; background: var(--accent); color: #fff; font-weight: 600;
   border-radius: var(--radius); text-decoration: none;
-  transition: top var(--dur-fast) var(--ease-out);
+  transform: translateY(calc(-100% - 2rem));
+  transition: transform var(--dur-fast) var(--ease-out);
 }
-.skip-link:focus { top: 1rem; }
+.skip-link:focus { transform: none; }
 
 .visually-hidden {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
@@ -476,7 +487,7 @@ p + p { margin-top: 1em; }
 .mobile-cta {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
   padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
-  background: rgba(250, 248, 245, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: var(--bg);
   border-top: 1px solid var(--line);
   transform: translateY(110%); visibility: hidden;
   transition: transform var(--dur) var(--ease-out), visibility 0s linear var(--dur);
@@ -490,6 +501,7 @@ p + p { margin-top: 1em; }
 }
 /* Vid låg skärmhöjd (t.ex. 400 % förstoring) släpper sidhuvudet och den fasta knappen så att innehållet inte täcks. */
 @media (max-height: 500px) {
+  html { scroll-padding-top: 1rem; }
   .site-header { position: static; }
   .mobile-cta { display: none; }
   html.has-mobile-cta { scroll-padding-bottom: 0; }

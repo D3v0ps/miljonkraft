@@ -22,8 +22,11 @@ export interface ResolvedBooking {
   embedHeightPx: number;
   /** Visas bara när riktig bokning finns. */
   formatLine: string | null;
-  /** Analysnamn för klick på huvudknappen. Mäts aldrig som genomförd bokning. */
-  openEvent: 'booking_open' | 'contact_open';
+  /**
+   * Analysnamn för klick på huvudknappen. Mäts aldrig som genomförd bokning.
+   * booking_open: öppnar bokningstjänsten. booking_section: skrollar till inbäddningen. contact_open: öppnar mejlförslag.
+   */
+  openEvent: 'booking_open' | 'booking_section' | 'contact_open';
 }
 
 function encodeMailto(to: string, subject: string, body: string): string {
@@ -88,7 +91,7 @@ export function resolveBooking(): ResolvedBooking {
     embedUrl,
     embedHeightPx: booking.embedHeightPx,
     formatLine: booking.meetingFormatLine,
-    openEvent: 'booking_open',
+    openEvent: mode === 'shared_embed' ? 'booking_section' : 'booking_open',
   };
 }
 
