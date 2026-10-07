@@ -3,17 +3,19 @@
  * Sidans grafiska huvudgrepp. En trappa med åtta steg som stiger åt höger,
  * ett per steg i Miljonmodellen. Linjen börjar i en fylld nod och slutar i en
  * ihålig nod, nästa steg som ännu inte är taget. Dekorativ, modellens steg
- * finns som text i #miljonmodellen.
+ * finns som text i #miljonmodellen. Med labels skrivs stegnamnen på trappstegen.
  */
-interface Props { class?: string; steps?: number; riser?: number; height?: number; width?: number }
-const { class: className, steps = 8, riser = 42, height = 400, width = 640 } = Astro.props;
+interface Props { class?: string; steps?: number; riser?: number; height?: number; width?: number; labels?: readonly string[] }
+const { class: className, steps = 8, riser = 42, height = 400, width = 640, labels = [] } = Astro.props;
 const W = width, H = height, pad = 10, baseY = H - pad - 4, tread = (W - pad * 2) / steps;
 const pts: string[] = [];
+const treads: { x: number; y: number }[] = [];
 let x = pad, y = baseY;
 pts.push(`${x},${y}`);
 for (let i = 0; i < steps; i++) {
   y -= riser;
   pts.push(`${x},${y}`);
+  treads.push({ x, y });
   x += tread;
   pts.push(`${x},${y}`);
 }
@@ -26,4 +28,7 @@ const endX = pad + tread * steps;
   <rect class="stair__start" x={pad - 5} y={baseY - 5} width="10" height="10" />
   <line class="stair__top" x1={endX - tread} y1={topY} x2={endX} y2={topY} stroke-width="5" vector-effect="non-scaling-stroke" />
   <rect class="stair__end" x={endX - 6} y={topY - 6} width="12" height="12" stroke-width="2.5" vector-effect="non-scaling-stroke" />
+  {labels.length > 0 && treads.map((t, i) => (
+    <text class={`stair__label${i === steps - 1 ? ' stair__label--last' : ''}`} x={t.x + 7} y={t.y - 7}>{labels[i]}</text>
+  ))}
 </svg>

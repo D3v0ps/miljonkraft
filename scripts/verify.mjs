@@ -55,6 +55,7 @@ for (const v of widths) {
   page.on('response', (r) => { if (r.status() >= 400) responses404.push(`${r.status()} ${r.url()}`); });
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(1200);
   await page.screenshot({ path: `${outDir}/${v.name}-first.png` });
   await page.screenshot({ path: `${outDir}/${v.name}-full.png`, fullPage: true });
   const overflow = await overflowInfo(page);
@@ -82,6 +83,42 @@ for (const v of widths) {
   report.viewports[v.name] = { overflow, metrics, consoleErrors, failedRequests: failed, responses4xx5xx: responses404 };
   report.axe[v.name] = axe;
   await ctx.close();
+}
+
+// Interaktionslägen på mobil: öppen meny, fokus, fast knapprad. Samt 1024 och 1366 (vanlig laptop) första skärm, 404 och integritet.
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const page = await ctx.newPage();
+  await page.goto(baseUrl, { waitUntil: 'networkidle' });
+  await page.evaluate(() => { document.fonts.ready; document.documentElement.style.scrollBehavior = 'auto'; });
+  await page.click('[data-menu-toggle]');
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: `${outDir}/390-menu-open.png` });
+  await page.keyboard.press('Escape');
+  for (let i = 0; i < 3; i++) await page.keyboard.press('Tab');
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: `${outDir}/390-focus.png` });
+  await page.evaluate(() => window.scrollTo(0, 1400));
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${outDir}/390-scrolled-cta-bar.png` });
+  await ctx.close();
+  for (const [w, h, name] of [[1024, 768, '1024-first'], [1366, 768, '1366-first']]) {
+    const c = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
+    const p = await c.newPage();
+    await p.goto(baseUrl, { waitUntil: 'networkidle' });
+    await p.evaluate(() => document.fonts.ready);
+    await p.waitForTimeout(1200);
+    await p.screenshot({ path: `${outDir}/${name}.png` });
+    await c.close();
+  }
+  const c = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  const p = await c.newPage();
+  const r404 = await p.goto(new URL('/sidan-finns-inte/', baseUrl).href, { waitUntil: 'networkidle' });
+  report.notFoundStatus = r404?.status();
+  await p.screenshot({ path: `${outDir}/404.png` });
+  await p.goto(new URL('/integritet/', baseUrl).href, { waitUntil: 'networkidle' });
+  await p.screenshot({ path: `${outDir}/integritet.png` });
+  await c.close();
 }
 
 // Zoom 200 % på en 1440-skärm motsvarar ungefär 720 px CSS-bredd.

@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://127.0.0.1:4321/",
-  "checkedAt": "2026-10-07T08:52:44.737Z",
+  "checkedAt": "2026-10-07T09:27:49.560Z",
   "viewports": {
     "320": {
       "overflow": {
@@ -13,9 +13,9 @@
         "h1Lines": 4,
         "h1FontSize": "31.68px",
         "bodyFontSize": "16px",
-        "ctaVisibleInFirstScreen": false,
+        "ctaVisibleInFirstScreen": true,
         "ctaHeight": 56,
-        "pageHeight": 7842,
+        "pageHeight": 7848,
         "navHeight": 65
       },
       "consoleErrors": [],
@@ -35,7 +35,7 @@
         "bodyFontSize": "16.175px",
         "ctaVisibleInFirstScreen": true,
         "ctaHeight": 56,
-        "pageHeight": 7256,
+        "pageHeight": 7218,
         "navHeight": 65
       },
       "consoleErrors": [],
@@ -55,7 +55,7 @@
         "bodyFontSize": "17px",
         "ctaVisibleInFirstScreen": true,
         "ctaHeight": 56,
-        "pageHeight": 6227,
+        "pageHeight": 6148,
         "navHeight": 65
       },
       "consoleErrors": [],
@@ -70,12 +70,12 @@
         "offenders": []
       },
       "metrics": {
-        "h1Lines": 4,
-        "h1FontSize": "72px",
+        "h1Lines": 3,
+        "h1FontSize": "60px",
         "bodyFontSize": "17px",
         "ctaVisibleInFirstScreen": true,
         "ctaHeight": 56,
-        "pageHeight": 5948,
+        "pageHeight": 5747,
         "navHeight": 65
       },
       "consoleErrors": [],
@@ -102,7 +102,7 @@
           "hidden": false,
           "w": 186,
           "h": 50,
-          "top": -64
+          "top": -66
         },
         {
           "tag": "a",
@@ -141,7 +141,7 @@
           "hasRing": true,
           "hidden": false,
           "w": 140,
-          "h": 26,
+          "h": 44,
           "top": 655
         },
         {
@@ -152,7 +152,7 @@
           "hidden": false,
           "w": 273,
           "h": 48,
-          "top": 4790
+          "top": 4736
         },
         {
           "tag": "a",
@@ -162,7 +162,7 @@
           "hidden": false,
           "w": 358,
           "h": 56,
-          "top": 6069
+          "top": 6031
         },
         {
           "tag": "a",
@@ -172,7 +172,7 @@
           "hidden": false,
           "w": 104,
           "h": 44,
-          "top": 6337
+          "top": 6299
         },
         {
           "tag": "a",
@@ -182,11 +182,321 @@
           "hidden": false,
           "w": 299,
           "h": 44,
-          "top": 6389
+          "top": 6351
         },
         {
           "tag": "summary",
           "text": "Behöver vi rekrytera just nu?",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6589
+        },
+        {
+          "tag": "summary",
+          "text": "Vilka riktar sig Miljonkraft Botkyrka ti",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6649
+        },
+        {
+          "tag": "summary",
+          "text": "Har projektet startat?",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6709
+        },
+        {
+          "tag": "a",
+          "text": "Kontakt",
+          "href": "#boka",
+          "hasRing": true,
+          "hidden": false,
+          "w": 59,
+          "h": 44,
+          "top": 7014
+        },
+        {
+          "tag": "a",
+          "text": "Miljonbemanning",
+          "href": "https://miljonbemanning.se",
+          "hasRing": true,
+          "hidden": false,
+          "w": 131,
+          "h": 44,
+          "top": 7008
+        },
+        {
+          "tag": "a",
+          "text": "Integritet",
+          "href": "/integritet/",
+          "hasRing": true,
+          "hidden": false,
+          "w": 70,
+          "h": 44,
+          "top": 7008
+        },
+        {
+          "tag": "a",
+          "text": "Hoppa till innehållet",
+          "href": "#innehall",
+          "hasRing": true,
+          "hidden": false,
+          "w": 186,
+          "h": 50,
+          "top": -79
+        },
+        {
+          "tag": "a",
+          "text": "Miljonkraft Botkyrka, till sidans början",
+          "href": "#top",
+          "hasRing": true,
+          "hidden": false,
+          "w": 189,
+          "h": 44,
+          "top": 10
+        },
+        {
+          "tag": "button",
+          "text": "Meny Stäng",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 86,
+          "h": 44,
+          "top": 10
+        },
+        {
+          "tag": "a",
+          "text": "Föreslå ett samtal på 30 minuter Föreslå",
+          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
+          "hasRing": true,
+          "hidden": false,
+          "w": 322,
+          "h": 56,
+          "top": 574
+        },
+        {
+          "tag": "a",
+          "text": "Ring 076 294 34 31",
+          "href": "tel:+46762943431",
+          "hasRing": true,
+          "hidden": false,
+          "w": 140,
+          "h": 44,
+          "top": 644
+        },
+        {
+          "tag": "a",
+          "text": "Läs mer om Miljonbemanning",
+          "href": "https://miljonbemanning.se/sv/about/us/",
+          "hasRing": true,
+          "hidden": false,
+          "w": 273,
+          "h": 48,
+          "top": 4725
+        },
+        {
+          "tag": "a",
+          "text": "Föreslå ett samtal på 30 minuter Föreslå",
+          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 56,
+          "top": 6020
+        },
+        {
+          "tag": "a",
+          "text": "076 294 34 31",
+          "href": "tel:+46762943431",
+          "hasRing": true,
+          "hidden": false,
+          "w": 104,
+          "h": 44,
+          "top": 6288
+        },
+        {
+          "tag": "a",
+          "text": "Yacine.Laghmari@miljonbemanning.se",
+          "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
+          "hasRing": true,
+          "hidden": false,
+          "w": 299,
+          "h": 44,
+          "top": 6346
+        },
+        {
+          "tag": "summary",
+          "text": "Behöver vi rekrytera just nu?",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6584
+        },
+        {
+          "tag": "summary",
+          "text": "Vilka riktar sig Miljonkraft Botkyrka ti",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6644
+        },
+        {
+          "tag": "summary",
+          "text": "Har projektet startat?",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6704
+        },
+        {
+          "tag": "a",
+          "text": "Kontakt",
+          "href": "#boka",
+          "hasRing": true,
+          "hidden": false,
+          "w": 59,
+          "h": 44,
+          "top": 7009
+        },
+        {
+          "tag": "a",
+          "text": "Miljonbemanning",
+          "href": "https://miljonbemanning.se",
+          "hasRing": true,
+          "hidden": false,
+          "w": 131,
+          "h": 44,
+          "top": 7003
+        },
+        {
+          "tag": "a",
+          "text": "Integritet",
+          "href": "/integritet/",
+          "hasRing": true,
+          "hidden": false,
+          "w": 70,
+          "h": 44,
+          "top": 7003
+        },
+        {
+          "tag": "a",
+          "text": "Hoppa till innehållet",
+          "href": "#innehall",
+          "hasRing": true,
+          "hidden": false,
+          "w": 186,
+          "h": 50,
+          "top": -77
+        },
+        {
+          "tag": "a",
+          "text": "Miljonkraft Botkyrka, till sidans början",
+          "href": "#top",
+          "hasRing": true,
+          "hidden": false,
+          "w": 189,
+          "h": 44,
+          "top": 10
+        },
+        {
+          "tag": "button",
+          "text": "Meny Stäng",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 86,
+          "h": 44,
+          "top": 10
+        },
+        {
+          "tag": "a",
+          "text": "Föreslå ett samtal på 30 minuter Föreslå",
+          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
+          "hasRing": true,
+          "hidden": false,
+          "w": 322,
+          "h": 56,
+          "top": 569
+        },
+        {
+          "tag": "a",
+          "text": "Ring 076 294 34 31",
+          "href": "tel:+46762943431",
+          "hasRing": true,
+          "hidden": false,
+          "w": 140,
+          "h": 44,
+          "top": 637
+        },
+        {
+          "tag": "a",
+          "text": "Läs mer om Miljonbemanning",
+          "href": "https://miljonbemanning.se/sv/about/us/",
+          "hasRing": true,
+          "hidden": false,
+          "w": 273,
+          "h": 48,
+          "top": 4718
+        },
+        {
+          "tag": "a",
+          "text": "Föreslå ett samtal på 30 minuter Föreslå",
+          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 56,
+          "top": 6015
+        },
+        {
+          "tag": "a",
+          "text": "076 294 34 31",
+          "href": "tel:+46762943431",
+          "hasRing": true,
+          "hidden": false,
+          "w": 104,
+          "h": 44,
+          "top": 6283
+        },
+        {
+          "tag": "a",
+          "text": "Yacine.Laghmari@miljonbemanning.se",
+          "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
+          "hasRing": true,
+          "hidden": false,
+          "w": 299,
+          "h": 44,
+          "top": 6335
+        },
+        {
+          "tag": "summary",
+          "text": "Behöver vi rekrytera just nu?",
+          "href": null,
+          "hasRing": true,
+          "hidden": false,
+          "w": 358,
+          "h": 59,
+          "top": 6567
+        },
+        {
+          "tag": "summary",
+          "text": "Vilka riktar sig Miljonkraft Botkyrka ti",
           "href": null,
           "hasRing": true,
           "hidden": false,
@@ -196,23 +506,13 @@
         },
         {
           "tag": "summary",
-          "text": "Vilka riktar sig Miljonkraft Botkyrka ti",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 59,
-          "top": 6682
-        },
-        {
-          "tag": "summary",
           "text": "Har projektet startat?",
           "href": null,
           "hasRing": true,
           "hidden": false,
           "w": 358,
           "h": 59,
-          "top": 6742
+          "top": 6687
         },
         {
           "tag": "a",
@@ -222,307 +522,7 @@
           "hidden": false,
           "w": 59,
           "h": 44,
-          "top": 7047
-        },
-        {
-          "tag": "a",
-          "text": "Miljonbemanning",
-          "href": "https://miljonbemanning.se",
-          "hasRing": true,
-          "hidden": false,
-          "w": 131,
-          "h": 44,
-          "top": 7047
-        },
-        {
-          "tag": "a",
-          "text": "Integritet",
-          "href": "/integritet/",
-          "hasRing": true,
-          "hidden": false,
-          "w": 70,
-          "h": 44,
-          "top": 7047
-        },
-        {
-          "tag": "a",
-          "text": "Föreslå ett samtal på 30 minuter Föreslå",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 48,
-          "top": 864
-        },
-        {
-          "tag": "a",
-          "text": "Hoppa till innehållet",
-          "href": "#innehall",
-          "hasRing": true,
-          "hidden": false,
-          "w": 186,
-          "h": 50,
-          "top": -76
-        },
-        {
-          "tag": "a",
-          "text": "Miljonkraft Botkyrka, till sidans början",
-          "href": "#top",
-          "hasRing": true,
-          "hidden": false,
-          "w": 189,
-          "h": 44,
-          "top": 10
-        },
-        {
-          "tag": "button",
-          "text": "Meny Stäng",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 86,
-          "h": 44,
-          "top": 10
-        },
-        {
-          "tag": "a",
-          "text": "Föreslå ett samtal på 30 minuter Föreslå",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
-          "hasRing": true,
-          "hidden": false,
-          "w": 322,
-          "h": 56,
-          "top": 575
-        },
-        {
-          "tag": "a",
-          "text": "Ring 076 294 34 31",
-          "href": "tel:+46762943431",
-          "hasRing": true,
-          "hidden": false,
-          "w": 140,
-          "h": 26,
-          "top": 636
-        },
-        {
-          "tag": "a",
-          "text": "Läs mer om Miljonbemanning",
-          "href": "https://miljonbemanning.se/sv/about/us/",
-          "hasRing": true,
-          "hidden": false,
-          "w": 273,
-          "h": 48,
-          "top": 4771
-        },
-        {
-          "tag": "a",
-          "text": "Föreslå ett samtal på 30 minuter Föreslå",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 56,
-          "top": 6050
-        },
-        {
-          "tag": "a",
-          "text": "076 294 34 31",
-          "href": "tel:+46762943431",
-          "hasRing": true,
-          "hidden": false,
-          "w": 104,
-          "h": 44,
-          "top": 6318
-        },
-        {
-          "tag": "a",
-          "text": "Yacine.Laghmari@miljonbemanning.se",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
-          "hasRing": true,
-          "hidden": false,
-          "w": 299,
-          "h": 44,
-          "top": 6370
-        },
-        {
-          "tag": "summary",
-          "text": "Behöver vi rekrytera just nu?",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 59,
-          "top": 6610
-        },
-        {
-          "tag": "summary",
-          "text": "Vilka riktar sig Miljonkraft Botkyrka ti",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 59,
-          "top": 6670
-        },
-        {
-          "tag": "summary",
-          "text": "Har projektet startat?",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 59,
-          "top": 6730
-        },
-        {
-          "tag": "a",
-          "text": "Kontakt",
-          "href": "#boka",
-          "hasRing": true,
-          "hidden": false,
-          "w": 59,
-          "h": 44,
-          "top": 7035
-        },
-        {
-          "tag": "a",
-          "text": "Miljonbemanning",
-          "href": "https://miljonbemanning.se",
-          "hasRing": true,
-          "hidden": false,
-          "w": 131,
-          "h": 44,
-          "top": 7035
-        },
-        {
-          "tag": "a",
-          "text": "Integritet",
-          "href": "/integritet/",
-          "hasRing": true,
-          "hidden": false,
-          "w": 70,
-          "h": 44,
-          "top": 7035
-        },
-        {
-          "tag": "a",
-          "text": "Föreslå ett samtal på 30 minuter Föreslå",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 48,
-          "top": 864
-        },
-        {
-          "tag": "a",
-          "text": "Hoppa till innehållet",
-          "href": "#innehall",
-          "hasRing": true,
-          "hidden": false,
-          "w": 186,
-          "h": 50,
-          "top": -88
-        },
-        {
-          "tag": "a",
-          "text": "Miljonkraft Botkyrka, till sidans början",
-          "href": "#top",
-          "hasRing": true,
-          "hidden": false,
-          "w": 189,
-          "h": 44,
-          "top": 10
-        },
-        {
-          "tag": "button",
-          "text": "Meny Stäng",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 86,
-          "h": 44,
-          "top": 10
-        },
-        {
-          "tag": "a",
-          "text": "Föreslå ett samtal på 30 minuter Föreslå",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
-          "hasRing": true,
-          "hidden": false,
-          "w": 322,
-          "h": 56,
-          "top": 556
-        },
-        {
-          "tag": "a",
-          "text": "Ring 076 294 34 31",
-          "href": "tel:+46762943431",
-          "hasRing": true,
-          "hidden": false,
-          "w": 140,
-          "h": 26,
-          "top": 624
-        },
-        {
-          "tag": "a",
-          "text": "Läs mer om Miljonbemanning",
-          "href": "https://miljonbemanning.se/sv/about/us/",
-          "hasRing": true,
-          "hidden": false,
-          "w": 273,
-          "h": 48,
-          "top": 4759
-        },
-        {
-          "tag": "a",
-          "text": "Föreslå ett samtal på 30 minuter Föreslå",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 56,
-          "top": 6038
-        },
-        {
-          "tag": "a",
-          "text": "076 294 34 31",
-          "href": "tel:+46762943431",
-          "hasRing": true,
-          "hidden": false,
-          "w": 104,
-          "h": 44,
-          "top": 6306
-        },
-        {
-          "tag": "a",
-          "text": "Yacine.Laghmari@miljonbemanning.se",
-          "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
-          "hasRing": true,
-          "hidden": false,
-          "w": 299,
-          "h": 44,
-          "top": 6358
-        },
-        {
-          "tag": "summary",
-          "text": "Behöver vi rekrytera just nu?",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 59,
-          "top": 6598
-        },
-        {
-          "tag": "summary",
-          "text": "Vilka riktar sig Miljonkraft Botkyrka ti",
-          "href": null,
-          "hasRing": true,
-          "hidden": false,
-          "w": 358,
-          "h": 59,
-          "top": 6658
+          "top": 6985
         }
       ],
       "menu": {
@@ -544,7 +544,7 @@
           "hidden": false,
           "w": 194,
           "h": 51,
-          "top": -64
+          "top": -67
         },
         {
           "tag": "a",
@@ -604,7 +604,7 @@
           "hidden": false,
           "w": 322,
           "h": 56,
-          "top": 749
+          "top": 585
         },
         {
           "tag": "a",
@@ -613,8 +613,8 @@
           "hasRing": true,
           "hidden": false,
           "w": 147,
-          "h": 27,
-          "top": 763
+          "h": 44,
+          "top": 591
         },
         {
           "tag": "a",
@@ -624,7 +624,7 @@
           "hidden": false,
           "w": 273,
           "h": 48,
-          "top": 3677
+          "top": 3517
         },
         {
           "tag": "a",
@@ -634,7 +634,7 @@
           "hidden": false,
           "w": 322,
           "h": 56,
-          "top": 4960
+          "top": 4823
         },
         {
           "tag": "a",
@@ -644,7 +644,7 @@
           "hidden": false,
           "w": 109,
           "h": 44,
-          "top": 4750
+          "top": 4573
         },
         {
           "tag": "a",
@@ -654,7 +654,7 @@
           "hidden": false,
           "w": 315,
           "h": 44,
-          "top": 4802
+          "top": 4625
         },
         {
           "tag": "summary",
@@ -664,7 +664,7 @@
           "hidden": false,
           "w": 736,
           "h": 59,
-          "top": 5312
+          "top": 5175
         },
         {
           "tag": "summary",
@@ -674,7 +674,7 @@
           "hidden": false,
           "w": 736,
           "h": 59,
-          "top": 5368
+          "top": 5235
         },
         {
           "tag": "summary",
@@ -684,7 +684,7 @@
           "hidden": false,
           "w": 736,
           "h": 59,
-          "top": 5429
+          "top": 5291
         },
         {
           "tag": "a",
@@ -694,7 +694,7 @@
           "hidden": false,
           "w": 62,
           "h": 44,
-          "top": 5649
+          "top": 5511
         },
         {
           "tag": "a",
@@ -704,7 +704,7 @@
           "hidden": false,
           "w": 138,
           "h": 44,
-          "top": 5649
+          "top": 5511
         },
         {
           "tag": "a",
@@ -714,7 +714,7 @@
           "hidden": false,
           "w": 74,
           "h": 44,
-          "top": 5649
+          "top": 5511
         },
         {
           "tag": "a",
@@ -724,7 +724,7 @@
           "hidden": false,
           "w": 194,
           "h": 51,
-          "top": -73
+          "top": -72
         },
         {
           "tag": "a",
@@ -784,7 +784,7 @@
           "hidden": false,
           "w": 322,
           "h": 56,
-          "top": 735
+          "top": 577
         },
         {
           "tag": "a",
@@ -793,8 +793,8 @@
           "hasRing": true,
           "hidden": false,
           "w": 147,
-          "h": 27,
-          "top": 749
+          "h": 44,
+          "top": 583
         },
         {
           "tag": "a",
@@ -804,7 +804,7 @@
           "hidden": false,
           "w": 273,
           "h": 48,
-          "top": 3663
+          "top": 3509
         },
         {
           "tag": "a",
@@ -814,7 +814,7 @@
           "hidden": false,
           "w": 322,
           "h": 56,
-          "top": 4948
+          "top": 4815
         },
         {
           "tag": "a",
@@ -824,7 +824,7 @@
           "hidden": false,
           "w": 109,
           "h": 44,
-          "top": 4738
+          "top": 4565
         },
         {
           "tag": "a",
@@ -834,7 +834,7 @@
           "hidden": false,
           "w": 315,
           "h": 44,
-          "top": 4790
+          "top": 4622
         },
         {
           "tag": "summary",
@@ -844,7 +844,7 @@
           "hidden": false,
           "w": 736,
           "h": 59,
-          "top": 5300
+          "top": 5172
         },
         {
           "tag": "summary",
@@ -854,7 +854,7 @@
           "hidden": false,
           "w": 736,
           "h": 59,
-          "top": 5360
+          "top": 5232
         },
         {
           "tag": "summary",
@@ -864,7 +864,7 @@
           "hidden": false,
           "w": 736,
           "h": 59,
-          "top": 5417
+          "top": 5293
         },
         {
           "tag": "a",
@@ -874,7 +874,7 @@
           "hidden": false,
           "w": 62,
           "h": 44,
-          "top": 5637
+          "top": 5513
         },
         {
           "tag": "a",
@@ -884,7 +884,7 @@
           "hidden": false,
           "w": 138,
           "h": 44,
-          "top": 5637
+          "top": 5513
         },
         {
           "tag": "a",
@@ -894,7 +894,7 @@
           "hidden": false,
           "w": 74,
           "h": 44,
-          "top": 5637
+          "top": 5513
         },
         {
           "tag": "a",
@@ -904,7 +904,7 @@
           "hidden": false,
           "w": 194,
           "h": 51,
-          "top": -85
+          "top": -74
         },
         {
           "tag": "a",
@@ -964,7 +964,7 @@
           "hidden": false,
           "w": 322,
           "h": 56,
-          "top": 725
+          "top": 573
         }
       ],
       "menu": null,
@@ -981,7 +981,7 @@
       "tel:+46762943431"
     ],
     "mailLinks": 5,
-    "navLinksVisible": 0,
+    "navLinksVisible": 4,
     "statusVisible": true
   },
   "reducedMotion": {
@@ -1009,25 +1009,28 @@
   "axe": {
     "320": {
       "violations": [],
-      "passes": 36,
+      "passes": 35,
       "incomplete": []
     },
     "390": {
       "violations": [],
-      "passes": 36,
+      "passes": 35,
       "incomplete": []
     },
     "768": {
       "violations": [],
-      "passes": 36,
+      "passes": 35,
       "incomplete": []
     },
     "1440": {
       "violations": [],
       "passes": 34,
-      "incomplete": []
+      "incomplete": [
+        "color-contrast"
+      ]
     }
   },
+  "notFoundStatus": 404,
   "meta": {
     "title": "Miljonkraft Botkyrka | Fler i arbete, starkare företag",
     "description": "Miljonbemanning vill skapa fler vägar till arbete i Botkyrka. Lär känna Miljonkraft, vårt arbetssätt och hur ert företags kompetensbehov kan bidra.",

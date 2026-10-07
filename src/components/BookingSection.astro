@@ -2,6 +2,7 @@
 import { booking, contact, copy } from '../config/site';
 import { resolveBooking } from '../lib/booking';
 import CtaLink from './CtaLink.astro';
+import StepMark from './StepMark.astro';
 const b = resolveBooking();
 const s = copy.bookingSection;
 ---
@@ -9,6 +10,7 @@ const s = copy.bookingSection;
 <section class="section booking" id={s.id} aria-labelledby="booking-heading">
   <div class="section__inner booking__inner">
     <div class="booking__intro">
+      <StepMark class="booking__mark" />
       <h2 id="booking-heading" class="booking__heading">{b.heading}</h2>
       {s.intro.map((p) => <p class="booking__text">{p}</p>)}
       {b.formatLine && <p class="booking__format">{b.formatLine}</p>}
@@ -49,7 +51,7 @@ const s = copy.bookingSection;
     <address class="booking__card">
       <p class="booking__card-heading">{s.contactHeading}</p>
       <p class="booking__name">{contact.name}</p>
-      <p class="booking__role">{contact.role}<br />{contact.organization}</p>
+      <p class="booking__role">{contact.role}<br />{contact.organization}, {contact.place}</p>
       <ul class="booking__contact">
         <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
         <li><a href={`mailto:${contact.email}`}>{contact.email.split('@')[0]}@<wbr />{contact.email.split('@')[1]}</a></li>

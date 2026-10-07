@@ -53,7 +53,7 @@ Fem designbeslut:
 1. **En trapplinje är sidans huvudgrepp.** Åtta steg i heron, märket i sidhuvudet, Miljonmodellens rutnät som stiger fyra steg i taget, Karriärstegens exempel som en trappa. Linjen slutar i en ihålig nod, nästa steg som ännu inte är taget.
 2. **En typsnittsfamilj.** Schibsted Grotesk (variabel, självhostad, OFL). Rubriker i 800 med tät radhöjd, brödtext 16 till 17 px, högst 62 tecken per rad. Typsnittet är skandinaviskt, sakligt och har välritade å ä ö.
 3. **En mörk inledning, ljusa varma ytor, en accent.** Skiffer #161C21 i hero och sidfot, läsytor i #FAF8F5 och #F2EEE8. Accenten #D6341B på ljust och #FF6A4B på mörkt harmonierar med Miljonbemannings rödorange utan att vara deras officiella profil. Alla textpar är beräknade och klarar WCAG AA, se `node scripts/contrast.mjs`.
-4. **Alla åtta modellsteg syns alltid.** Fyra gånger två på dator med stigande kanter, två kolumner på surfplatta, en lodrät trappa på mobil. Inget dragspel.
+4. **Alla åtta modellsteg syns alltid.** Fyra gånger två på dator som två sammanhängande trappor med sättsteg, två kolumner på surfplatta, en lodrät trappa på mobil där varje steg står ett snäpp längre till höger. Inget dragspel.
 5. **Få och precisa rörelser.** Trappan ritas upp en gång vid sidladdning, knappar ger återkoppling på 160 ms, menyn och FAQ-pilen på 220 ms. Allt stängs av under prefers-reduced-motion.
 
 ## 4. Var saker ändras
@@ -73,5 +73,7 @@ Se `README.md`. Kort: all text, kontaktuppgifter, produktionsadress och boknings
 ## 6. Kända avvägningar
 
 - Heron har fem textelement (byline, rubrik, två stycken, knappar) eftersom masterprompten fastslår två stycken. Knappen ligger ovanför vikningen på 390 × 844, 768 och 1440 × 900. På 320 × 568 hamnar den strax under, och den fasta mobilknappen tar vid när hero-knappen passerats.
-- Rubriken bryts på fyra rader på dator (den tredje meningen bryts medvetet efter "starkare" från 1024 px) och tre rader på surfplatta. Det håller rubrikstorleken stark och knappen ovanför vikningen på 1366 × 768.
+- Rubriken står på tre rader, en mening per rad, från 768 px. Rubrikstorleken på dator är uppmätt så att "Ett starkare Botkyrka." ryms på en rad i textkolumnen, och knappen ligger ovanför vikningen på 1366 × 768 och 1024 × 768.
+- Rubriken är helt ljus. Accenten spenderas på knappen, trappans översta steg och avsändarmarkeringen, så att bokningsvägen är det starkaste accentmomentet i heron.
+- Trappan i heron bär Miljonmodellens åtta stegnamn som små etiketter på dator, så att motivet läses som modellen och inte som en tillväxtkurva. Etiketterna är dekorativa; stegen finns som text i avsnittet Miljonmodellen.
 - Mejlförslaget i contact_only innehåller inga kolon. Mallens rader är meningsstarter som ifyllaren fullföljer.

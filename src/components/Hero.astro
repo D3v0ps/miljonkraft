@@ -12,14 +12,7 @@ const h = copy.hero;
     <div class="hero__content">
       <p class="hero__byline">{h.byline}</p>
       <h1 id="hero-heading" class="hero__title">
-        {h.headline.map((line, i) => {
-          // Sista meningen bryts medvetet efter näst sista ordet på breda skärmar (CSS visar radbrytningen från 1024 px).
-          if (i === h.headline.length - 1) {
-            const cut = line.lastIndexOf(' ');
-            return <span>{line.slice(0, cut)}<br class="hero__br" /> {line.slice(cut + 1)} </span>;
-          }
-          return <span>{line} </span>;
-        })}
+        {h.headline.map((line) => <span>{line} </span>)}
       </h1>
       <p class="hero__lead">{h.lead}</p>
       <p class="hero__body">{h.body}</p>
@@ -29,7 +22,7 @@ const h = copy.hero;
       </div>
     </div>
     <div class="hero__graphic">
-      <StairGraphic class="hero__graphic--desktop" width={520} riser={58} height={540} />
+      <StairGraphic class="hero__graphic--desktop" width={520} riser={58} height={540} labels={copy.model.steps.map((s) => s.name)} />
       <StairGraphic class="hero__graphic--mobile" riser={16} height={168} />
     </div>
   </div>

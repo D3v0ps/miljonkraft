@@ -203,7 +203,7 @@ p + p { margin-top: 1em; }
   .primary-nav { order: 3; width: 100%; }
   .primary-nav:not(.is-visible) { display: none; }
   .primary-nav__list { flex-direction: column; align-items: stretch; gap: 0; padding: 0.5rem 0 1rem; border-top: 1px solid var(--line-dark); }
-  .primary-nav__link { min-height: 3rem; padding: 0.75rem 0.5rem; font-size: 1.0625rem; }
+  .primary-nav__link { min-height: 3rem; padding: 0.75rem 0; font-size: 1.0625rem; }
   .primary-nav__cta { margin: 0.75rem 0 0; }
   .primary-nav__cta .button { width: 100%; min-height: 3rem; font-size: 1rem; }
   .site-header.is-open .primary-nav { display: block; animation: nav-in var(--dur) var(--ease-out); }
@@ -236,9 +236,7 @@ p + p { margin-top: 1em; }
   max-width: 24ch;
 }
 .hero__title span { display: block; }
-.hero__br { display: none; }
-@media (min-width: 1024px) { .hero__br { display: inline; } }
-.hero__title span:nth-child(3) { color: var(--accent-dark); }
+
 .hero__lead { margin-top: 1.5rem; font-size: var(--text-lead); line-height: 1.45; font-weight: 500; max-width: 34ch; }
 .hero__body { margin-top: 1rem; color: var(--on-dark-muted); max-width: 48ch; font-weight: 450; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 2rem; }
@@ -253,14 +251,22 @@ p + p { margin-top: 1em; }
 .stair__start { fill: var(--on-dark-muted); }
 .stair__top { stroke: var(--accent-dark); }
 .stair__end { stroke: var(--accent-dark); fill: none; }
+.stair__label { font-family: var(--font); font-size: 12px; font-weight: 600; fill: var(--on-dark-muted); letter-spacing: 0.01em; }
+.stair__label--last { fill: var(--accent-dark); }
 @media (prefers-reduced-motion: no-preference) {
   /* Ett enda orkestrerat ögonblick vid sidladdning. Trappan ritas upp och visar riktningen framåt. */
   .stair__line { animation: stair-draw 700ms var(--ease-out) 150ms both; }
-  .stair__top, .stair__end { animation: stair-top 240ms var(--ease-out) 700ms both; }
+  .stair__top, .stair__end, .stair__label { animation: stair-top 240ms var(--ease-out) 700ms both; }
 }
 @keyframes stair-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes stair-top { from { opacity: 0; } to { opacity: 1; } }
 .hero__graphic--mobile { display: none; }
+@media (max-width: 379.98px) and (max-height: 640px) {
+  /* På små, korta skärmar står knappen direkt efter ingressen så att bokningsvägen syns på första skärmen. */
+  .hero__content { display: grid; }
+  .hero__body { order: 1; margin-top: 1.5rem; }
+  .hero__actions { margin-top: 1.5rem; }
+}
 @media (max-width: 1023.98px) {
   .hero__graphic { max-width: none; margin-top: 0; }
   .hero__graphic--desktop { display: none; }
@@ -271,15 +277,14 @@ p + p { margin-top: 1em; }
 }
 @media (min-width: 1024px) {
   /* Rubrik och luft dimensioneras så att avsändare, budskap och knapp ryms på 1366 × 768. */
-  :root { --text-h1: clamp(3rem, 1.5rem + 3.2vw, 4rem); --text-lead: 1.3125rem; }
+  /* Rubrikstorleken är vald så att 'Ett starkare Botkyrka.' ryms på en rad i textkolumnen (uppmätt). */
+  :root { --text-h1: clamp(3.125rem, 0.5rem + 4.1vw, 3.75rem); --text-lead: 1.3125rem; }
   .hero { padding-block: 3rem 0; }
-  .hero__inner { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 3.5rem; }
+  .hero__inner { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 3.5rem; }
+  .hero__content { padding-bottom: clamp(2.5rem, 4vw, 3.5rem); }
   .hero__graphic { align-self: end; }
   .hero__lead { margin-top: 1.25rem; }
   .hero__actions { margin-top: 1.75rem; }
-}
-@media (min-width: 1200px) {
-  .hero__inner { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 4rem; }
 }
 
 /* ---------- Statusrad ---------- */
@@ -330,8 +335,17 @@ p + p { margin-top: 1em; }
 .steps li:last-child::before { background: var(--accent); }
 .steps h3 { align-self: center; min-height: 2.5rem; display: flex; align-items: center; font-size: 1.1875rem; }
 .steps p { grid-column: 2; color: var(--muted); font-size: var(--text-small); line-height: 1.5; max-width: 32ch; }
-/* Mobil: en lodrät trappa med en linje som binder ihop stegen. */
-.steps li:not(:last-child)::after { content: ''; position: absolute; left: calc(1.25rem - 1px); top: 3.4rem; bottom: -0.5rem; width: 2px; background: var(--line); }
+/* Mobil: en lodrät trappa. Varje steg står ett snäpp längre till höger och binds ihop med ett sättsteg. */
+.steps li:not(:last-child)::after { content: ''; position: absolute; left: calc(1.25rem - 1px); top: 3.4rem; bottom: -0.5rem; width: 0.375rem; border-left: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); }
+@media (max-width: 639.98px) {
+  .steps li:nth-child(2) { margin-left: 0.375rem; }
+  .steps li:nth-child(3) { margin-left: 0.75rem; }
+  .steps li:nth-child(4) { margin-left: 1.125rem; }
+  .steps li:nth-child(5) { margin-left: 1.5rem; }
+  .steps li:nth-child(6) { margin-left: 1.875rem; }
+  .steps li:nth-child(7) { margin-left: 2.25rem; }
+  .steps li:nth-child(8) { margin-left: 2.625rem; }
+}
 @media (min-width: 640px) and (max-width: 1023.98px) {
   .steps li::after { display: none; }
 }
@@ -344,7 +358,8 @@ p + p { margin-top: 1em; }
   .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem 2rem; align-items: start; }
   .steps li { display: block; padding: 1rem 0 0; border-top: 2px solid var(--line-strong); }
   .steps li::before { margin-bottom: 0.875rem; }
-  .steps li:not(:nth-child(4n))::after { content: ''; position: absolute; top: -1rem; left: 100%; width: 2rem; height: 1rem; border-right: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); display: block; background: none; bottom: auto; }
+  .steps li:not(:nth-child(4n))::after { content: ''; position: absolute; top: -1rem; left: 100%; width: 2rem; height: 1rem; border-right: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); display: block; background: none; bottom: auto; margin: 0; }
+  .steps li:nth-child(4n)::after { display: none; }
   .steps h3 { min-height: 0; display: block; }
   .steps p { max-width: none; margin-top: 0.375rem; }
   .steps li:nth-child(4n + 1) { margin-top: 3rem; }
@@ -404,28 +419,18 @@ p + p { margin-top: 1em; }
 }
 
 /* ---------- Vision ---------- */
-.vision__grid { display: grid; gap: 1.5rem; margin-top: 1.25rem; }
-.vision__statement { font-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.75rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; max-width: 26ch; }
+.vision__statement { font-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.75rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; max-width: 34ch; margin-top: 1.25rem; }
+.vision__columns { display: grid; gap: 1rem; margin-top: 2rem; }
 .vision__columns p { color: var(--ink); }
-.vision__columns p + p { margin-top: 1em; }
-@media (min-width: 900px) {
-  .vision__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: start; margin-top: 2rem; }
-  .vision__columns { padding-top: 0.35rem; }
-}
+.vision__columns p + p { margin-top: 0; }
+@media (min-width: 900px) { .vision__columns { grid-template-columns: 1fr 1fr; gap: 3rem; } }
 
 /* ---------- Bokning ---------- */
 .booking { background: var(--surface); border-top: 1px solid var(--line); }
 .booking__inner { display: grid; gap: 2.5rem; }
 .booking__heading { max-width: 16ch; }
-/* Vägen som lämnade hero-knappen kommer fram här: ett kort steg med fylld nod före rubriken. */
-.booking__heading::before {
-  content: ''; display: flex; align-items: center; width: 2.5rem; height: 10px; margin-bottom: 1.25rem;
-  background: linear-gradient(var(--accent), var(--accent)) left center / 2rem 3px no-repeat;
-  position: relative;
-}
-.booking__heading::after { content: ''; position: absolute; }
-.booking__intro { position: relative; }
-.booking__intro::before { content: ''; position: absolute; left: 2rem; top: 0; width: 10px; height: 10px; background: var(--accent); }
+/* Vägen som lämnade hero-knappen kommer fram här: ett litet trappsteg med fylld nod före rubriken. */
+.booking__mark { margin-bottom: 1.25rem; }
 .booking__text { margin-top: 1rem; }
 .booking__format { margin-top: 1.25rem; font-weight: 600; }
 .booking__instruction { margin-top: 1.25rem; font-weight: 500; }
@@ -488,7 +493,8 @@ p + p { margin-top: 1em; }
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
   padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
   background: var(--bg);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-strong);
+  box-shadow: 0 -8px 24px rgba(27, 34, 40, 0.08);
   transform: translateY(110%); visibility: hidden;
   transition: transform var(--dur) var(--ease-out), visibility 0s linear var(--dur);
 }
@@ -498,6 +504,13 @@ p + p { margin-top: 1em; }
 @media (max-width: 899.98px) {
   html.has-mobile-cta { scroll-padding-bottom: 6rem; }
   html.has-mobile-cta .site-footer { padding-bottom: 6.5rem; }
+}
+/* Korta mobilskärmar: sidhuvudet släpper, knappraden komprimeras men behåller bokningsvägen. */
+@media (max-height: 667px) and (max-width: 899.98px) {
+  html { scroll-padding-top: 1rem; }
+  .site-header { position: static; }
+  .mobile-cta { padding-block: 0.5rem; }
+  .mobile-cta .button { min-height: 2.75rem; }
 }
 /* Vid låg skärmhöjd (t.ex. 400 % förstoring) släpper sidhuvudet och den fasta knappen så att innehållet inte täcks. */
 @media (max-height: 500px) {

@@ -115,7 +115,7 @@ export const copy = {
   hero: {
     /** Avsändarnamnet Miljonkraft Botkyrka bärs av ordmärket i sidhuvudet direkt ovanför heron. */
     byline: 'Ett initiativ från Miljonbemanning',
-    /** Tre meningar, en per rad. På breda skärmar bryts den tredje meningen medvetet efter 'starkare' (se Hero.astro). */
+    /** Tre meningar, en per rad från 768 px. På smala skärmar bryts den tredje meningen naturligt. */
     headline: ['Fler i arbete.', 'Starkare företag.', 'Ett starkare Botkyrka.'],
     lead:
       'Vi vill koppla människors vilja att arbeta till företagens behov av kompetens. Ju bättre vi förstår er verksamhet, desto bättre kan vi förbereda människor för att lyckas hos er.',
