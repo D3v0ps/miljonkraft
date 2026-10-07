@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="sv-SE">
+<head>
+<meta charset="utf-8">
+<title>Miljonkraft film</title>
+<!--
+  Miljonkraft, motion graphic film.
+  The whole film is a pure function of time: window.renderFrame(t) sets the state of every
+  element for t seconds. Nothing animates by itself (no CSS transitions or animations).
+  ?format=landscape (1920x1080, default) or ?format=vertical (1080x1920).
+  Rendered to frames by scripts/film/render.mjs.
+-->
+<style>
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('../../public/fonts/montserrat-latin-wght-normal.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+  }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; overflow: hidden; font-family: 'Montserrat', sans-serif; color: #1E252B;
+           -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; font-kerning: normal; }
+  #stage * { box-sizing: border-box; }
+  .abs { position: absolute; left: 0; top: 0; }
+  #cam { position: absolute; left: 0; top: 0; transform-origin: 50% 50%; }
+  .mask { position: absolute; overflow: hidden; white-space: nowrap; line-height: 1; }
+  .inner { display: block; line-height: 1; white-space: nowrap; will-change: transform; }
+  .redp { color: #FF0C01; }
+  .bar { position: absolute; background: #FF0C01; transform-origin: 0 50%; }
+  .photo { position: absolute; overflow: hidden; background: #D1D3D3; }
+  .photo img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; }
+  .para { position: absolute; line-height: 1.3; white-space: normal; }
+  .block { position: absolute; }
+  .knock .inner, .knock .inner * { color: #FFFFFF !important; }
+  .knock .bar { background: #FFFFFF !important; }
+  .knock .photo, .knock .block, .knock .noknock { visibility: hidden !important; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+(() => {
+'use strict';
+
+// ---------------------------------------------------------------------------
+// Format and constants
+// ---------------------------------------------------------------------------
+const Q = new URLSearchParams(location.search);
+const FORMAT = Q.get('format') === 'vertical' ? 'vertical' : 'landscape';
+const V = FORMAT === 'vertical';
+const W = V ? 1080 : 1920;
+const H = V ? 1920 : 1080;
+const FPS = 30;
+const DURATION = 56.0;
+const SX = W * 0.05;              // title safe, x
+const SY = H * 0.05;              // title safe, y
+const GX = V ? 64 : 104;          // content grid left edge (inside title safe)
+const CW = W - 2 * GX;            // content width
+const H0 = V ? Math.round(H * 0.78) : Math.round(H * 0.83);   // horizon, opening
+const H8 = V ? Math.round(H * 0.915) : Math.round(H * 0.9);   // horizon, vision and end
+const CAMUP = Math.round(H * 1.3);                             // camera tilt for the middle scenes
+const IMG = '../../public/img/';
+
+const C = {
+  ant: '#1E252B', red: '#FF0C01', grey: '#D1D3D3', blue: '#6BA2B9', white: '#FFFFFF',
+  ant1: '#494E52', ant2: '#8D9093', ant3: '#C6C8C9',
+  red1: '#FE5D4A', red2: '#FF998E', red3: '#FFCCC6',
+  grey1: '#E4E5E6', grey2: '#F1F2F3',
+  blue1: '#7EACC0', blue2: '#AECBD7', blue3: '#D7E5EB', sky0: '#F7F9FA',
+};
+
+// ---------------------------------------------------------------------------
+// Math and easing
+// ---------------------------------------------------------------------------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, u) => a + (b - a) * u;
+const outExpo = x => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+const outCubic = x => 1 - Math.pow(1 - x, 3);
+const outQuart = x => 1 - Math.pow(1 - x, 4);
+const inCubic = x => x * x * x;
+const inQuad = x => x * x;
+const inOutCubic = x => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const inOutSine = x => -(Math.cos(Math.PI * x) - 1) / 2;
+const hex = h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const mix = (a, b, u) => { const A = hex(a), B = hex(b); return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], u))).join(',')})`; };
+const mixArr = (a, b, u) => { const A = hex(a), B = hex(b); return A.map((v, i) => lerp(v, B[i], u)); };
+const rgb = a => `rgb(${a.map(Math.round).join(',')})`;
+
+// ---------------------------------------------------------------------------
+// On-screen text, single source of truth (also exported as the text alternative)
+// Rules: Swedish, no colon, no en or em dash in on-screen text.
+// ---------------------------------------------------------------------------
+const SCENES = [
+  { id: 'intro', chapter: 'Ett initiativ från Miljonbemanning', start: 0, end: 4,
+    visual: 'Vit bild klarnar till en ljus himmel. Miljonbemannings logotyp tonas in.' },
+  { id: 'soluppgang', chapter: 'Miljonkraft Botkyrka', start: 4, end: 8,
+    visual: 'En röd sol stiger långsamt upp bakom en horisontlinje.' },
+  { id: 'budskap', chapter: 'Fler i arbete', start: 8, end: 14,
+    visual: 'Tre stora textrader slår in i takt med musiken. Solen står bakom den sista raden.' },
+  { id: 'koppla', chapter: 'Vi öppnar dörrar till arbete', start: 14, end: 20,
+    visual: 'Två textblock binds samman av ett rött understreck. Foto från en ljus kontorsmiljö.' },
+  { id: 'miljonmodellen', chapter: 'Miljonmodellen', start: 20, end: 30,
+    visual: 'Modellens åtta steg byggs upp som en trappa, ett steg i sekunden.' },
+  { id: 'karriarstegen', chapter: 'Karriärstegen', start: 30, end: 38,
+    visual: 'En trappa av yrkesroller och kompetensutveckling. Foton från en lagermiljö och en lastbilshytt.' },
+  { id: 'om-miljonbemanning', chapter: 'Om Miljonbemanning', start: 38, end: 46,
+    visual: 'Fyra fakta visas en i taget och ligger kvar som en lista. Foto av en väst med Miljonbemannings logotyp.' },
+  { id: 'vision', chapter: 'Vår långsiktiga vision', start: 46, end: 50,
+    visual: 'Solen står högt på himlen.' },
+  { id: 'samtal', chapter: 'En bra början', start: 50, end: 56,
+    visual: 'Avslutning med Miljonbemannings logotyp.' },
+];
+const TEXTLOG = [];   // filled while building: {scene, text, start, end}
+function logText(scene, text, start, end) { TEXTLOG.push({ scene, text, start, end }); }
+
+// ---------------------------------------------------------------------------
+// DOM helpers
+// ---------------------------------------------------------------------------
+const stage = document.getElementById('stage');
+stage.style.width = W + 'px';
+stage.style.height = H + 'px';
+document.body.style.width = W + 'px';
+document.body.style.height = H + 'px';
+
+function el(tag, cls, parent, styles) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (styles) Object.assign(e.style, styles);
+  (parent || stage).appendChild(e);
+  return e;
+}
+const px = v => `${v}px`;
+
+const meas = el('span', null, document.body, { position: 'absolute', left: '-99999px', top: '0', whiteSpace: 'nowrap',
+  fontFamily: 'Montserrat', lineHeight: '1', visibility: 'hidden' });
+function textWidth(text, size, weight, track) {
+  meas.style.fontSize = px(size);
+  meas.style.fontWeight = String(weight);
+  meas.style.letterSpacing = track + 'em';
+  meas.textContent = text;
+  return meas.getBoundingClientRect().width - track * size;
+}
+function fit(text, weight, track, width, max = 1e9) {
+  return Math.min(max, 100 * width / textWidth(text, 100, weight, track));
+}
+let BASE = 0.8585;   // baseline position inside a line-height:1 box, measured at startup
+function measureBaseline() {
+  const d = el('div', null, document.body, { position: 'absolute', left: '-9999px', top: '0', fontFamily: 'Montserrat',
+    fontSize: '100px', lineHeight: '1' });
+  d.innerHTML = 'H<span style="display:inline-block;width:1px;height:0;vertical-align:baseline"></span>';
+  const s = d.querySelector('span').getBoundingClientRect();
+  const r = d.getBoundingClientRect();
+  d.remove();
+  return (s.top - r.top) / 100;
+}
+
+/**
+ * A text line inside a mask: the text can rise from behind the mask's lower edge.
+ * parts: string, or array of [text, weight] pieces.  A final '.' is coloured red.
+ * o: { size, weight, track, color, x, baseline, align: left|center|right, red }
+ */
+function Line(parent, parts, o) {
+  const size = o.size;
+  const track = o.track ?? -0.035;
+  const wrap = el('div', 'mask', parent);
+  const inner = el('div', 'inner', wrap);
+  inner.style.fontSize = px(size);
+  inner.style.letterSpacing = track + 'em';
+  inner.style.color = o.color || C.ant;
+  inner.style.fontWeight = String(o.weight ?? 800);
+  if (typeof parts === 'string') parts = [[parts, o.weight ?? 800]];
+  let width = 0;
+  parts.forEach(([txt, wgt], k) => {
+    let t = txt;
+    const last = k === parts.length - 1;
+    const red = (o.red !== false) && last && /\.$/.test(t) && !/\.se$/.test(t);
+    if (red) t = t.slice(0, -1);
+    const sp = el('span', null, inner);
+    sp.style.fontWeight = String(wgt);
+    sp.textContent = t;
+    if (red) { const r = el('span', 'redp', sp); r.textContent = '.'; }
+    width += textWidth(txt, size, wgt, track) + (k < parts.length - 1 ? track * size : 0);
+  });
+  const padT = 0.24 * size, padB = 0.2 * size, padX = 0.1 * size;
+  wrap.style.padding = `${padT}px ${padX}px ${padB}px`;
+  const L = { wrap, inner, size, width, padT, padB, padX, align: o.align || 'left', text: parts.map(p => p[0]).join('') };
+  L.place = (x, baseline) => {
+    L.x = x; L.baseline = baseline;
+    wrap.style.top = px(baseline - padT - BASE * size);
+    if (L.align === 'left') { wrap.style.left = px(x - padX); wrap.style.width = ''; wrap.style.textAlign = 'left'; }
+    else if (L.align === 'center') { wrap.style.left = px(x - W); wrap.style.width = px(2 * W); wrap.style.textAlign = 'center'; }
+    else { wrap.style.left = px(x - 2 * W + padX); wrap.style.width = px(2 * W); wrap.style.textAlign = 'right'; }
+  };
+  L.place(o.x ?? 0, o.baseline ?? 0);
+  return L;
+}
+
+/** Mask animation: rise in from below the mask edge, leave upward. */
+function maskIO(L, t, tIn, tOut, din = 0.75, dout = 0.42, dist = 140) {
+  if (t < tIn || t >= tOut + dout) { L.wrap.style.display = 'none'; return 0; }
+  L.wrap.style.display = '';
+  const pi = outExpo(seg(t, tIn, tIn + din));
+  const po = inCubic(seg(t, tOut, tOut + dout));
+  L.inner.style.transform = `translate3d(0, ${((1 - pi) * dist - po * dist).toFixed(3)}%, 0)`;
+  return pi * (1 - po);
+}
+
+function Bar(parent, color) {
+  const b = el('div', 'bar', parent);
+  if (color) b.style.background = color;
+  return b;
+}
+function setRect(e, x, y, w, h) {
+  e.style.left = px(x); e.style.top = px(y); e.style.width = px(Math.max(0, w)); e.style.height = px(Math.max(0, h));
+}
+function show(e, on) { e.style.display = on ? '' : 'none'; }
+
+function Photo(parent, src, x, y, w, h, pos) {
+  const p = el('div', 'photo', parent);
+  setRect(p, x, y, w, h);
+  const img = el('img', null, p);
+  img.src = src;
+  img.style.objectPosition = pos || '50% 50%';
+  return { p, img, x, y, w, h };
+}
+/** Hard edged clip-path wipe. dir: 'up' reveals from the bottom edge upward, 'down', 'right', 'left'. */
+function wipe(P, t, tIn, tOut, dir = 'up', din = 0.85, dout = 0.5, outDir) {
+  if (t < tIn || t >= tOut + dout) { P.p.style.display = 'none'; return 0; }
+  P.p.style.display = '';
+  const a = outExpo(seg(t, tIn, tIn + din));
+  const b = inCubic(seg(t, tOut, tOut + dout));
+  const hideIn = (1 - a) * 100, hideOut = b * 100;
+  const od = outDir || dir;
+  let ins = [0, 0, 0, 0];             // top right bottom left (percent hidden)
+  const side = { up: 0, down: 2, right: 3, left: 1 };
+  const opposite = { up: 2, down: 0, right: 1, left: 3 };
+  ins[side[dir]] += hideIn;           // 'up': hidden part shrinks from the top edge
+  ins[opposite[od]] += hideOut;       // leaving: cut away from the opposite side
+  P.p.style.clipPath = `inset(${ins.map(v => v.toFixed(3) + '%').join(' ')})`;
+  return a * (1 - b);
+}
+
+// ---------------------------------------------------------------------------
+// World: sky, haze, sun, ground, horizon
+// ---------------------------------------------------------------------------
+const cam = el('div', null, stage, { width: px(W), height: px(H) });
+cam.id = 'cam';
+const sky = el('div', 'abs', cam, { width: px(W), height: px(H) });
+const hazeLayer = el('div', 'abs', cam, { width: px(W), height: px(H) });
+const HAZE = (V
+  ? [[90, 34, 0.75, 0.97, -9], [230, 60, 0.6, 0.86, 7], [430, 90, 0.5, 0.72, -5], [700, 120, 0.42, 0.58, 4], [1050, 150, 0.36, 0.45, -3], [1500, 170, 0.32, 0.36, 2.5], [2050, 190, 0.3, 0.3, -2]]
+  : [[60, 26, 0.75, 0.97, -14], [160, 44, 0.6, 0.86, 10], [300, 64, 0.5, 0.72, -8], [480, 84, 0.42, 0.58, 6], [720, 110, 0.36, 0.45, -4.5], [1050, 130, 0.32, 0.36, 3.5], [1400, 150, 0.3, 0.3, -3]]
+).map(([d, h, a, k, v], i) => {
+  h *= 3.2; a *= 0.42;
+  const e = el('div', 'abs', hazeLayer, { width: px(W * 1.8), height: px(h),
+    background: `radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255,${a}) 0%, rgba(255,255,255,${(a * 0.6).toFixed(3)}) 40%, rgba(255,255,255,0) 100%)` });
+  return { e, d, h, k, v, x0: -W * (0.1 + 0.27 * ((i * 37) % 7) / 7) };
+});
+const glow = el('div', 'abs', cam);
+const sun = el('div', 'abs', cam, { borderRadius: '50%', background: C.red });
+const ground = el('div', 'abs', cam, { width: px(W), height: px(H * 3), background: '#FFFFFF' });
+const hline = el('div', 'abs', cam, { width: px(W), height: px(V ? 3 : 2), background: C.ant, transformOrigin: '50% 50%' });
+const scenesLayer = el('div', 'abs', cam, { width: px(W), height: px(H) });
+const knockOuter = el('div', 'abs knock', cam, { width: px(W), height: px(H) });
+const white = el('div', 'abs', stage, { width: px(W), height: px(H), background: '#FFFFFF' });
+
+function cameraY(t) {
+  const up = CAMUP * inOutCubic(seg(t, 13.45, 14.35));
+  const down = (CAMUP - (H8 - H0)) * inOutCubic(seg(t, 45.8, 46.75));
+  return up - down;
+}
+function zoomAt(t) {
+  let z = 1;
+  if (t < 8) z += 0.022 * inCubic(seg(t, 4.0, 8.0));
+  else z += 0.04 * (1 - outExpo(seg(t, 8.0, 9.6)));
+  for (const k of [10, 12]) if (t >= k) z += 0.012 * (1 - outCubic(seg(t, k, k + 0.8)));
+  if (t >= 46) z += 0.018 * (1 - outExpo(seg(t, 46.0, 47.4)));
+  return z;
+}
+const SUN_R = V ? 360 : 300;
+const SUN_R2 = V ? 150 : 150;
+const SUN_HI = V ? { x: W * 0.74, y: H * 0.205 } : { x: W * 0.815, y: H * 0.235 };
+const SUN_END = V ? { x: W * 0.78, y: H * 0.17 } : { x: W * 0.83, y: H * 0.2 };
+function sunState(t, hz) {
+  if (t < 40) {
+    const r = SUN_R;
+    let off;
+    if (t < 4.5) off = r + 8;
+    else if (t < 8.0) off = lerp(r + 8, 0.5 * r, inOutSine(seg(t, 4.5, 8.0)));
+    else off = lerp(0.5 * r, -0.06 * r, inOutSine(seg(t, 8.0, 14.0)));
+    return { x: W / 2, y: hz + off, r, vis: clamp((r - off) / (2 * r)) };
+  }
+  const r = SUN_R2;
+  const p = outExpo(seg(t, 46.0, 47.5));
+  let x = SUN_HI.x, y = lerp(H + r + 4, SUN_HI.y, p);
+  const q = inOutCubic(seg(t, 52.7, 53.9));
+  x = lerp(x, SUN_END.x, q); y = lerp(y - (t - 46) * 3, SUN_END.y, q);
+  return { x, y, r: lerp(r, r * 0.8, q), vis: p };
+}
+const SKY0 = [[0, C.blue2], [0.42, C.blue3], [0.86, C.sky0], [1.0, '#FFFFFF']];       // positions relative to horizon
+const SKY1 = [[0, mix(C.blue2, C.blue3, 0.4)], [0.55, C.blue3], [1.0, mix(C.blue3, C.sky0, 0.65)]]; // relative to frame height
+
+function renderWorld(t) {
+  const cy = cameraY(t);
+  const hz = H0 + cy;
+  const e = clamp(cy / CAMUP);
+  // sky gradient, interpolated between the low (horizon in view) and the high camera
+  const stopsLow = SKY0.map(([p, c]) => [p * Math.min(hz, H * 4), hex(c[0] === '#' ? c : '#FFFFFF')]);
+  const highCols = [hex('#' + 'AECBD7'), hex(C.blue3), hex(C.sky0)];
+  const lowCols = [hex(C.blue2), hex(C.blue3), hex(C.sky0), hex('#FFFFFF')];
+  const lowPos = SKY0.map(s => s[0] * hz);
+  const hiCols = [mixArr(C.blue2, C.blue3, 0.4), hex(C.blue3), mixArr(C.blue3, C.sky0, 0.65), mixArr(C.blue3, C.sky0, 0.65)];
+  const hiPos = [0, 0.55 * H, H, H * 1.2];
+  const stops = lowCols.map((c, i) => `${rgb(c.map((v, j) => lerp(v, hiCols[i][j], e)))} ${lerp(lowPos[i], hiPos[i], e).toFixed(1)}px`);
+  sky.style.background = `linear-gradient(180deg, ${stops.join(', ')})`;
+  // haze bands with parallax
+  HAZE.forEach(b => {
+    const y = H0 - b.d + cy * b.k - b.h / 2;
+    const x = b.x0 + b.v * t;
+    b.e.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
+    show(b.e, !(y > H + 10 || y + b.h < -10));
+  });
+  // sun and glow
+  const s = sunState(t, hz);
+  const visible = s.y - s.r < hz && s.y + s.r > -50 && s.x - s.r < W + 50;
+  setRect(sun, s.x - s.r, s.y - s.r, 2 * s.r, 2 * s.r);
+  show(sun, visible);
+  const G = s.r * 2.6;
+  setRect(glow, s.x - G, s.y - G, 2 * G, 2 * G);
+  const ga = 0.85 * clamp(s.vis * 1.6);
+  glow.style.background = `radial-gradient(circle closest-side, rgba(255,153,142,${(0.55 * ga).toFixed(3)}) ${(s.r / G * 100 * 0.98).toFixed(2)}%, rgba(255,204,198,${(0.42 * ga).toFixed(3)}) ${(s.r / G * 100 + 4).toFixed(2)}%, rgba(255,204,198,${(0.16 * ga).toFixed(3)}) 62%, rgba(255,204,198,0) 100%)`;
+  show(glow, visible && ga > 0.002);
+  // ground and horizon line
+  ground.style.transform = `translate3d(0, ${hz.toFixed(2)}px, 0)`;
+  show(ground, hz < H + 5);
+  const lineDraw = t < 3 ? 0 : outExpo(seg(t, 3.0, 4.6));
+  hline.style.transform = `translate3d(0, ${(hz - (V ? 1.5 : 1)).toFixed(2)}px, 0) scaleX(${lineDraw.toFixed(4)})`;
+  show(hline, lineDraw > 0 && hz < H + 5);
+  // the knock-out layer (white text where it crosses the sun)
+  knockOuter.style.clipPath = `circle(${s.r.toFixed(2)}px at ${s.x.toFixed(2)}px ${s.y.toFixed(2)}px)`;
+  show(knockOuter, visible);
+  cam.style.width = px(W); cam.style.height = px(H);
+  cam.style.transform = `scale(${zoomAt(t).toFixed(5)})`;
+  return { cy, hz, sun: s };
+}
+
+// ---------------------------------------------------------------------------
+// Scenes. Each builder returns update(t, world).
+// ---------------------------------------------------------------------------
+const LBL = { size: V ? 28 : 22, weight: 700, track: 0.14 };
+
+// 1-2 Intro and sunrise ------------------------------------------------------
+function sceneIntro(root) {
+  const layer = el('div', 'abs', root);
+  const logoW = 341, logoH = 120;
+  const logoCY = V ? H * 0.40 : H * 0.405;
+  const logo = el('img', null, layer, { position: 'absolute', width: px(logoW), height: px(logoH),
+    left: px(W / 2 - logoW / 2), top: px(logoCY - logoH / 2), transformOrigin: '50% 50%' });
+  logo.src = IMG + 'mb-logo.png';
+  logo.alt = 'Miljonbemanning';
+  const by = Line(layer, 'ETT INITIATIV FRÅN MILJONBEMANNING', { size: LBL.size, weight: 600, track: 0.14, align: 'center' });
+  by.place(W / 2, logoCY + logoH / 2 + 46 + LBL.size * 0.7);
+  logText('intro', 'ETT INITIATIV FRÅN MILJONBEMANNING', 0.85, 2.25);
+
+  let title;
+  if (V) {
+    const f = Math.min(fit('MILJONKRAFT', 800, -0.035, W * 0.84), fit('BOTKYRKA', 200, -0.03, W * 0.84));
+    title = [Line(layer, 'MILJONKRAFT', { size: f, weight: 800, align: 'center' }),
+             Line(layer, 'BOTKYRKA', { size: f, weight: 200, track: -0.02, align: 'center' })];
+    title[0].place(W / 2, H * 0.40);
+    title[1].place(W / 2, H * 0.40 + f * 1.0);
+  } else {
+    const f = 112;
+    title = [Line(layer, [['MILJONKRAFT ', 800], ['BOTKYRKA', 200]], { size: f, align: 'center' })];
+    title[0].place(W / 2, H * 0.405 + f * 0.35);
+  }
+  logText('intro', 'MILJONKRAFT BOTKYRKA', 2.45, 7.75);
+
+  return (t) => {
+    const on = t < 8.5;
+    show(layer, on);
+    if (!on) return;
+    // logo
+    const lin = outCubic(seg(t, 0.35, 1.25));
+    const lout = inCubic(seg(t, 1.95, 2.3));
+    logo.style.opacity = (lin * (1 - lout)).toFixed(4);
+    const sc = lerp(0.965, 1, outExpo(seg(t, 0.35, 1.9)));
+    logo.style.transform = `translate3d(0, ${(-34 * lout).toFixed(2)}px, 0) scale(${sc.toFixed(4)})`;
+    show(logo, t < 2.3);
+    maskIO(by, t, 0.85, 1.9, 0.8, 0.36);
+    title.forEach((L, i) => maskIO(L, t, 2.45 + i * 0.1, 7.3 + i * 0.06, 0.85, 0.42));
+  };
+}
+
+// 3 Drop: three lines --------------------------------------------------------
+function sceneDrop(root, knock) {
+  const layer = el('div', 'abs', root);
+  let lines, groups, finals, focus;
+  if (!V) {
+    const w = W - 2 * SX;
+    const f1 = fit('FLER I ARBETE.', 800, -0.04, w);
+    const f2 = fit('STARKARE FÖRETAG.', 200, -0.03, w);
+    const f3 = fit('ETT STARKARE BOTKYRKA.', 800, -0.04, w);
+    lines = [
+      Line(layer, 'FLER I ARBETE.', { size: f1, weight: 800, track: -0.04 }),
+      Line(layer, 'STARKARE FÖRETAG.', { size: f2, weight: 200, track: -0.03 }),
+      Line(layer, 'ETT STARKARE BOTKYRKA.', { size: f3, weight: 800, track: -0.04 }),
+    ];
+    const b1 = SY + 62 + 0.7 * f1;
+    const b2 = b1 + 0.3 * f1 + 0.72 * f2;
+    const b3 = H0 - 0.2 * f3;
+    groups = [[0], [1], [2]];
+    finals = [b1, b2, b3];
+    focus = [b2 + 0.05 * f1, b2, b3];
+    lines.forEach((L, i) => L.place(SX - 0.01 * L.size, finals[i]));
+  } else {
+    const w = W - 2 * SX;
+    const g1 = Math.min(fit('ARBETE.', 800, -0.04, w), fit('FLER I', 800, -0.04, w));
+    const g2 = Math.min(fit('STARKARE', 200, -0.03, w), fit('FÖRETAG.', 200, -0.03, w));
+    const g3 = Math.min(fit('ETT STARKARE', 800, -0.04, w), fit('BOTKYRKA.', 800, -0.04, w));
+    lines = [
+      Line(layer, 'FLER I', { size: g1, weight: 800, track: -0.04 }),
+      Line(layer, 'ARBETE.', { size: g1, weight: 800, track: -0.04 }),
+      Line(layer, 'STARKARE', { size: g2, weight: 200, track: -0.03 }),
+      Line(layer, 'FÖRETAG.', { size: g2, weight: 200, track: -0.03 }),
+      Line(layer, 'ETT STARKARE', { size: g3, weight: 800, track: -0.04 }),
+      Line(layer, 'BOTKYRKA.', { size: g3, weight: 800, track: -0.04 }),
+    ];
+    const lh1 = g1 * 0.93, lh2 = g2 * 0.95, lh3 = g3 * 0.98;
+    const b1 = SY + 70 + 0.7 * g1;
+    const b2 = b1 + lh1;
+    const b3 = b2 + 0.36 * g1 + 0.72 * g2;
+    const b4 = b3 + lh2;
+    const b6 = H0 - 0.24 * g3;
+    const b5 = b6 - lh3;
+    groups = [[0, 1], [2, 3], [4, 5]];
+    finals = [b1, b2, b3, b4, b5, b6];
+    const shift = b3 - b1 + 0.06 * g1;
+    focus = [b1 + shift, b2 + shift, b3, b4, b5, b6];
+    lines.forEach((L, i) => L.place(SX - 0.01 * L.size, finals[i]));
+  }
+  if (!knock) {
+    logText('budskap', 'FLER I ARBETE.', 8.0, 14.0);
+    logText('budskap', 'STARKARE FÖRETAG.', 10.0, 14.0);
+    logText('budskap', 'ETT STARKARE BOTKYRKA.', 12.0, 14.0);
+  }
+  const times = [8.0, 10.0, 12.0];
+  return (t, world) => {
+    const on = t >= 7.9 && t < 14.6;
+    show(layer, on);
+    if (!on) return;
+    const dy = world.cy * 1.12;        // nearer than the horizon: a little faster when the camera tilts
+    groups.forEach((g, gi) => {
+      g.forEach((li, k) => {
+        const L = lines[li];
+        const tin = times[gi] + k * 0.08;
+        maskIO(L, t, tin, 99, 0.6, 0.3, 135);
+        let b = focus[li];
+        if (gi === 0) b = lerp(focus[li], finals[li], outExpo(seg(t, 10.0, 10.9)));
+        L.wrap.style.transform = `translate3d(0, ${(b - finals[li] + dy).toFixed(2)}px, 0)`;
+      });
+    });
+  };
+}
+
+// 4 Connect ------------------------------------------------------------------
+function sceneConnect(root) {
+  const layer = el('div', 'abs', root);
+  const A = ['MÄNNISKORS', 'VILJA ATT', 'ARBETA'];
+  const B = ['FÖRETAGENS', 'BEHOV AV', 'KOMPETENS'];
+  const wts = [800, 300, 300];
+  let la, lb, geo;
+  const colW = V ? W - 2 * GX : (W - 2 * GX) / 2 - 56;
+  const f = Math.min(...A.concat(B).map((s, i) => fit(s, wts[i % 3], -0.03, colW)), V ? 128 : 100);
+  const lh = f * 1.0;
+  if (!V) {
+    const first = H / 2 - 40 - (0.7 * f + 2 * lh) / 2 + 0.7 * f;
+    la = A.map((s, i) => Line(layer, s, { size: f, weight: wts[i], track: -0.03, x: GX, baseline: first + i * lh }));
+    lb = B.map((s, i) => Line(layer, s, { size: f, weight: wts[i], track: -0.03, x: W / 2 + 56, baseline: first + i * lh }));
+    geo = { y: first + 2 * lh + 0.42 * f, x0: GX, x1: W - GX, th: 14 };
+  } else {
+    const aFirst = H * 0.2 + 0.7 * f;
+    la = A.map((s, i) => Line(layer, s, { size: f, weight: wts[i], track: -0.03, x: GX, baseline: aFirst + i * lh }));
+    const ay = aFirst + 2 * lh + 0.42 * f;
+    const bFirst = ay + 260 + 0.7 * f;
+    lb = B.map((s, i) => Line(layer, s, { size: f, weight: wts[i], track: -0.03, x: W - GX, baseline: bFirst + i * lh, align: 'right' }));
+    geo = { y: ay, x0: GX, x1: W - GX, th: 14, vy1: bFirst - 0.7 * f - 0.5 * f };
+  }
+  const bar1 = Bar(layer);
+  const bar2 = Bar(layer);
+  logText('koppla', 'MÄNNISKORS VILJA ATT ARBETA', 14.0, 15.95);
+  logText('koppla', 'FÖRETAGENS BEHOV AV KOMPETENS', 14.35, 15.95);
+
+  // phase 2: three beats, each a bold row and a light row
+  const BEATS = [
+    { at: 16.0, rows: [['VI ÖPPNAR DÖRRAR', 800], ['TILL ARBETE.', 300]], text: 'VI ÖPPNAR DÖRRAR TILL ARBETE.' },
+    { at: 16.5, rows: [['GER FÖRETAG KRAFT', 800], ['ATT VÄXA.', 300]], text: 'GER FÖRETAG KRAFT ATT VÄXA.' },
+    { at: 17.0, rows: [['BYGGER ETT SAMHÄLLE', 800], ['DÄR FLER FÅR BIDRA.', 300]], text: 'BYGGER ETT SAMHÄLLE DÄR FLER FÅR BIDRA.' },
+  ];
+  const tw = V ? W - 2 * GX : 1110;
+  const f2 = Math.min(...BEATS.flatMap(b => b.rows.map(([s, w]) => fit(s, w, -0.03, tw))), V ? 80 : 84);
+  const rowH = f2 * 1.0, beatGap = f2 * (V ? 0.5 : 0.46);
+  const blockH = 0.7 * f2 + 5 * rowH + 2 * beatGap;
+  const top2 = V ? SY + 150 : H / 2 - blockH / 2 - 6;
+  const rows = [];
+  let yb = top2 + 0.7 * f2;
+  BEATS.forEach((bt, bi) => {
+    bt.rows.forEach(([s, w], ri) => {
+      rows.push({ L: Line(layer, s, { size: f2, weight: w, track: -0.03, x: GX, baseline: yb }), at: bt.at + ri * 0.1 });
+      yb += rowH;
+    });
+    yb += beatGap;
+    logText('koppla', bt.text, bt.at, 19.9);
+  });
+  const textBottom = yb - beatGap - rowH + 0.25 * f2;
+  const ph = V
+    ? Photo(layer, IMG + 'kontor-1400.webp', GX, textBottom + 80, W - 2 * GX, H - SY - 30 - (textBottom + 80), '64% 40%')
+    : Photo(layer, IMG + 'kontor-1400.webp', GX + tw + 84, SY + 64, W - GX - (GX + tw + 84), H - 2 * SY - 128, '66% 42%');
+
+  return (t) => {
+    const on = t >= 13.9 && t < 20.1;
+    show(layer, on);
+    if (!on) return;
+    la.forEach((L, i) => maskIO(L, t, 14.0 + i * 0.09, 15.55 + i * 0.04, 0.8, 0.36));
+    lb.forEach((L, i) => maskIO(L, t, 14.35 + i * 0.09, 15.6 + i * 0.04, 0.8, 0.36));
+    // the red underscore draws between the two blocks and connects them
+    const d1 = inOutCubic(seg(t, 14.6, V ? 15.0 : 15.25));
+    const r1 = inCubic(seg(t, 15.55, 15.9));
+    let x = geo.x0, w = (geo.x1 - geo.x0) * d1;
+    x += w * r1; w *= 1 - r1;
+    setRect(bar1, x, geo.y, w, geo.th);
+    show(bar1, t >= 14.6 && w > 0.5);
+    if (V) {
+      const d2 = inOutCubic(seg(t, 14.95, 15.35));
+      const r2 = inCubic(seg(t, 15.5, 15.8));
+      const vy0 = geo.y, vy1 = geo.vy1;
+      const top = vy0 + (vy1 - vy0) * r2;
+      setRect(bar2, geo.x1 - geo.th, top, geo.th, (vy1 - vy0) * d2 - (top - vy0));
+      show(bar2, d2 > 0 && r2 < 1);
+    } else show(bar2, false);
+    rows.forEach((r, i) => maskIO(r.L, t, r.at, 19.5 + i * 0.03, 0.8, 0.38));
+    wipe(ph, t, 15.95, 19.45, 'up', 0.95, 0.5, 'down');
+    ph.img.style.transform = `scale(${lerp(1.14, 1.0, outCubic(seg(t, 15.95, 20.0))).toFixed(4)})`;
+  };
+}
+
+// 5 Miljonmodellen -----------------------------------------------------------
+function sceneModel(root) {
+  const layer = el('div', 'abs', root);
+  const STEPS = ['NÅ', 'FÖRSTÅ', 'RIKTA', 'BEVISA', 'UTVECKLA', 'ÖVERGÅ', 'BÄRA', 'VÄXA'];
+  let title;
+  if (V) {
+    const f = Math.min(fit('MILJON', 800, -0.035, W - 2 * GX), fit('MODELLEN', 200, -0.03, W - 2 * GX), 170);
+    title = [Line(layer, 'MILJON', { size: f, weight: 800, x: GX, baseline: SY + 90 + 0.7 * f }),
+             Line(layer, 'MODELLEN', { size: f, weight: 200, track: -0.03, x: GX, baseline: SY + 90 + 0.7 * f + f * 0.98 })];
+  } else {
+    const f = 112;
+    title = [Line(layer, [['MILJON', 800], ['MODELLEN', 200]], { size: f, x: GX, baseline: SY + 50 + 0.7 * f })];
+  }
+  logText('miljonmodellen', 'MILJONMODELLEN', 20.0, 29.7);
+  const fw = V ? 88 : 72;
+  const xs = STEPS.map((_, i) => V ? GX + i * 82 : GX + i * 204);
+  const ys = STEPS.map((_, i) => V ? H - SY - 150 - i * 150 : H - SY - 100 - i * 92);
+  const words = STEPS.map((s, i) => Line(layer, s, { size: fw, weight: 800, track: -0.03, x: xs[i], baseline: ys[i] }));
+  const nums = STEPS.map((s, i) => Line(layer, '0' + (i + 1), { size: V ? 26 : 22, weight: 700, track: 0.14, color: C.ant1, x: xs[i] + 2, baseline: ys[i] - 0.7 * fw - (V ? 26 : 20) }));
+  const widths = STEPS.map(s => textWidth(s, fw, 800, -0.03));
+  STEPS.forEach((s, i) => logText('miljonmodellen', `${String(i + 1).padStart(2, '0')} ${s}`, 21 + i, 29.7));
+  const treadY = ys.map(y => y + 0.2 * fw);
+  const treads = STEPS.map(() => Bar(layer, C.ant2));
+  const risers = STEPS.map(() => Bar(layer, C.ant2));
+  const ul = Bar(layer);
+  const lt = V ? 3 : 2;
+  const pad = V ? 14 : 18;
+  return (t) => {
+    const on = t >= 19.9 && t < 30.1;
+    show(layer, on);
+    if (!on) return;
+    title.forEach((L, i) => maskIO(L, t, 20.0 + i * 0.1, 29.55, 0.85, 0.4));
+    const fade = 1 - inCubic(seg(t, 29.55, 29.95));
+    STEPS.forEach((s, i) => {
+      const a = 21 + i;
+      maskIO(words[i], t, a, 29.6 + i * 0.03, 0.7, 0.36);
+      maskIO(nums[i], t, a + 0.05, 29.6 + i * 0.03, 0.7, 0.36);
+      let wgt = 800;
+      if (t > a + 0.95) wgt = lerp(800, 300, outCubic(seg(t, a + 0.95, a + 1.35)));
+      if (i === 7) wgt = 800;
+      wgt = lerp(wgt, 800, outCubic(seg(t, 29.0 + i * 0.035, 29.35 + i * 0.035)));
+      words[i].inner.style.fontWeight = wgt.toFixed(1);
+      // stair line: tread under word i, riser up to the next tread
+      const x0 = xs[i] - pad;
+      const x1 = i < 7 ? xs[i + 1] - pad : xs[i] + widths[i] + pad;
+      const dt = outCubic(seg(t, a - 0.15, a + 0.45));
+      setRect(treads[i], x0, treadY[i], (x1 - x0 + lt) * dt, lt);
+      treads[i].style.opacity = fade.toFixed(3);
+      show(treads[i], dt > 0 && fade > 0);
+      if (i < 7) {
+        const dr = outCubic(seg(t, a + 0.62, a + 0.98));
+        const yTop = treadY[i + 1];
+        const hgt = (treadY[i] - yTop) * dr;
+        setRect(risers[i], x1, treadY[i] - hgt, lt, hgt + lt);
+        risers[i].style.opacity = fade.toFixed(3);
+        show(risers[i], dr > 0 && fade > 0);
+      }
+    });
+    // red underscore travelling under the active step
+    if (t >= 21) {
+      const k = Math.min(7, Math.floor(t - 21));
+      const p = outExpo(seg(t, 21 + k, 21 + k + 0.55));
+      const j = Math.max(0, k - 1);
+      const x = k === 0 ? xs[0] : lerp(xs[j], xs[k], p);
+      const y = k === 0 ? treadY[0] : lerp(treadY[j], treadY[k], p);
+      let w = k === 0 ? widths[0] * outExpo(seg(t, 21, 21.6)) : lerp(widths[j], widths[k], p);
+      const th = V ? 12 : 9;
+      setRect(ul, x, y - th / 2 + lt / 2, w * fade, th);
+      show(ul, fade > 0);
+    } else show(ul, false);
+  };
+}
+
+// 6 Karriärstegen ------------------------------------------------------------
+function sceneCareer(root) {
+  const layer = el('div', 'abs', root);
+  const ft = V ? Math.min(fit('KARRIÄRSTEGEN', 800, -0.035, W - 2 * GX), 140) : 112;
+  const titleB = SY + (V ? 90 : 50) + 0.7 * ft;
+  const title = Line(layer, 'KARRIÄRSTEGEN', { size: ft, weight: 800, x: GX, baseline: titleB });
+  logText('karriarstegen', 'KARRIÄRSTEGEN', 30.0, 37.6);
+  // label "ETT EXEMPEL PÅ EN MÖJLIG VÄG"
+  const ls = V ? 26 : 21;
+  const tag = el('div', 'abs', layer, { border: `${V ? 3 : 2}px solid ${C.ant}`, padding: `${ls * 0.62}px ${ls * 0.85}px ${ls * 0.56}px`,
+    fontSize: px(ls), fontWeight: '700', letterSpacing: '0.14em', lineHeight: '1', whiteSpace: 'nowrap', color: C.ant });
+  tag.textContent = 'ETT EXEMPEL PÅ EN MÖJLIG VÄG';
+  tag.style.left = px(GX);
+  tag.style.top = px(titleB + (V ? 44 : 34));
+  logText('karriarstegen', 'ETT EXEMPEL PÅ EN MÖJLIG VÄG', 30.4, 37.6);
+
+  const ITEMS = [
+    ['LAGERARBETE', 'role'], ['TRUCKUTBILDNING', 'comp'], ['KUNSKAP OM LAGERSYSTEM', 'comp'],
+    ['KOORDINERANDE ROLL', 'role'], ['TRANSPORTPLANERING', 'role'],
+  ];
+  const bw = V ? 620 : 396, bh = V ? 156 : 122;
+  const stepX = V ? (W - 2 * GX - bw) / 4 : (W - 2 * GX - bw) / 4;
+  const stepY = V ? 205 : 138;
+  const baseTop = V ? H - SY - 40 - bh : H - SY - 34 - bh;
+  const padX = V ? 30 : 22;
+  const inner = bw - 2 * padX;
+  // name sizes: one line where possible, KUNSKAP OM LAGERSYSTEM and KOORDINERANDE ROLL on two lines
+  const names = ITEMS.map(([n]) => (n === 'KUNSKAP OM LAGERSYSTEM' ? ['KUNSKAP OM', 'LAGERSYSTEM'] : n === 'KOORDINERANDE ROLL' ? ['KOORDINERANDE', 'ROLL'] : [n]));
+  const nf = Math.min(...names.flat().map(s => fit(s, 800, -0.01, inner)), V ? 44 : 31);
+  const blocks = ITEMS.map(([n, kind], i) => {
+    const x = GX + i * stepX, y = baseTop - i * stepY;
+    const b = el('div', 'block', layer, { left: px(x), top: px(y), width: px(bw), height: px(bh),
+      background: kind === 'role' ? C.ant : 'rgba(255,255,255,0.92)',
+      border: kind === 'role' ? 'none' : `${V ? 4 : 3}px solid ${C.blue}` });
+    const lab = el('div', 'abs', b, { left: px(padX - (kind === 'role' ? 0 : (V ? 4 : 3))), top: px((V ? 24 : 17) - (kind === 'role' ? 0 : (V ? 4 : 3))),
+      fontSize: px(V ? 22 : 18), fontWeight: '700', letterSpacing: '0.13em', lineHeight: '1', whiteSpace: 'nowrap',
+      color: kind === 'role' ? C.ant3 : C.ant1, display: 'flex', alignItems: 'center', gap: px(V ? 12 : 9) });
+    const sq = el('span', null, lab, { display: 'inline-block', width: px(V ? 12 : 9), height: px(V ? 12 : 9),
+      background: kind === 'role' ? C.white : C.blue });
+    const lt = el('span', null, lab);
+    lt.textContent = kind === 'role' ? 'YRKESROLL' : 'KOMPETENSUTVECKLING';
+    const nl = names[i].map((s, k) => {
+      const L = Line(b, s, { size: nf, weight: 800, track: -0.01, color: kind === 'role' ? C.white : C.ant, red: false });
+      const off = kind === 'role' ? 0 : (V ? 4 : 3);
+      const lastB = bh - (V ? 26 : 19) - off;
+      L.place(padX - off, lastB - (names[i].length - 1 - k) * nf * 1.04);
+      return L;
+    });
+    logText('karriarstegen', `${n} (${kind === 'role' ? 'YRKESROLL' : 'KOMPETENSUTVECKLING'})`, 31 + i, 37.6);
+    return { b, x, y, kind, nl, lab };
+  });
+  // dashed connectors (a possible path, not a promise): from block i centre right to block i+1 centre, then up
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
+  Object.assign(svg.style, { position: 'absolute', left: '0', top: '0', overflow: 'visible' });
+  layer.insertBefore(svg, layer.firstChild);
+  const conns = blocks.slice(0, -1).map((b, i) => {
+    const n = blocks[i + 1];
+    const cx0 = b.x + bw, cy0 = b.y + bh / 2;
+    const cx1 = n.x + bw / 2 + (V ? 120 : 0), cy1 = n.y + bh;
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const len = (cx1 - cx0) + (cy0 - cy1);
+    p.setAttribute('fill', 'none');
+    p.setAttribute('stroke', C.ant1);
+    p.setAttribute('stroke-width', V ? 3 : 2);
+    svg.appendChild(p);
+    return { p, cx0, cy0, cx1, cy1, len };
+  });
+  // photos
+  let pf, pt;
+  if (V) {
+    const top = parseFloat(tag.style.top) + 120, bot = blocks[4].y - 56;
+    pf = Photo(layer, IMG + 'lager-1200.webp', GX, top, (W - 2 * GX) / 2 - 12, bot - top, '40% 60%');
+    pt = Photo(layer, IMG + 'transport-1200.webp', W / 2 + 12, top, (W - 2 * GX) / 2 - 12, bot - top, '35% 50%');
+  } else {
+    const fTop = parseFloat(tag.style.top) + 84;
+    const fBot = blocks[1].y - 34;
+    pf = Photo(layer, IMG + 'lager-1200.webp', GX, fTop, blocks[2].x - 52 - GX, fBot - fTop, '45% 55%');
+    const tTop = conns[2].cy0 + 44;
+    const tLeft = blocks[2].x + bw + 48;
+    pt = Photo(layer, IMG + 'transport-1200.webp', tLeft, tTop, W - GX - tLeft, H - SY - 30 - tTop, '40% 55%');
+  }
+  return (t) => {
+    const on = t >= 29.9 && t < 38.1;
+    show(layer, on);
+    if (!on) return;
+    maskIO(title, t, 30.0, 37.5, 0.85, 0.4);
+    const tg = outExpo(seg(t, 30.4, 31.2)), tgo = inCubic(seg(t, 37.5, 37.9));
+    tag.style.clipPath = `inset(0 ${((1 - tg) * 100).toFixed(2)}% 0 ${(tgo * 100).toFixed(2)}%)`;
+    show(tag, t >= 30.4 && t < 37.9);
+    blocks.forEach((B, i) => {
+      const a = 31 + i;
+      const pi = outExpo(seg(t, a, a + 0.7));
+      const po = inCubic(seg(t, 37.4 + i * 0.04, 37.8 + i * 0.04));
+      B.b.style.clipPath = `inset(${((1 - pi) * 100).toFixed(2)}% 0 ${(po * 100).toFixed(2)}% 0)`;
+      show(B.b, t >= a && po < 1);
+      B.nl.forEach((L, k) => maskIO(L, t, a + 0.12 + k * 0.07, 99, 0.7, 0.3));
+      B.lab.style.opacity = outCubic(seg(t, a + 0.2, a + 0.6)).toFixed(3);
+    });
+    conns.forEach((c, i) => {
+      const a = 31 + i + 0.55;
+      const d = outCubic(seg(t, a, a + 0.55)) * (1 - inCubic(seg(t, 37.35, 37.75)));
+      const L = c.len * d;
+      const hx = Math.min(L, c.cx1 - c.cx0);
+      let dpath = `M ${c.cx0} ${c.cy0} L ${c.cx0 + hx} ${c.cy0}`;
+      if (L > c.cx1 - c.cx0) dpath += ` L ${c.cx1} ${c.cy0 - (L - (c.cx1 - c.cx0))}`;
+      c.p.setAttribute('d', dpath);
+      c.p.setAttribute('stroke-dasharray', V ? '10 9' : '7 7');
+      c.p.style.display = d > 0 ? '' : 'none';
+    });
+    wipe(pf, t, 31.0, 37.4, 'right', 0.95, 0.45, 'left');
+    pf.img.style.transform = `scale(${lerp(1.12, 1.0, outCubic(seg(t, 31.0, 38.0))).toFixed(4)})`;
+    wipe(pt, t, 35.0, 37.45, 'left', 0.95, 0.45, 'right');
+    pt.img.style.transform = `scale(${lerp(1.12, 1.0, outCubic(seg(t, 35.0, 38.0))).toFixed(4)})`;
+  };
+}
+
+// 7 Proof ledger -------------------------------------------------------------
+function sceneProof(root) {
+  const layer = el('div', 'abs', root);
+  const colX = GX;
+  const colW = V ? W - 2 * GX : 1090;
+  const FACTS = [
+    { label: 'HISTORIA', lines: [['RESAN BÖRJADE', 200], ['I ALBY 2012.', 800]], text: 'RESAN BÖRJADE I ALBY 2012.', at: 38.0 },
+    { label: 'VILKA VI ÄR', lines: [['EN SAMHÄLLSKRAFT', 800]], text: 'EN SAMHÄLLSKRAFT',
+      small: 'som för samman lokala företag och människor', smallWeight: 300, at: 40.0 },
+    { label: 'UTMÄRKELSE', lines: [['SVD AFFÄRSBRAGD', 800], ['2023', 200]], text: 'SVD AFFÄRSBRAGD 2023',
+      small: 'Tilldelades Miljonbemannings grundare', at: 42.0 },
+    { label: 'SAMARBETE', lines: [['SAMARBETSAVTAL', 800], ['MED BOTKYRKA KOMMUN', 200]], text: 'SAMARBETSAVTAL MED BOTKYRKA KOMMUN',
+      small: 'Miljonkraft Botkyrka', at: 44.0 },
+  ];
+  const F = Math.min(...FACTS.flatMap(f => f.lines.map(([s, w]) => fit(s, w, -0.03, colW))), V ? 92 : 96);
+  const SMALL = V ? 0.6 : 0.58;
+  const lab = V ? 26 : 21;
+  const smallSize = V ? 36 : 34;
+  const gap = V ? 54 : 40;
+  const facts = FACTS.map((f, k) => {
+    const box = el('div', 'abs', layer, { transformOrigin: '0 0', width: px(colW) });
+    let y = 0;
+    const dot = el('div', 'abs', box, { width: px(lab * 0.62), height: px(lab * 0.62), borderRadius: '50%', background: C.red,
+      left: '0px', top: px(y + lab * 0.04) });
+    const L0 = Line(box, f.label, { size: lab, weight: 700, track: 0.14, color: C.ant1, x: lab * 1.1, baseline: y + lab * 0.7 });
+    y += lab * 0.7 + (V ? 34 : 26);
+    const lines = f.lines.map(([s, w], i) => {
+      y += (i === 0 ? 0.7 : 0.98) * F;
+      return Line(box, s, { size: F, weight: w, track: -0.03, x: 0, baseline: y });
+    });
+    let small = null;
+    if (f.small) {
+      y += (V ? 30 : 24);
+      small = el('div', 'para', box, { left: '0px', top: px(y), width: px(colW), fontSize: px(smallSize),
+        fontWeight: String(f.smallWeight || (f.cond ? 600 : 500)), color: f.cond ? C.ant : C.ant1, lineHeight: '1.3', letterSpacing: '0.002em' });
+      small.textContent = f.small;
+      const lines2 = textWidth(f.small, smallSize, 600, 0.002) > colW - smallSize ? 2 : 1;
+      y += smallSize * 1.3 * lines2;
+    }
+    y += F * 0.12;
+    logText('om-miljonbemanning', f.text, f.at, 46.0);
+    if (f.small) logText('om-miljonbemanning', f.small, f.at + 0.25, 46.0);
+    return { ...f, box, L0, dot, lines, small, h: y };
+  });
+  let ph;
+  if (V) ph = Photo(layer, IMG + 'mb-vast-1400.webp', GX, SY + 30, W - 2 * GX, 560, '50% 48%');
+  else ph = Photo(layer, IMG + 'mb-vast-1400.webp', 1262, SY + 44, W - GX - 1262, H - 2 * SY - 88, '51% 50%');
+  const regionTop = V ? SY + 30 + 560 + 60 : SY;
+  const regionBot = V ? H - SY : H - SY;
+  return (t) => {
+    const on = t >= 37.9 && t < 46.2;
+    show(layer, on);
+    if (!on) return;
+    // scales and heights
+    const sc = facts.map((f, k) => {
+      if (k === facts.length - 1) return 1;
+      return lerp(1, SMALL, outCubic(seg(t, facts[k + 1].at, facts[k + 1].at + 0.6)));
+    });
+    const grow = facts.map(f => outCubic(seg(t, f.at, f.at + 0.55)));
+    let total = 0;
+    facts.forEach((f, k) => { total += (f.h * sc[k] + (k ? gap * sc[k] : 0)) * grow[k]; });
+    let y = (regionTop + regionBot) / 2 - total / 2;
+    const out = inCubic(seg(t, 45.7, 46.05));
+    facts.forEach((f, k) => {
+      const vis = t >= f.at;
+      show(f.box, vis);
+      if (!vis) return;
+      if (k) y += gap * sc[k] * grow[k];
+      f.box.style.transform = `translate3d(${colX}px, ${y.toFixed(2)}px, 0) scale(${sc[k].toFixed(4)})`;
+      y += f.h * sc[k] * grow[k];
+      const focus = k === facts.findLastIndex(g => t >= g.at);
+      maskIO(f.L0, t, f.at, 45.68 + k * 0.02, 0.7, 0.34);
+      f.dot.style.opacity = (outCubic(seg(t, f.at, f.at + 0.4)) * (1 - out)).toFixed(3);
+      f.lines.forEach((L, i) => {
+        maskIO(L, t, f.at + 0.06 + i * 0.08, 45.68 + k * 0.03, 0.75, 0.34);
+        const c = focus ? C.ant : C.ant1;
+        L.inner.style.color = c;
+      });
+      if (f.small) {
+        const si = outCubic(seg(t, f.at + 0.25, f.at + 0.85));
+        f.small.style.opacity = (si * (1 - out)).toFixed(3);
+        f.small.style.transform = `translate3d(0, ${(10 * (1 - si)).toFixed(2)}px, 0)`;
+      }
+    });
+    wipe(ph, t, 37.95, 45.6, 'down', 1.0, 0.45, 'up');
+    ph.img.style.transform = `scale(${lerp(1.1, 1.0, outCubic(seg(t, 37.95, 46.2))).toFixed(4)}) translate3d(0, ${lerp(10, -10, seg(t, 38, 46)).toFixed(2)}px, 0)`;
+  };
+}
+
+// 8 Vision -------------------------------------------------------------------
+function sceneVision(root) {
+  const layer = el('div', 'abs', root);
+  const lab = Line(layer, 'VÅR LÅNGSIKTIGA VISION', { size: LBL.size + (V ? 2 : 2), weight: 700, track: 0.14, x: GX + (V ? 40 : 34), baseline: SY + (V ? 150 : 96) });
+  const dot = el('div', 'abs', layer, { width: px(V ? 22 : 18), height: px(V ? 22 : 18), borderRadius: '50%', background: C.red,
+    left: px(GX), top: px(SY + (V ? 150 : 96) - 0.35 * (LBL.size + 2) - (V ? 11 : 9)) });
+  logText('vision', 'VÅR LÅNGSIKTIGA VISION', 46.0, 49.6);
+  let lines, ul;
+  if (!V) {
+    const f1 = 64;
+    const f2 = Math.min(fit('SVERIGES LÄGSTA', 200, -0.03, 1250), 150);
+    const f3 = fit('ARBETSLÖSHET', 800, -0.04, W - 2 * GX);
+    const b1 = H * 0.405;
+    const b2 = b1 + 0.3 * f1 + 0.72 * f2 + 18;
+    const b3 = b2 + 0.28 * f2 + 0.72 * f3 + 4;
+    lines = [Line(layer, 'BOTKYRKA MED', { size: f1, weight: 600, track: -0.01, x: GX, baseline: b1 }),
+             Line(layer, 'SVERIGES LÄGSTA', { size: f2, weight: 200, track: -0.03, x: GX, baseline: b2 }),
+             Line(layer, 'ARBETSLÖSHET', { size: f3, weight: 800, track: -0.04, x: GX - 0.01 * f3, baseline: b3 })];
+    ul = { x: GX, y: b3 + 0.2 * f3, w: textWidth('ARBETSLÖSHET', f3, 800, -0.04), th: 16 };
+  } else {
+    const f1 = 62;
+    const f2 = Math.min(fit('SVERIGES', 200, -0.03, W - 2 * GX), fit('LÄGSTA', 200, -0.03, W - 2 * GX), 190);
+    const f3 = fit('ARBETSLÖSHET', 800, -0.04, W - 2 * GX);
+    const b1 = H * 0.47;
+    const b2 = b1 + 0.3 * f1 + 0.72 * f2 + 20;
+    const b3 = b2 + f2 * 0.96;
+    const b4 = b3 + 0.28 * f2 + 0.72 * f3 + 6;
+    lines = [Line(layer, 'BOTKYRKA MED', { size: f1, weight: 600, track: -0.01, x: GX, baseline: b1 }),
+             Line(layer, 'SVERIGES', { size: f2, weight: 200, track: -0.03, x: GX, baseline: b2 }),
+             Line(layer, 'LÄGSTA', { size: f2, weight: 200, track: -0.03, x: GX, baseline: b3 }),
+             Line(layer, 'ARBETSLÖSHET', { size: f3, weight: 800, track: -0.04, x: GX - 0.01 * f3, baseline: b4 })];
+    ul = { x: GX, y: b4 + 0.2 * f3, w: textWidth('ARBETSLÖSHET', f3, 800, -0.04), th: 16 };
+  }
+  logText('vision', 'BOTKYRKA MED SVERIGES LÄGSTA ARBETSLÖSHET', 46.5, 49.6);
+  const bar = Bar(layer);
+  return (t) => {
+    const on = t >= 45.9 && t < 50.1;
+    show(layer, on);
+    if (!on) return;
+    maskIO(lab, t, 46.0, 49.55, 0.8, 0.4);
+    const di = outCubic(seg(t, 46.0, 46.4)), dout = inCubic(seg(t, 49.55, 49.9));
+    dot.style.transform = `scale(${(di * (1 - dout)).toFixed(4)})`;
+    show(dot, di > 0 && dout < 1);
+    lines.forEach((L, i) => maskIO(L, t, 46.5 + i * 0.13, 49.55 + i * 0.04, 0.85, 0.42));
+    const d = inOutCubic(seg(t, 47.3, 48.0)), o = inCubic(seg(t, 49.5, 49.85));
+    setRect(bar, ul.x + ul.w * o, ul.y, ul.w * d * (1 - o), ul.th);
+    show(bar, d > 0 && o < 1);
+  };
+}
+
+// 9 Call to action and end card ---------------------------------------------
+function sceneEnd(root) {
+  const layer = el('div', 'abs', root);
+  let lines;
+  if (!V) {
+    const rows = [['ETT SAMTAL OM', 200], ['ERA FRAMTIDA BEHOV', 800], ['ÄR EN BRA BÖRJAN.', 200]];
+    const f = Math.min(...rows.map(([s, w]) => fit(s, w, -0.035, 1500)), 118);
+    const first = H * 0.47 - (0.7 * f + 2 * f) / 2 + 0.7 * f;
+    lines = rows.map(([s, w], i) => Line(layer, s, { size: f, weight: w, track: -0.035, x: GX, baseline: first + i * f * 1.0 }));
+  } else {
+    const rows = [['ETT SAMTAL OM', 200], ['ERA FRAMTIDA', 800], ['BEHOV', 800], ['ÄR EN BRA', 200], ['BÖRJAN.', 200]];
+    const f = Math.min(...rows.map(([s, w]) => fit(s, w, -0.035, W - 2 * GX)), 140);
+    const first = H * 0.56 - (0.7 * f + 4 * f) / 2 + 0.7 * f;
+    lines = rows.map(([s, w], i) => Line(layer, s, { size: f, weight: w, track: -0.035, x: GX, baseline: first + i * f * 1.0 }));
+  }
+  logText('samtal', 'ETT SAMTAL OM ERA FRAMTIDA BEHOV ÄR EN BRA BÖRJAN.', 50.0, 53.0);
+  // end card
+  const logoW = 341, logoH = 120;
+  const cy = V ? H * 0.43 : H * 0.4;
+  const logo = el('img', null, layer, { position: 'absolute', width: px(logoW), height: px(logoH), left: px(W / 2 - logoW / 2),
+    top: px(cy - logoH / 2), transformOrigin: '50% 50%' });
+  logo.src = IMG + 'mb-logo.png';
+  logo.alt = 'Miljonbemanning';
+  const tf = V ? 76 : 62;
+  const tag = Line(layer, [['Framtiden är nu.', 300]], { size: tf, track: -0.02, align: 'center', x: W / 2, baseline: cy + logoH / 2 + 66 + 0.72 * tf });
+  const uf = V ? 36 : 30;
+  const url = Line(layer, [['miljonkraft.se', 600]], { size: uf, track: 0.02, align: 'center', x: W / 2, baseline: cy + logoH / 2 + 66 + 0.72 * tf + 40 + uf * 1.2, color: C.ant });
+  logText('samtal', 'Miljonbemanning (logotyp)', 53.0, 56.0);
+  logText('samtal', 'Framtiden är nu.', 53.35, 56.0);
+  logText('samtal', 'miljonkraft.se', 53.7, 56.0);
+  return (t) => {
+    const on = t >= 49.9;
+    show(layer, on);
+    if (!on) return;
+    lines.forEach((L, i) => maskIO(L, t, 50.0 + i * 0.12, 52.75 + i * 0.05, 0.85, 0.4));
+    const li = outCubic(seg(t, 53.0, 53.8));
+    logo.style.opacity = li.toFixed(4);
+    logo.style.transform = `translate3d(0, ${(18 * (1 - outExpo(seg(t, 53.0, 54.2)))).toFixed(2)}px, 0) scale(${lerp(0.96, 1, outExpo(seg(t, 53.0, 54.4))).toFixed(4)})`;
+    show(logo, t >= 53.0);
+    maskIO(tag, t, 53.35, 99, 0.9);
+    maskIO(url, t, 53.7, 99, 0.9);
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Assemble
+// ---------------------------------------------------------------------------
+let updaters = [];
+async function init() {
+  await document.fonts.load('800 100px Montserrat');
+  await document.fonts.load('200 100px Montserrat');
+  await document.fonts.ready;
+  BASE = measureBaseline();
+  updaters = [
+    sceneIntro(scenesLayer),
+    sceneDrop(scenesLayer, false),
+    sceneConnect(scenesLayer),
+    sceneModel(scenesLayer),
+    sceneCareer(scenesLayer),
+    sceneProof(scenesLayer),
+    sceneVision(scenesLayer),
+    sceneEnd(scenesLayer),
+  ];
+  const knockInner = el('div', 'abs', knockOuter, { width: px(W), height: px(H) });
+  updaters.push(sceneDrop(knockInner, true));
+  const imgs = [...document.images];
+  await Promise.all(imgs.map(i => (i.complete ? Promise.resolve() : new Promise(r => { i.onload = r; i.onerror = r; }))));
+  await Promise.all(imgs.map(i => (i.decode ? i.decode().catch(() => {}) : Promise.resolve())));
+  window.renderFrame(0);
+}
+
+window.renderFrame = (t) => {
+  const world = renderWorld(t);
+  updaters.forEach(u => u(t, world));
+  const wo = 1 - inOutSine(seg(t, 0.0, 1.35));
+  white.style.opacity = wo.toFixed(4);
+  show(white, wo > 0.001);
+};
+
+window.FILM = { format: FORMAT, width: W, height: H, fps: FPS, duration: DURATION };
+window.filmText = () => ({
+  scenes: SCENES.map(s => ({ ...s, text: TEXTLOG.filter(x => x.scene === s.id).sort((a, b) => a.start - b.start) })),
+});
+window.filmReady = init().then(() => true);
+})();
+</script>
+</body>
+</html>
