@@ -1,7 +1,7 @@
 # Miljonkraft.se
 # Publikt innehåll får indexeras. Ingen sökrobot blockeras.
 # OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning) är separata val.
-# Här tillåts båda tills uppdragsgivaren beslutar annat. Se docs/HANDOVER.md.
+# Här tillåts båda tills uppdragsgivaren beslutar annat.
 
 User-agent: *
 Allow: /

@@ -31,6 +31,7 @@ Förhandsvisning som inte ska indexeras byggs med `PUBLIC_NOINDEX=1 npm run buil
 | Den röda trådens form i varje kapitel | `src/lib/thread.ts` (se kommentaren överst) och `src/components/Thread.astro` |
 | Rörelse | `src/styles/global.css` (avsnittet Rörelse). Reserv för äldre webbläsare och filmens dialog i `src/scripts/main.ts` |
 | Projektstatus i sidfoten | `src/config/site.ts` (objektet `copy.status`) |
+| Filmen på startsidan (dold i dag) | `src/config/site.ts` (`copy.film.showOnHome`) |
 | robots.txt, webbmanifest, typsnitt, delningsbild | `public/` |
 
 ## Skript

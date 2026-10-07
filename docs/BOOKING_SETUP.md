@@ -65,6 +65,7 @@ Läget styr automatiskt knapptexterna i sidhuvudet, i första kapitlet och i inb
 
 - Öppna sidan i mobil och dator. Kontrollera att kalendern får plats, att tangentbordet når den och att reservlänken fungerar.
 - Kontrollera att inbäddningen inte visas med en inloggningsruta för externa besökare.
+- Kontrollera vilka kakor Bookings sätter när kalendern öppnas. Integritetssidan växlar automatiskt till en text om Microsofts kakor i läget `shared_embed`, men den ska stämma med det som faktiskt sätts.
 - Kontrollera i webbläsarens konsol att inbäddningen inte blockeras av X-Frame-Options eller CSP (meddelande i stil med "Refused to display ... in a frame"). En blockerad ram ger inget automatiskt fel på sidan och fångas inte av reservtimern. Byt i så fall till `external_link`.
 - Genomför en godkänd testbokning hela vägen till bekräftelse. Redovisa separat att länken öppnats, att kalenderkonflikter kontrollerats och att bokningen faktiskt slutförts.
 - Om testet skapar en riktig kalenderhändelse eller skickar mejl måste det ingå i behörigheten. Hantera testbokningen i Bookings efteråt.

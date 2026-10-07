@@ -10,7 +10,7 @@ const pos = (i: number) => `--nx:${weave.narrowPos[i][0]}%;--ny:${weave.narrowPo
     <Thread narrow={weave.narrow} vb={weave.narrowVb} wide={weave.wide} vbWide={weave.wideVb} />
     <h2 id="value-h" class="weave">
       <span class="weave__word" style={pos(0)}>{c.left}</span>
-      <span class="visually-hidden"> × </span>
+      <span class="weave__x"> × </span>
       <span class="weave__word" style={pos(1)}>{c.right}</span>
     </h2>
   </div>

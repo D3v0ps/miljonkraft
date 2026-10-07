@@ -19,11 +19,11 @@ const style = (t: { from: number; to: number }) => (t.from === 0 && t.to === 1 ?
 ---
 <div class={`t ${cls}`.trim()} aria-hidden="true">
   <svg class={wide ? 't__narrow' : undefined} viewBox={vb} preserveAspectRatio="none" focusable="false">
-    {list(narrow).map((t) => <path d={t.d} pathLength="1" style={style(t)} />)}
+    {list(narrow).map((t) => <path d={t.d} style={style(t)} />)}
   </svg>
   {wide && (
     <svg class="t__wide" viewBox={vbWide} preserveAspectRatio="none" focusable="false">
-      {list(wide).map((t) => <path d={t.d} pathLength="1" style={style(t)} />)}
+      {list(wide).map((t) => <path d={t.d} style={style(t)} />)}
     </svg>
   )}
 </div>

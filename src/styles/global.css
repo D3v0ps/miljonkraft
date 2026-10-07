@@ -94,6 +94,8 @@ button { font: inherit; color: inherit; }
 summary { cursor: pointer; }
 h1, h2, h3 { font-weight: 300; text-wrap: balance; }
 p { text-wrap: pretty; }
+/* Långa ord bryts hellre än klipps, även med förstorat textavstånd (WCAG 1.4.12). */
+h1, h2, h3, p, li { overflow-wrap: anywhere; }
 :focus-visible { outline: 3px solid var(--thread); outline-offset: 3px; border-radius: 2px; }
 
 .skip-link {
@@ -110,7 +112,7 @@ p { text-wrap: pretty; }
   min-height: 48px; padding: 0.75em 1.4em;
   background: var(--ink); color: var(--paper); border: 0; border-radius: 999px;
   font-weight: 600; font-size: 1rem; line-height: 1.2; letter-spacing: 0;
-  text-decoration: none; text-align: center; cursor: pointer;
+  text-decoration: none; text-align: center; text-wrap: balance; overflow-wrap: normal; cursor: pointer;
   touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   transition: background-color 200ms ease, transform 160ms var(--ease-out);
 }
@@ -131,10 +133,7 @@ p { text-wrap: pretty; }
 @media (max-width: 479.98px) {
   .btn--lg { font-size: 0.9375rem; padding-inline: 1.15em; }
 }
-@media (max-width: 359.98px) {
-  .btn--lg .cta-full { display: none; }
-  .btn--lg .cta-short { display: inline; }
-}
+
 
 /* Tyst länk med profilens röda understreck. */
 .quiet-link {
@@ -167,7 +166,16 @@ p { text-wrap: pretty; }
   .brand { gap: 0.55rem; }
 }
 @media (max-width: 359.98px) {
-  .brand__name { display: none; }
+  .brand { gap: 0.45rem; }
+  .brand img { height: 18px; }
+  .hdr .btn--sm::before { display: none; }
+  .hdr .btn--sm { padding-inline: 0.8em; }
+}
+
+/* Vid kraftig zoom eller mycket låg höjd följer sidhuvudet med sidan i stället för att täcka den. */
+@media (max-height: 360px) {
+  .hdr { position: static; }
+  html { scroll-padding-top: 1rem; }
 }
 
 /* ---------- Kapitel och block ---------- */
@@ -179,6 +187,8 @@ p { text-wrap: pretty; }
   margin: 0 auto;
   container-type: inline-size;
   view-timeline: --seg block;
+  /* Utan detta räknar tidslinjen med html:s scroll-padding och pennan hamnar fel. */
+  view-timeline-inset: 0;
   --indent: max(34px, 9cqi);
 }
 .seg__in { position: relative; z-index: 1; padding: var(--s2) 0 var(--s2) var(--indent); }
@@ -203,14 +213,14 @@ p { text-wrap: pretty; }
 .t svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .t path { fill: none; stroke: var(--thread); stroke-width: var(--lane-w); vector-effect: non-scaling-stroke; }
 .t__wide { display: none; }
-@media (min-width: 700px) {
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .t__narrow { display: none; }
   .t__wide { display: block; }
 }
 
 /* ---------- 1. Idén ---------- */
 .ch--idea { overflow: clip; }
-.seg--idea { --idea-pt: clamp(56px, 13vh, 150px); min-height: calc(100svh - var(--hdr)); display: flex; align-items: flex-start; }
+.seg--idea { --idea-pt: clamp(56px, 13vh, 150px); min-height: calc(100svh - var(--hdr) - var(--s1)); display: flex; align-items: flex-start; }
 .seg--idea .seg__in { padding-top: var(--idea-pt); padding-bottom: clamp(56px, 10vh, 120px); }
 /* Tråden börjar vid rubrikens första rad. */
 .t--idea { top: calc(var(--idea-pt) + var(--fs-h1) * 0.52); }
@@ -233,10 +243,11 @@ p { text-wrap: pretty; }
 
 /* ---------- 2. Härifrån ---------- */
 .origin__body { margin-top: clamp(1.75rem, 5vh, 3rem); }
-.photo { display: block; width: 100%; }
-.photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 60% 50%; }
-@media (min-width: 700px) {
-  .photo img { aspect-ratio: 2.1 / 1; max-height: 86vh; object-position: 50% 52%; }
+.photo { display: block; width: 100%; position: relative; z-index: 1; overflow: clip; }
+.photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 60% 50%; transform-origin: 75% 68%; }
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
+  /* En hel skärm. Inzoomningen sker mot västens röda punkt (62 % och 68 % av bilden). */
+  .photo img { aspect-ratio: auto; height: min(100svh - var(--hdr), 62vw); object-position: 50% 52%; transform-origin: 62% 68%; }
 }
 .conviction { font-size: var(--fs-h2); line-height: 1.12; letter-spacing: -0.022em; font-weight: 300; padding-top: clamp(24px, 6vh, 64px); }
 .conviction span { display: block; }
@@ -249,9 +260,9 @@ p { text-wrap: pretty; }
   font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.75rem); line-height: 1.2; white-space: nowrap; z-index: 1;
 }
 .cycle__node--core { font-weight: 700; letter-spacing: -0.01em; }
-@media (min-width: 700px) {
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .seg--cycle { aspect-ratio: 2000 / 900; }
-  .cycle__node { left: var(--wx); top: var(--wy); }
+  .cycle__node { left: var(--wx); top: var(--wy); font-size: clamp(1rem, 2.3cqi, 1.75rem); }
 }
 
 /* ---------- 4. Miljonmodellen ---------- */
@@ -284,12 +295,14 @@ p { text-wrap: pretty; }
 .career__step:nth-child(2) .career__label { max-width: calc(89cqi - 30px); }
 .career__step:nth-child(3) .career__label { max-width: calc(80.5cqi - 30px); }
 .career__step:nth-child(4) .career__label { max-width: calc(72cqi - 30px); }
-@media (min-width: 700px) {
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .seg--career { aspect-ratio: 2000 / 800; }
   .career__step { left: var(--wx); top: var(--wy); }
   .career__label { left: 0; top: auto; bottom: 18px; transform: translateX(-50%); text-align: center; font-size: clamp(0.9375rem, 1.6cqi, 1.25rem); }
   /* Ett trappsteg är 18,5 % av ramens bredd. */
   .career__step:nth-child(n) .career__label { max-width: 18.5cqi; }
+  /* Sista etiketten står ytterst och får breda ut sig. */
+  .career__step:nth-child(4) .career__label { max-width: 24cqi; }
 }
 
 /* ---------- 6. Affärsnytta × samhällsnytta ---------- */
@@ -299,16 +312,22 @@ p { text-wrap: pretty; }
   position: absolute; left: var(--nx); top: var(--ny); transform: translate(-50%, -50%);
   font-size: clamp(1.125rem, 0.75rem + 1.9vw, 2.5rem); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; line-height: 1;
 }
-@media (min-width: 700px) {
+/* Krysset står där trådarna korsas. Trådarna går bakom det. */
+.weave__x {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: 1.05em; height: 1.05em; border-radius: 50%;
+  background: var(--paper); color: var(--ink); font-size: clamp(2.25rem, 7cqi, 4.5rem); font-weight: 200; line-height: 1;
+}
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .seg--weave { aspect-ratio: 2000 / 700; }
-  .weave__word { left: var(--wx); top: var(--wy); font-size: clamp(1.5rem, 0.55rem + 2.25vw, 2.875rem); }
+  .weave__word { left: var(--wx); top: var(--wy); font-size: clamp(1.25rem, 3.4cqi, 2.625rem); }
 }
 
 /* ---------- 7. Bevisen ---------- */
 .proofs { display: grid; gap: clamp(40px, 7vh, 80px); padding-bottom: var(--s2); }
-.proof { position: relative; display: grid; gap: 0.75rem; }
-.proof__value { position: relative; font-size: clamp(3rem, 2rem + 4.4vw, 6.5rem); font-weight: 200; line-height: 0.9; letter-spacing: -0.045em; font-variant-numeric: tabular-nums lining-nums; }
-.proof__dot { left: calc(2.5cqi - var(--indent) - var(--dot) / 2); top: calc(0.48em - var(--dot) / 2); }
+.proof { --fs-proof: clamp(3rem, 2rem + 4.4vw, 6.5rem); position: relative; display: grid; gap: 0.75rem; }
+.proof__value { position: relative; font-size: var(--fs-proof); font-weight: 200; line-height: 0.9; letter-spacing: -0.045em; font-variant-numeric: tabular-nums lining-nums; }
+.proof__dot { left: calc(2.5cqi - var(--indent) - var(--dot) / 2); top: calc(var(--fs-proof) * 0.45 - var(--dot) / 2); }
 .proof__title { font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem); font-weight: 600; line-height: 1.25; letter-spacing: -0.01em; max-width: 24em; }
 .proof__text { margin-top: 0.4em; color: var(--ink-2); max-width: 34em; }
 @media (min-width: 760px) {
@@ -347,8 +366,8 @@ p { text-wrap: pretty; }
 .contact__name { font-weight: 600; }
 .contact__role { color: var(--ink-2); margin-bottom: 0.75rem; }
 .contact a { display: inline-block; padding-block: 0.2em; text-decoration-color: var(--thread); text-decoration-thickness: 2px; text-underline-offset: 0.3em; font-weight: 500; }
-@media (min-width: 900px) {
-  .invite__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: clamp(2rem, 6cqi, 6rem); align-items: end; }
+@media (min-width: 1200px) {
+  .invite__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: clamp(2rem, 6cqi, 6rem); align-items: end; }
 }
 .embed { margin-top: 2.5rem; }
 .embed__frame { min-height: var(--embed-height, 1100px); background: var(--mist); display: grid; place-items: center; }
@@ -403,19 +422,27 @@ p { text-wrap: pretty; }
 /* =========================================================================
    Rörelse
    Tråden ritas med sidans egen skroll (CSS scroll-driven animations).
-   Pennan ligger på 65 % av fönstrets höjd. Utan stöd ritas varje block med en
-   kort övergång när det syns (src/scripts/main.ts). Med reducerad rörelse,
-   utan JavaScript och i utskrift står allt färdigritat.
+   Pennan ligger på 65 % av fönstrets höjd. Varje banas längd på skärmen mäts av
+   src/scripts/main.ts och sätts som --len i px. Utan mätt längd, utan JavaScript,
+   med reducerad rörelse och i utskrift står tråden färdigritad.
+   Webbläsare utan scroll-driven animations ritar varje block med en kort
+   övergång när det når pennan.
+
+   Viktigt: skriv de skrollstyrda animationerna med longhands. Byggets CSS-minifierare
+   (lightningcss) slår annars ihop animation och animation-timeline till en ogiltig
+   förkortning och då körs ingenting. scripts/verify.mjs kontrollerar det.
    ========================================================================= */
-@keyframes thread-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes thread-draw { from { stroke-dashoffset: var(--len, 0); } to { stroke-dashoffset: 0; } }
 @keyframes lit { from { color: var(--quiet); } to { color: var(--ink); } }
 @keyframes dot-lit { from { transform: scale(0.45); background-color: var(--quiet); } to { transform: none; background-color: var(--thread); } }
-@keyframes rise-in { from { opacity: 0; transform: translateY(0.35em); } to { opacity: 1; transform: none; } }
-@keyframes meet-a { from { opacity: 0; transform: translateY(-64px); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
-@keyframes meet-b { from { opacity: 0; transform: translateY(64px); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes rise-in { from { opacity: 0.01; transform: translateY(0.35em); } to { opacity: 1; transform: none; } }
+/* De två punkterna kommer från sidhuvudets kant och från vecket och möts vid rubrikens första rad. */
+@keyframes meet-a { from { opacity: 0; transform: translateY(calc(-1 * (var(--idea-pt) + var(--fs-h1) * 0.52))); } 25% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes meet-b { from { opacity: 0; transform: translateY(calc(100svh - var(--hdr) - var(--idea-pt) - var(--fs-h1) * 0.52)); } 25% { opacity: 1; } to { opacity: 1; transform: none; } }
 @keyframes unveil { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes sunrise { from { transform: translateY(42%); } to { transform: none; } }
 @keyframes drift { to { transform: translateY(-16vh) scale(1.05); } }
+@keyframes push { to { transform: scale(1.12); } }
 @keyframes hdr-bg {
   from { background-color: rgb(255 255 255 / 0); box-shadow: 0 1px 0 rgb(30 37 43 / 0); }
   to { background-color: rgb(255 255 255 / 1); box-shadow: 0 1px 0 rgb(30 37 43 / 0.07); }
@@ -425,36 +452,63 @@ p { text-wrap: pretty; }
   /* Inledningen, en gång: rubriken, två punkter som möts och tråden som börjar. */
   .idea__h { animation: rise-in 900ms var(--ease-out) both; }
   .idea__lead, .idea__actions { animation: rise-in 900ms var(--ease-out) 140ms both; }
-  .meet__a { animation: meet-a 1100ms var(--ease-in-out) 250ms both; }
-  .meet__b { animation: meet-b 1100ms var(--ease-in-out) 250ms both; }
-  .t--idea { animation: unveil 1500ms var(--ease-out) 1250ms both; }
+  .meet__a { animation: meet-a 1600ms var(--ease-in-out) 200ms both; }
+  .meet__b { animation: meet-b 1600ms var(--ease-in-out) 200ms both; }
+  .t--idea { animation: unveil 1500ms var(--ease-out) 1700ms both; }
 
   @supports (animation-timeline: view()) {
     .t path {
-      stroke-dasharray: 1 2;
-      animation: thread-draw linear both;
+      stroke-dasharray: var(--len) var(--len);
+      animation-name: thread-draw;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --seg;
       animation-range:
         cover calc(35vh + (100% - 100vh) * var(--f, 0))
         cover calc(35vh + (100% - 100vh) * var(--to, 1));
     }
-    .stanza__step, .proof { view-timeline: --row block; }
-    .stanza__step { animation: lit linear both; animation-timeline: --row; animation-range: cover 31vh cover 37vh; }
-    .stanza__dot, .proof__dot { animation: dot-lit linear both; animation-timeline: --row; animation-range: cover 31vh cover 37vh; }
+    .stanza__step, .proof { view-timeline: --row block; view-timeline-inset: 0; }
+    .stanza__step {
+      animation-name: lit; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: --row; animation-range: cover 31vh cover 37vh;
+    }
+    .stanza__dot, .proof__dot {
+      animation-name: dot-lit; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: --row; animation-range: cover 31vh cover 37vh;
+    }
     .career__dot {
-      animation: dot-lit linear both; animation-timeline: --seg;
+      animation-name: dot-lit; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: --seg;
       animation-range: cover calc(35vh + (100% - 100vh) * var(--at)) cover calc(35vh + (100% - 100vh) * var(--at) + 24px);
     }
-    .sun__disc { animation: sunrise linear both; animation-timeline: --seg; animation-range: cover 0% cover 75%; }
-    .halo { animation: drift linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
-    .hdr { animation: hdr-bg linear both; animation-timeline: scroll(root); animation-range: 0 96px; }
+    /* Den sista punkten tänds på samma sätt som modellstegen. */
+    .end-dot {
+      animation-name: dot-lit; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: view(); animation-range: cover 31vh cover 37vh;
+    }
+    .sun__disc {
+      animation-name: sunrise; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: --seg; animation-range: cover 0% cover 75%;
+    }
+    /* Bildens enda kameraåkning: en långsam inzoomning mot västens röda punkt. */
+    .photo img {
+      animation-name: push; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: view(); animation-range: cover 0% cover 100%;
+    }
+    .halo {
+      animation-name: drift; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: scroll(root); animation-range: 0 100vh;
+    }
+    .hdr {
+      animation-name: hdr-bg; animation-timing-function: linear; animation-fill-mode: both;
+      animation-timeline: scroll(root); animation-range: 0 96px;
+    }
   }
 
   @supports not (animation-timeline: view()) {
-    html.js .t path {
-      stroke-dasharray: 1 2; stroke-dashoffset: 1;
-      transition: stroke-dashoffset 1.6s var(--ease-out) calc(var(--f, 0) * 1.4s);
-    }
+    html.js .t path { stroke-dasharray: var(--len) var(--len); stroke-dashoffset: var(--len); }
+    /* Övergången slås på först när längden är mätt, annars syns en baklänges ritning. */
+    html.js .t.is-measured path { transition: stroke-dashoffset 1.6s var(--ease-out) calc(var(--f, 0) * 1.4s); }
     html.js .seg.is-drawn .t path { stroke-dashoffset: 0; }
     html.js .stanza__step { transition: color 600ms ease; }
     html.js .stanza__step:not(.is-lit) { color: var(--quiet); }
@@ -468,7 +522,7 @@ p { text-wrap: pretty; }
 .career__step:nth-child(2) { --at: 0.345; }
 .career__step:nth-child(3) { --at: 0.552; }
 .career__step:nth-child(4) { --at: 0.76; }
-@media (min-width: 700px) {
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .career__step:nth-child(1) { --at: 0.263; }
   .career__step:nth-child(2) { --at: 0.428; }
   .career__step:nth-child(3) { --at: 0.593; }

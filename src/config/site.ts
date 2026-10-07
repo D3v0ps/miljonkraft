@@ -54,8 +54,8 @@ export const organization = {
   url: 'https://miljonbemanning.se',
   /** Ur Miljonbemannings mejlsignatur. */
   description: 'Miljonbemanning är ett kompetensföretag med mål att göra samhället till en bättre plats för alla.',
-  /** Ur Miljonbemannings mejlsignatur. Valvet anger Albyvägen 2A, se docs/HANDOVER.md. */
-  address: { street: 'Albyvägen 2', postalCode: '145 59', locality: 'Norsborg', country: 'SE' },
+  /** Huvudkontoret enligt miljonbemanning.se/sv/contact/ (kontrollerat 2026-10-07). */
+  address: { street: 'Albyvägen 3', postalCode: '145 57', locality: 'Norsborg', country: 'SE' },
   foundingYear: 2012,
   aboutUrl: 'https://miljonbemanning.se/sv/about/us/',
   /** Integritetsinformation. Egen kort sida tills Miljonbemanning bekräftar en central integritetspolicy att länka till. */
@@ -90,7 +90,7 @@ export const booking = {
   embedHeightPx: 1100,
   durationMinutes: 30,
   /** Visas bara när ett riktigt Teams-flöde är konfigurerat (external_link eller shared_embed). */
-  meetingFormatLine: 'Digitalt via Teams · 30 minuter',
+  meetingFormatLine: 'Digitalt via Teams, 30 minuter',
   timeZone: 'Europe/Stockholm',
   /** Förifyllt mejl i contact_only. Radbrytningar bevaras och URL-kodas vid byggning. */
   mail: {
@@ -112,8 +112,8 @@ export const booking = {
 } as const;
 
 export const nav = {
-  /** Länken i sidhuvudet och inbjudans ankare. */
-  invitationHref: '#samtal',
+  /** Inbjudans ankare. Med snedstreck så att länken också fungerar från undersidorna. */
+  invitationHref: '/#samtal',
 } as const;
 
 /**
@@ -177,7 +177,7 @@ export const copy = {
       {
         value: '12',
         title: 'Förstahandsleverantör i alla tolv områden',
-        text: 'Enligt tilldelningsbeslutet i Botkyrka kommuns upphandling av yrkesförberedande och yrkesinriktade insatser, 2026.',
+        text: 'Enligt Botkyrka kommuns tilldelningsbeslut den 27 augusti 2026 i upphandlingen av yrkesförberedande och yrkesinriktade insatser.',
       },
     ],
   },
@@ -215,6 +215,11 @@ export const copy = {
     ],
   },
   film: {
+    /**
+     * Filmen är gjord för affischversionen (versaler, kort, numrerade steg, lagerbilder) och står i en
+     * annan ton än berättelsen. Den visas inte på startsidan förrän den gjorts om. Filerna ligger kvar i public/film.
+     */
+    showOnHome: false,
     linkLabel: 'Se filmen',
     title: 'Miljonkraft på en minut',
     close: 'Stäng',

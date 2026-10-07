@@ -4,7 +4,14 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { booking, contact, organization, site } from '../config/site';
 const title = `Integritetsinformation | ${site.name}`;
-const description = 'Så hanteras uppgifter på miljonkraft.se. Webbplatsen samlar inte in personuppgifter och använder inga kakor.';
+// Med inbäddad Bookings-kalender sätter Microsoft egna kakor. Texten följer därför bokningsläget.
+const embedded = booking.mode === 'shared_embed';
+const description = embedded
+  ? 'Så hanteras uppgifter på miljonkraft.se. Sidan sätter inga egna kakor. Bokningskalendern från Microsoft Bookings sätter sina egna.'
+  : 'Så hanteras uppgifter på miljonkraft.se. Webbplatsen samlar inte in personuppgifter och använder inga kakor.';
+const lead = embedded
+  ? 'Miljonkraft.se sätter inga egna kakor och har ingen besöksstatistik. Öppnar ni bokningskalendern laddas Microsoft Bookings, som sätter egna kakor och tar emot de uppgifter ni fyller i.'
+  : 'Miljonkraft.se är en informationssida. Den samlar inte in personuppgifter, använder inga kakor och har ingen besöksstatistik.';
 ---
 
 <BaseLayout title={title} description={description} path="/integritet/">
@@ -12,7 +19,7 @@ const description = 'Så hanteras uppgifter på miljonkraft.se. Webbplatsen saml
   <main id="innehall" class="subpage">
     <div class="subpage__inner">
       <h1>Så hanteras era uppgifter</h1>
-      <p class="subpage__lead">Miljonkraft.se är en informationssida. Den samlar inte in personuppgifter, använder inga kakor och har ingen besöksstatistik.</p>
+      <p class="subpage__lead">{lead}</p>
       <h2>När ni kontaktar oss</h2>
       <p>Kontaktvägarna på sidan är vanliga länkar till telefon och mejl. När ni mejlar eller ringer hanteras uppgifterna av {organization.name}, som ansvarar för behandlingen. Uppgifterna används bara för att svara på er förfrågan och boka ett samtal.</p>
       <h2>Bokning</h2>

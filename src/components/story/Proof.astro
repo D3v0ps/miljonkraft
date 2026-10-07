@@ -17,9 +17,9 @@ const c = copy.proof;
       {c.items.map((it) => (
         <li class="proof" data-lit>
           <span class="proof__dot" aria-hidden="true"></span>
-          <p class="proof__value">{it.value}</p>
+          <p class="proof__value" aria-hidden="true">{it.value}</p>
           <div class="proof__body">
-            <h3 class="proof__title">{it.title}</h3>
+            <h3 class="proof__title"><span class="visually-hidden">{it.value}. </span>{it.title}</h3>
             <p class="proof__text">{it.text}</p>
           </div>
         </li>

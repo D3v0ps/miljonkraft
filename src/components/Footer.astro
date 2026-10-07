@@ -3,14 +3,16 @@ import { copy, site } from '../config/site';
 import { film } from '../lib/film';
 import MbLogo from './MbLogo.astro';
 const fo = copy.footer;
+// Ord med bindestreck, som ESF-rådet, bryts aldrig mitt i.
+const status = copy.status.text.join(' ').split(/(\S+-\S+)/);
 ---
 <footer class="foot">
   <div class="foot__in">
-    <p class="foot__status">{copy.status.text.join(' ')}</p>
+    <p class="foot__status">{status.map((p) => (/-/.test(p) ? <span class="nw">{p}</span> : p))}</p>
     <div class="foot__row">
-      <p class="foot__brand"><MbLogo height={28} /><span>{fo.byline}</span></p>
+      <p class="foot__brand"><MbLogo height={28} alt="" /><span>{fo.byline}</span></p>
       <ul class="foot__links">
-        {film.available && <li><a href={film.mp4} data-film-open>{copy.film.linkLabel}</a></li>}
+        {film.available && copy.film.showOnHome && <li><a href={film.mp4} data-film-open>{copy.film.linkLabel}</a></li>}
         {fo.links.map((l) => <li><a href={l.href} rel={l.external ? 'noopener' : undefined}>{l.label}</a></li>)}
       </ul>
       <p class="foot__legal">© {site.copyrightYear} Miljonbemanning</p>

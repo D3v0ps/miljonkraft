@@ -12,6 +12,7 @@ import Direction from '../components/story/Direction.astro';
 import Invitation from '../components/story/Invitation.astro';
 import Footer from '../components/Footer.astro';
 import FilmDialog from '../components/FilmDialog.astro';
+import { copy } from '../config/site';
 ---
 
 <BaseLayout path="/" withJsonLd={true}>
@@ -28,9 +29,8 @@ import FilmDialog from '../components/FilmDialog.astro';
     <Invitation />
   </main>
   <Footer />
-  <FilmDialog />
+  {copy.film.showOnHome && <FilmDialog />}
+  <script>
+    import '../scripts/main';
+  </script>
 </BaseLayout>
-
-<script>
-  import '../scripts/main';
-</script>

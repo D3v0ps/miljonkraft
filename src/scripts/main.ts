@@ -7,6 +7,40 @@ const root = document.documentElement;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const scrollDriven = typeof CSS !== 'undefined' && CSS.supports('animation-timeline: view()');
 
+/* ---------- Trådens längd på skärmen ---------- */
+// Banorna ritas med vector-effect: non-scaling-stroke i SVG:er som sträcks olika i bredd och höjd.
+// Streckningen räknas då i skärmpixlar, så varje banas längd mäts här och sätts som --len.
+// Utan mätt längd står tråden färdigritad (se global.css, avsnittet Rörelse).
+function measure(svg: SVGSVGElement) {
+  const vb = svg.viewBox.baseVal;
+  const sx = svg.clientWidth / vb.width;
+  const sy = svg.clientHeight / vb.height;
+  if (!sx || !sy) return; // Varianten för den andra brytpunkten är dold.
+  svg.querySelectorAll('path').forEach((p) => {
+    const total = p.getTotalLength();
+    const n = Math.min(400, Math.max(24, Math.round(total / 6)));
+    let len = 0;
+    let prev = p.getPointAtLength(0);
+    for (let i = 1; i <= n; i++) {
+      const q = p.getPointAtLength((total * i) / n);
+      len += Math.hypot((q.x - prev.x) * sx, (q.y - prev.y) * sy);
+      prev = q;
+    }
+    p.style.setProperty('--len', `${Math.ceil(len) + 2}px`);
+  });
+}
+if (!reduce && 'ResizeObserver' in window) {
+  // Mäts vid start och igen när ett block ändrar storlek (typsnittsbyte, textstorlek, ny bredd).
+  const ro = new ResizeObserver((entries) => {
+    for (const e of entries) {
+      e.target.querySelectorAll<SVGSVGElement>('svg').forEach(measure);
+      const t = e.target;
+      requestAnimationFrame(() => t.classList.add('is-measured'));
+    }
+  });
+  document.querySelectorAll('.t').forEach((t) => ro.observe(t));
+}
+
 /* ---------- Reserv: rita varje block när det når pennan på 65 % av fönstret ---------- */
 if (!scrollDriven && !reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver(

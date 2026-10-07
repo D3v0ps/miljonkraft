@@ -96,6 +96,14 @@ På mobil följer tråden samma fil längs vänsterkanten. Kretsloppet blir en s
 4. **Bara riktiga bilder.** En bild ur Miljonbemannings bildbank, västen med MB-punkten. Inga påhittade människor.
 5. **Inga mallmönster.** Inga kort, inga kapitelnummer, inga etiketter i versaler ovanför rubriker, inga pilar i länktext.
 
+## Efter granskningen
+
+- Bilden från Alby fyller nu en skärm och zoomar långsamt in mot västens röda punkt medan man skrollar, sidans enda kameraåkning.
+- Krysset i Affärsnytta × samhällsnytta står synligt där trådarna korsas.
+- De två punkterna i inledningen kommer från sidhuvudet och från vecket innan de möts.
+- Den sista röda punkten tänds när man når inbjudan, på samma sätt som Miljonmodellens steg.
+- Under 700 px används de liggande figurerna också på liggande telefoner från 640 px, så att figurerna ryms på en skärm.
+
 ## Granskning mot briefen före bygget
 
 Planen prövades mot frågan om den kunde ha blivit densamma för vilken liknande sida som helst. Fem delar ändrades.

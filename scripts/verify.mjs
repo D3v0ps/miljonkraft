@@ -133,6 +133,30 @@ for (const v of widths) {
   await c.close();
 }
 
+// Rörelse: tråden ska ritas med skrollen. Fångar bland annat att minifieraren slår ihop
+// animation och animation-timeline till en ogiltig förkortning (då står tråden stilla).
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto(baseUrl, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(800);
+  const sample = async (y) => {
+    await page.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), y);
+    await page.waitForTimeout(200);
+    return page.evaluate(() => {
+      const path = document.querySelector('#miljonmodellen .stanza')?.closest('.seg')?.querySelector('.t svg path');
+      const step = document.querySelector('.stanza__step');
+      const cs = path ? getComputedStyle(path) : null;
+      return { anim: cs?.animationName, len: path?.style.getPropertyValue('--len'), offset: cs?.strokeDashoffset, stepColor: getComputedStyle(step).color, hdr: getComputedStyle(document.querySelector('.hdr')).animationName };
+    });
+  };
+  const top = await sample(0);
+  const y = await page.evaluate(() => document.querySelector('.stanza').getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.4);
+  const mid = await sample(y);
+  report.motion = { supported: await page.evaluate(() => CSS.supports('animation-timeline: view()')), top, mid };
+  await ctx.close();
+}
+
 // Zoom 200 % på en 1440-skärm motsvarar ungefär 720 px CSS-bredd.
 {
   const ctx = await browser.newContext({ viewport: { width: 720, height: 450 }, deviceScaleFactor: 2 });
@@ -261,6 +285,12 @@ if (report.reducedMotion.elementsStillAnimating) problems.push(`${report.reduced
 if (!report.reducedMotion.threadDrawn) problems.push('Med reducerad rörelse är tråden inte färdigritad');
 if (report.meta.visibleWords < 350 || report.meta.visibleWords > 500) problems.push(`Synliga ord ${report.meta.visibleWords}, briefen anger 350 till 500`);
 if (report.meta.h1Count !== 1) problems.push(`${report.meta.h1Count} h1 på startsidan`);
+if (report.motion.supported) {
+  if (report.motion.top.anim !== 'thread-draw' || report.motion.top.hdr !== 'hdr-bg') problems.push(`Skrollstyrd animation saknas (${report.motion.top.anim}, ${report.motion.top.hdr})`);
+  if (!report.motion.top.len) problems.push('Trådens längd är inte mätt (--len saknas)');
+  if (report.motion.top.offset === report.motion.mid.offset) problems.push('Tråden ritas inte med skrollen');
+  if (report.motion.top.stepColor === report.motion.mid.stepColor) problems.push('Miljonmodellens steg tänds inte med skrollen');
+}
 if (!report.headerCtaVisibleAfterScroll) problems.push('Knappen i sidhuvudet syns inte efter skroll på mobil');
 console.log(JSON.stringify({ meta: report.meta, noJs: report.noJs, reducedMotion: report.reducedMotion, viewports: Object.fromEntries(Object.entries(report.viewports).map(([k, v]) => [k, { overflow: v.overflow.horizontalOverflow, offenders: v.overflow.offenders.slice(0, 3), metrics: v.metrics, consoleErrors: v.consoleErrors, failed: v.failedRequests, http4xx: v.responses4xx5xx }])), keyboard: Object.fromEntries(Object.entries(report.keyboard).map(([k, v]) => [k, { menu: v.menu, missingRing: v.missingRing, tinyTargets: v.tinyTargets, trail: v.focusTrail.map((f) => `${f.tag}:${f.text || f.href}`).slice(0, 30) }])), problems }, null, 2));
 process.exitCode = problems.length ? 1 : 0;
