@@ -1,6 +1,8 @@
 # Miljonkraft.se
 
-Affischsida för Miljonkraft Botkyrka, ett initiativ från Miljonbemanning. Statisk webbplats byggd med Astro, vanlig CSS, lite TypeScript och Montserrat i Miljonbemannings grafiska profil 3.0. Ingen databas, ingen inloggning, inget CMS.
+Berättelsen om Miljonkraft Botkyrka, ett initiativ från Miljonbemanning. En lång, ljus sida i nio kapitel där en röd tråd bär berättelsen från idén till inbjudan. Statisk webbplats byggd med Astro, vanlig CSS, lite TypeScript och Montserrat i Miljonbemannings grafiska profil 3.0. Ingen databas, ingen inloggning, inget CMS.
+
+Designen beskrivs i `docs/DESIGN_PLAN.md`.
 
 ## Kom igång
 
@@ -25,26 +27,26 @@ Förhandsvisning som inte ska indexeras byggs med `PUBLIC_NOINDEX=1 npm run buil
 | Knapptexter per bokningsläge | `src/lib/booking.ts` |
 | Metadata, Open Graph, favicons, JSON-LD | `src/layouts/BaseLayout.astro`, `src/lib/jsonld.ts` |
 | Designvärden (färger, typografi, avstånd, rörelse) | `src/styles/global.css` (blocket `:root`) |
-| Sektioner | `src/components/*.astro`, ordning i `src/pages/index.astro` |
-| Rörelse vid skroll, himlen i WebGL | `src/scripts/main.ts`, `src/scripts/sky.ts` |
-| Affischradernas bredd | `src/lib/type-fit.json`, skapas av `scripts/measure-type.mjs` |
+| Kapitlen | `src/components/story/*.astro`, ordning i `src/pages/index.astro` |
+| Den röda trådens form i varje kapitel | `src/lib/thread.ts` (se kommentaren överst) och `src/components/Thread.astro` |
+| Rörelse | `src/styles/global.css` (avsnittet Rörelse). Reserv för äldre webbläsare och filmens dialog i `src/scripts/main.ts` |
+| Projektstatus i sidfoten | `src/config/site.ts` (objektet `copy.status`) |
 | robots.txt, webbmanifest, typsnitt, delningsbild | `public/` |
 
 ## Skript
 
 ```bash
 node scripts/build-images.mjs     # bilder ur assets-src/ till public/img/, favicon-set ur MB-logotypen
-node scripts/measure-type.mjs     # mäter affischraderna i Montserrat, kör efter ändrad rubriktext
 node scripts/generate-og.mjs      # skapar public/og.png från scripts/og-template.html
 node scripts/contrast.mjs         # WCAG-kontrast för färgparen i scripts/contrast-pairs.json
-node scripts/verify.mjs URL       # skärmbilder, överrinning, axe, tangentbord, utan JS, reducerad rörelse
+node scripts/verify.mjs URL       # skärmbilder, överrinning, axe, tangentbord, utan JS, reducerad rörelse, ordbudget
 ```
 
 Lighthouse körs mot en lokal förhandsvisning:
 
 ```bash
 npm run build && npm run preview &
-npx lighthouse http://127.0.0.1:4321/ --output=html --output-path=docs/verification/lighthouse-mobile
+npx lighthouse http://127.0.0.1:4321/ --output=json --output-path=docs/verification/lighthouse-mobile.json
 ```
 
 ## Publicering
@@ -79,6 +81,7 @@ Med Vercels Claude Code-plugin (`npx plugins add vercel/vercel-plugin`) finns ko
 
 ## Dokumentation
 
+- `docs/DESIGN_PLAN.md` koncept, tokens, layout och granskningen av planen mot briefen
 - `docs/HANDOVER.md` överlämning, designbeslut, vad som fungerar och vad som återstår
 - `docs/BOOKING_SETUP.md` steg för riktig bokning med Microsoft Bookings
 - `docs/QUALITY_REPORT.md` kvalitetsrapport med mätvärden och skärmbilder

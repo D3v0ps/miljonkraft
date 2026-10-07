@@ -53,13 +53,13 @@ export const booking = {
 ```
 
 - `external_link` använder bara `publicUrl`. Huvudknappen öppnar bokningssidan i ett nytt fönster.
-- `shared_embed` kräver både `embedUrl` och `publicUrl`. Kalendern laddas först när besökaren trycker på knappen i bokningssektionen. En vanlig länk, Öppna bokningen i ett nytt fönster, visas alltid utanför inbäddningen.
+- `shared_embed` kräver både `embedUrl` och `publicUrl`. Kalendern laddas först när besökaren trycker på knappen i inbjudan, sidans sista kapitel (Berätta vad ni behöver). En vanlig länk, Öppna bokningen i ett nytt fönster, visas alltid utanför inbäddningen.
 - Kopiera adresserna exakt från Bookings. Konstruera dem inte från mejladress eller gissade ID:n.
 - Anta inte att en personlig Bookings with me-länk kan bäddas in. Den används i så fall som `external_link`.
 
 Bygg om (`npm run build`) och kontrollera att bygget går igenom. Saknas en giltig https-adress för valt läge stoppas bygget med ett tydligt fel.
 
-Läget styr automatiskt knapptexter, navigationsetikett, rubrik och instruktion i bokningssektionen. I båda riktiga lägena visas också raden `meetingFormatLine` (i dag "Digitalt via Teams · 30 minuter"). Ändra eller töm värdet om tjänsten konfigureras utan Teams-möte, så att sidan bara beskriver det som faktiskt gäller. Justera `embedHeightPx` efter ett höjdtest av inbäddningen på mobil och dator.
+Läget styr automatiskt knapptexterna i sidhuvudet, i första kapitlet och i inbjudan, och instruktionen under knappen. I contact_only heter knappen Föreslå ett 30-minuters samtal och öppnar ett förifyllt mejl, eftersom en knapp aldrig får heta Boka om den inte bokar. I de riktiga lägena heter den Boka 30 min med Yacine. Där visas också raden `meetingFormatLine` (i dag "Digitalt via Teams, 30 minuter"). Ändra eller töm värdet om tjänsten konfigureras utan Teams-möte, så att sidan bara beskriver det som faktiskt gäller. Justera `embedHeightPx` efter ett höjdtest av inbäddningen på mobil och dator.
 
 ## 4. Verifiera efter anslutning
 
@@ -71,4 +71,4 @@ Läget styr automatiskt knapptexter, navigationsetikett, rubrik och instruktion 
 
 ## 5. Mätning
 
-Ett klick eller en laddad iframe är inte en genomförd bokning. Knapparna bär attributet `data-event` med ett av tre värden: `booking_open` (öppnar bokningstjänsten, i external_link samt på reservlänken och laddknappen i shared_embed), `booking_section` (huvudknappar som bara skrollar till inbäddningen i shared_embed) och `contact_open` (mejlförslag i contact_only). Webbplatsen har ingen mätning inkopplad. Om mätning läggs till ska `booking_complete` bara registreras när leverantören ger ett verifierat stöd för det, till exempel ett dokumenterat integrationsmeddelande från inbäddningen. Utan sådant stöd följs bekräftade bokningar upp i Bookings.
+Ett klick eller en laddad iframe är inte en genomförd bokning. Knapparna bär attributet `data-event` med ett av tre värden: `booking_open` (öppnar bokningstjänsten, i external_link samt på reservlänken och laddknappen i shared_embed), `booking_section` (huvudknappar som bara skrollar till inbäddningen i inbjudan i shared_embed) och `contact_open` (mejlförslag i contact_only). Webbplatsen har ingen mätning inkopplad. Om mätning läggs till ska `booking_complete` bara registreras när leverantören ger ett verifierat stöd för det, till exempel ett dokumenterat integrationsmeddelande från inbäddningen. Utan sådant stöd följs bekräftade bokningar upp i Bookings.
