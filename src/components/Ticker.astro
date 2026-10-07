@@ -1,0 +1,15 @@
+---
+import { copy } from '../config/site';
+const words = copy.model.steps.map((s) => s.name);
+---
+<!-- Dekorativt band med Miljonmodellens steg. Samma steg står som lista i sektionen Miljonmodellen. -->
+<div class="ticker" aria-hidden="true" data-progress="through">
+  <div class="ticker__track">
+    {[...words, ...words].map((w) => (
+      <>
+        <span class="ticker__word">{w}</span>
+        <span class="ticker__dot"></span>
+      </>
+    ))}
+  </div>
+</div>

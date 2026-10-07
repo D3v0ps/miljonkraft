@@ -1,24 +1,31 @@
 ---
-import { copy, site } from '../config/site';
-import Mark from './Mark.astro';
+import { contact, copy, site } from '../config/site';
+import fit from '../lib/type-fit.json';
+import { splitPeriod } from '../lib/heading';
+import MbLogo from './MbLogo.astro';
+const fo = copy.footer;
+const [devise, hasPeriod] = splitPeriod(fo.devise);
 ---
 
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__brand">
-      <Mark class="site-footer__mark" />
-      <p class="site-footer__name">{copy.footer.name}</p>
-      <p class="site-footer__byline">{copy.footer.byline}</p>
+<footer class="site-footer" data-progress="enter">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <MbLogo height={48} />
+        <p class="site-footer__devise">{devise}{hasPeriod && <span class="dot">.</span>}</p>
+        <p class="site-footer__name">{fo.name}</p>
+        <p class="site-footer__byline">{fo.byline}</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="Sidfot">
+        <ul>
+          {fo.links.map((l) => (
+            <li><a href={l.href} rel={l.external ? 'noopener' : undefined}>{l.label}</a></li>
+          ))}
+          <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="site-footer__nav" aria-label="Sidfot">
-      <ul>
-        {copy.footer.links.map((l) => (
-          <li>
-            <a href={l.href} rel={l.external ? 'noopener' : undefined}>{l.label}</a>
-          </li>
-        ))}
-      </ul>
-    </nav>
     <p class="site-footer__legal">© {site.copyrightYear} Miljonbemanning</p>
+    <p class="site-footer__giant" aria-hidden="true" style={`--k:${fit.footer}`}><span class="outline">Miljonkraft</span><span class="fill">Miljonkraft</span></p>
   </div>
 </footer>

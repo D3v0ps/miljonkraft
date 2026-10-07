@@ -15,8 +15,8 @@ const ctaHref = b.href.startsWith('#') ? `/${b.href}` : b.href;
       <h1>{copy.notFound.title}</h1>
       <p>{copy.notFound.text}</p>
       <div class="notfound__actions">
-        <a class="button button--primary" href="/">{copy.notFound.linkLabel}</a>
-        <a class="button button--ghost" href={ctaHref} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined} data-event={b.openEvent}>{b.ctaShort}{b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}</a>
+        <a class="btn" href="/">{copy.notFound.linkLabel}</a>
+        <a class="btn btn--ghost" href={ctaHref} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined} data-event={b.openEvent}>{b.ctaShort}{b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}</a>
       </div>
     </div>
   </main>

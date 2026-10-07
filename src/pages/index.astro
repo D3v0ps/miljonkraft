@@ -2,7 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
-import StatusBand from '../components/StatusBand.astro';
+import Ticker from '../components/Ticker.astro';
+import Manifest from '../components/Manifest.astro';
+import Film from '../components/Film.astro';
 import Companies from '../components/Companies.astro';
 import Model from '../components/Model.astro';
 import Career from '../components/Career.astro';
@@ -18,8 +20,10 @@ import MobileCta from '../components/MobileCta.astro';
   <Header />
   <main id="innehall">
     <Hero />
-    <StatusBand />
+    <Manifest />
     <Companies />
+    <Film />
+    <Ticker />
     <Model />
     <Career />
     <About />
@@ -30,3 +34,7 @@ import MobileCta from '../components/MobileCta.astro';
   <Footer />
   <MobileCta />
 </BaseLayout>
+
+<script>
+  import '../scripts/main';
+</script>

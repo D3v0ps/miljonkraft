@@ -1,29 +1,69 @@
 ---
-import { contact, copy } from '../config/site';
-import { resolveBooking } from '../lib/booking';
-import StairGraphic from './StairGraphic.astro';
+import { copy } from '../config/site';
+import fit from '../lib/type-fit.json';
+import { film } from '../lib/film';
 import CtaLink from './CtaLink.astro';
-const b = resolveBooking();
+
 const h = copy.hero;
+const keys = [
+  ['hero-1', 'hero-1a', 'hero-1b'],
+  ['hero-2', 'hero-2a', 'hero-2b'],
+  ['hero-3', 'hero-3a', 'hero-3b'],
+] as const;
+// Varje mening delas vid sista mellanslaget. På smala skärmar blir delarna egna rader.
+const lines = h.headline.map((text, i) => {
+  const cut = text.lastIndexOf(' ');
+  const last = text.slice(cut + 1);
+  return {
+    cls: `pt-line pt-l${i + 1}`,
+    k: fit[keys[i][0]],
+    a: text.slice(0, cut),
+    ka: fit[keys[i][1]],
+    b: last.endsWith('.') ? last.slice(0, -1) : last,
+    period: last.endsWith('.'),
+    kb: fit[keys[i][2]],
+  };
+});
 ---
 
-<section class="hero" id="top" aria-labelledby="hero-heading">
-  <div class="section__inner hero__inner">
-    <div class="hero__content">
-      <p class="hero__byline">{h.byline}</p>
-      <h1 id="hero-heading" class="hero__title">
-        {h.headline.map((line) => <span>{line} </span>)}
-      </h1>
-      <p class="hero__lead">{h.lead}</p>
-      <p class="hero__body">{h.body}</p>
-      <div class="hero__actions">
-        <CtaLink class="button--large" cta="primary" />
-        <a class="hero__phone" href={contact.phoneHref}>Ring {contact.phoneDisplay}</a>
-      </div>
+<section class="hero" id="top" aria-labelledby="hero-heading" data-hero data-progress="leave">
+  <div class="hero__sky" aria-hidden="true"><canvas data-sky width="16" height="9"></canvas></div>
+  <div class="hero__whiteout" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__top hero__fade">
+      <p class="label label--dot">{h.label}</p>
+      <p class="label hero__byline">{h.byline}</p>
     </div>
-    <div class="hero__graphic">
-      <StairGraphic class="hero__graphic--desktop" width={520} riser={58} height={540} labels={copy.model.steps.map((s) => s.name)} />
-      <StairGraphic class="hero__graphic--mobile" riser={16} height={168} />
+
+    <div class="poster">
+      <h1 id="hero-heading" class="poster-title">
+        {lines.map((l) => (
+          <span class={l.cls} style={`--k:${l.k}`}>
+            <span class="pt-seg" style={`--km:${l.ka}`}><span class="pt-in">{l.a}</span></span>{' '}<span class="pt-seg" style={`--km:${l.kb}`}><span class="pt-in">{l.b}{l.period && <span class="dot">.</span>}</span></span>{' '}
+          </span>
+        ))}
+        <span class="sunbox" aria-hidden="true"><span class="sun" data-sun></span></span>
+      </h1>
+    </div>
+
+    <div class="hero__bottom">
+      <div class="info hero__info hero__fade">
+        <p class="hero__lead">{h.lead}</p>
+        <p class="hero__body">{h.body}</p>
+        <div class="hero__actions">
+          {film.available && (
+            <a class="hero__film" href="#filmen" data-film-jump>
+              <span class="hero__film-icon" aria-hidden="true">
+                <svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0v14l12-7z" /></svg>
+              </span>
+              Se filmen
+            </a>
+          )}
+          <CtaLink class="btn--large" cta="primary" />
+        </div>
+      </div>
+      <p class="status-note hero__fade">{copy.status.text}</p>
     </div>
   </div>
 </section>

@@ -25,11 +25,11 @@ export const site = {
   meta: {
     title: 'Miljonkraft Botkyrka | Fler i arbete, starkare företag',
     description:
-      'Miljonbemanning vill skapa fler vägar till arbete i Botkyrka. Lär känna Miljonkraft, vårt arbetssätt och hur ert företags kompetensbehov kan bidra.',
+      'Miljonkraft Botkyrka för samman lokala företag och människor. Vi öppnar dörrar till arbete och ger företag kraft att växa. Ett initiativ från Miljonbemanning.',
     ogImage: '/og.png',
     ogImageAlt:
       'Miljonkraft Botkyrka. Fler i arbete. Starkare företag. Ett starkare Botkyrka. Ett initiativ från Miljonbemanning.',
-    themeColor: '#171d22',
+    themeColor: '#D7E5EB',
   },
 } as const;
 
@@ -113,7 +113,7 @@ export const nav = {
 
 export const copy = {
   hero: {
-    /** Avsändarnamnet Miljonkraft Botkyrka bärs av ordmärket i sidhuvudet direkt ovanför heron. */
+    label: 'Miljonkraft Botkyrka',
     byline: 'Ett initiativ från Miljonbemanning',
     /** Tre meningar, en per rad från 768 px. På smala skärmar bryts den tredje meningen naturligt. */
     headline: ['Fler i arbete.', 'Starkare företag.', 'Ett starkare Botkyrka.'],
@@ -124,17 +124,30 @@ export const copy = {
   },
   status: {
     text:
-      'Miljonbemanning och Botkyrka kommun har tecknat samarbetsavtal om Miljonkraft Botkyrka. Projektet startar om Svenska ESF-rådet beviljar stöd.',
+      'Miljonbemanning och Botkyrka kommun har tecknat samarbetsavtal om Miljonkraft Botkyrka.',
   },
-  trust: [
-    { fact: 'Rötter i Alby sedan 2012', note: 'Miljonbemanning' },
-    { fact: 'SvD Affärsbragd 2023', note: 'Miljonbemannings grundare' },
-  ],
+  /**
+   * Positionering enligt Miljonbemanning (Karim, 2026-10-07). Sidan ska inte läsas som ett bemanningsföretag.
+   * Miljonkraft är en samhällskraft som för samman lokala företag och människor.
+   */
+  manifest: {
+    id: 'samhallskraft',
+    label: 'Vilka vi är',
+    intro: 'Vi är en',
+    word: 'Samhällskraft',
+    rest: 'som för samman lokala företag och människor.',
+    /** Tre meningar. Den fetade delen markeras med asterisker. */
+    lines: [
+      { art: 'door', text: 'Vi öppnar *dörrar till arbete*.' },
+      { art: 'growth', text: 'Vi ger företag *kraft att växa*.' },
+      { art: 'city', text: 'Vi bygger ett samhälle där *fler får möjlighet att bidra*.' },
+    ],
+  },
   companies: {
     id: 'for-foretag',
     heading: 'Vi vill förstå vad ni behöver',
     questions: [
-      'Vilka arbetsuppgifter behöver ni hjälp med?',
+      'Vilka arbetsuppgifter väntar hos er framåt?',
       'Vad behöver en ny medarbetare kunna från första dagen?',
       'Vad kan ni lära ut på plats?',
     ],
@@ -187,16 +200,40 @@ export const copy = {
     heading: 'Vårt hjärta finns här',
     paragraphs: [
       'Miljonbemannings resa började i Alby 2012. Här finns våra rötter och viljan att se fler människor få möjlighet att bidra.',
-      'Vi är ett auktoriserat bemannings- och rekryteringsföretag och arbetar också med kompetensutveckling. För oss hör företagens utveckling och människors möjligheter ihop.',
+      'I dag för vi samman lokala företag och människor och arbetar med kompetensutveckling. För oss hör företagens utveckling och människors möjligheter ihop.',
       'Våra grundare tilldelades SvD Affärsbragd 2023. Det är ett erkännande vi är stolta över och en drivkraft att fortsätta arbetet här hemma.',
     ],
-    linkLabel: 'Läs mer om Miljonbemanning',
-    servicesLabel: 'Miljonbemanning arbetar med',
-    services: ['Bemanning', 'Rekrytering', 'Kompetensutveckling'],
+    label: 'Där allt började',
+    facts: [
+      { value: '2012', text: 'Resan började i Alby' },
+      { value: '5', text: 'Utmärkelser till oss och våra grundare' },
+      { value: '2023', text: 'SvD Affärsbragd till våra grundare' },
+    ],
+    /** Verifierade citat ur publika källor. Ändra aldrig ordalydelsen. */
+    quotes: [
+      {
+        text: 'Genom att leta efter talangerna på platser som valts bort av andra startade de en entreprenörsresa som är en på miljonen.',
+        who: 'Juryns motivering',
+        context: 'SvD Affärsbragd 2023',
+        source: 'https://www.botkyrka.se/naringsliv-och-foretag/naringslivet-i-botkyrka/naringslivsnyheter/2023-05-31-miljonbemanning-fick-medalj-av-prinsen',
+      },
+      {
+        text: 'Det som de har gjort i Alby är fantastiskt för den stadsdelen, men också för Botkyrka och hela Stockholmsregionen.',
+        who: 'Emanuel Ksiazkiewicz (S), kommunstyrelsens ordförande',
+        context: 'Botkyrka kommun, 31 maj 2023',
+        source: 'https://www.botkyrka.se/naringsliv-och-foretag/naringslivet-i-botkyrka/naringslivsnyheter/2023-05-31-miljonbemanning-fick-medalj-av-prinsen',
+      },
+    ],
+    sourceLabel: 'Källa Botkyrka kommun',
+    awardsLabel: 'Utmärkelser till oss och våra grundare',
+    awards: ['SvD Affärsbragd 2023', 'Årets Nybyggare', 'Årets Unga Pionjär', 'Årets Unga Företagare i Stockholm', 'Giraffpriset'],
   },
   vision: {
     id: 'vision',
     heading: 'Vi vill mer för Botkyrka',
+    label: 'Vår långsiktiga vision',
+    /** Utdrag ur visionsmeningen, satt som affischtext. Hela meningen står i texten. */
+    poster: ['Sveriges lägsta', 'arbetslöshet'],
     paragraphs: [
       'Vår långsiktiga vision på Miljonbemanning är att Botkyrka ska ha Sveriges lägsta arbetslöshet. Vi vill bidra till en kommun där människor kan bygga sin framtid och företag kan växa.',
       'Miljonkraft Botkyrka är ett planerat projekt för unga mellan 16 och 28 år som står utanför arbete och studier. Miljonbemanning är projektägare och Botkyrka kommun är strategisk samarbetspart.',
@@ -221,13 +258,26 @@ export const copy = {
     embedFallback:
       'Kalendern kunde inte visas här. Använd länken ovan för att öppna bokningen i ett nytt fönster.',
     contactHeading: 'Kontakt',
+    bigNumber: '30',
+    bigUnit: 'minuter',
+  },
+  film: {
+    id: 'filmen',
+    label: 'Filmen',
+    heading: 'Miljonkraft på en minut',
+    play: 'Spela filmen med ljud',
+    pause: 'Pausa filmen',
+    mute: 'Stäng av ljudet',
+    unmute: 'Slå på ljudet',
+    textToggle: 'Läs filmens text',
+    note: 'Musiken är skapad för filmen. Ljudet startar bara när du trycker på spela.',
   },
   faq: {
     id: 'fragor',
     heading: 'Vanliga frågor',
     items: [
       {
-        q: 'Behöver vi rekrytera just nu?',
+        q: 'Måste vi ha en ledig tjänst?',
         a: 'Nej. Vi vill också förstå era framtida behov och vilka kunskaper som blir viktiga i er verksamhet.',
       },
       {
@@ -235,12 +285,14 @@ export const copy = {
         a: 'Det planerade projektet riktar sig till unga mellan 16 och 28 år som står utanför arbete och studier.',
       },
       {
-        q: 'Har projektet startat?',
-        a: 'Miljonbemanning och Botkyrka kommun har tecknat samarbetsavtal. Projektet startar om Svenska ESF-rådet beviljar stöd.',
+        q: 'Hur går samtalet till?',
+        a: 'Vi pratar i 30 minuter om ert företag och vad ni behöver framöver. Vi kan ses digitalt, hos er eller hos oss i Alby.',
       },
     ],
   },
   footer: {
+    /** Miljonbemannings devis enligt grafiska profilen (logotyp med text). */
+    devise: 'Framtiden är nu.',
     name: 'Miljonkraft Botkyrka',
     byline: 'Ett initiativ från Miljonbemanning',
     links: [
@@ -255,4 +307,19 @@ export const copy = {
     text: 'Adressen leder ingenstans. Startsidan samlar allt om Miljonkraft Botkyrka och hur ni når Yacine.',
     linkLabel: 'Till startsidan',
   },
+} as const;
+
+/**
+ * Bilder ur Miljonbemannings bildbank i SharePoint (Marknad & Kommunikation › Bilder › BILDBANK).
+ * Originalen ligger i assets-src/bildbank och bearbetas med scripts/build-images.mjs.
+ */
+export const images = {
+  kontor: { src: '/img/kontor', w: 1400, h: 788, alt: 'En skrattande person vid ett möte i ett ljust kontor.', file: 'MB_bildbank_6.jpg' },
+  lager: { src: '/img/lager', w: 1200, h: 675, alt: 'En truck i ett lager med pallar och skivmaterial.', file: 'MB_bildbank_9.jpg' },
+  transport: { src: '/img/transport', w: 1200, h: 675, alt: 'Förarplatsen i en lastbil i motljus på väg ut.', file: 'MB_bildbank_10.jpg' },
+  mbVast: { src: '/img/mb-vast', w: 1400, h: 788, alt: 'Ryggen på en väst med Miljonbemannings märke MB med röd punkt.', file: 'MB_bildbank_33.jpg' },
+  /** Stående beskärningar (scripts/build-images.mjs) för höga paneler. */
+  mbVastPortrait: { src: '/img/mb-vast-portrait', w: 864, h: 1080, widths: [600, 864], fallback: '/img/mb-vast-portrait.jpg', alt: 'Ryggen på en väst med Miljonbemannings märke MB med röd punkt.' },
+  transportPortrait: { src: '/img/transport-portrait', w: 648, h: 1080, widths: [420, 648], fallback: '/img/transport-portrait.jpg', alt: 'Förarplatsen i en lastbil i motljus på väg ut.' },
+  lagerPortrait: { src: '/img/lager-portrait', w: 648, h: 1080, widths: [420, 648], fallback: '/img/lager-portrait.jpg', alt: 'En truck i ett lager med pallar och skivmaterial.' },
 } as const;

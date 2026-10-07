@@ -1,0 +1,10 @@
+---
+/** Miljonbemannings tertiära logotyp (MB.) i originalfil. Färgas aldrig om. */
+interface Props { class?: string; height?: number; alt?: string }
+const { class: className, height = 28, alt = 'Miljonbemanning' } = Astro.props;
+const width = Math.round((341 / 120) * height);
+---
+<picture class={className}>
+  <source srcset="/img/mb-logo.webp" type="image/webp" />
+  <img src="/img/mb-logo.png" width={width} height={height} alt={alt} decoding="async" />
+</picture>

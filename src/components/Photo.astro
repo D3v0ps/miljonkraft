@@ -1,0 +1,24 @@
+---
+/** Responsiv bild ur bildbanken med webp och jpg som reserv. Mått anges alltid för att undvika layoutskift. */
+interface Props {
+  img: { src: string; w: number; h: number; alt: string; fallback?: string };
+  widths: readonly number[];
+  sizes: string;
+  class?: string;
+  eager?: boolean;
+  decorative?: boolean;
+}
+const { img, widths, sizes, class: className, eager = false, decorative = false } = Astro.props;
+const srcset = widths.map((w) => `${img.src}-${w}.webp ${w}w`).join(', ');
+---
+<picture class={className}>
+  <source type="image/webp" srcset={srcset} sizes={sizes} />
+  <img
+    src={img.fallback ?? `${img.src}-1200.jpg`}
+    width={img.w}
+    height={img.h}
+    alt={decorative ? '' : img.alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+  />
+</picture>

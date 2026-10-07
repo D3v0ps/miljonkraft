@@ -37,6 +37,7 @@ const jsonLd = withJsonLd ? JSON.stringify(buildJsonLd()) : null;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />

@@ -1,35 +1,54 @@
 ---
-import { booking, contact, copy } from '../config/site';
+import { contact, copy } from '../config/site';
 import { resolveBooking } from '../lib/booking';
 import CtaLink from './CtaLink.astro';
-import StepMark from './StepMark.astro';
 const b = resolveBooking();
 const s = copy.bookingSection;
 ---
 
 <section class="section booking" id={s.id} aria-labelledby="booking-heading">
-  <div class="section__inner booking__inner">
-    <div class="booking__intro">
-      <StepMark class="booking__mark" />
-      <h2 id="booking-heading" class="booking__heading">{b.heading}</h2>
-      {s.intro.map((p) => <p class="booking__text">{p}</p>)}
+  <div class="container booking__grid">
+    <div class="clock" aria-hidden="true" data-clock>
+      <svg viewBox="0 0 100 100" fill="none">
+        <circle class="clock__track" cx="50" cy="50" r="47" stroke-width="2" />
+        <circle class="clock__arc" cx="50" cy="50" r="47" stroke-width="4" pathLength="100" stroke-dasharray="50 100" />
+      </svg>
+      <p><span class="clock__num">{s.bigNumber}</span><span class="clock__unit">{s.bigUnit}</span></p>
+    </div>
+
+    <div class="info booking__content">
+      <p class="label label--dot" data-reveal>{b.isReal ? 'Boka ett samtal' : 'Hör av er'}</p>
+      <h2 id="booking-heading" class="booking__heading" data-reveal>{b.heading}</h2>
+      <div class="booking__text" data-reveal>
+        {s.intro.map((p) => <p>{p}</p>)}
+      </div>
       {b.formatLine && <p class="booking__format">{b.formatLine}</p>}
       <p class="booking__instruction">{b.instruction}</p>
 
       {b.mode !== 'shared_embed' && (
         <p class="booking__action">
-          <CtaLink class="button--large" cta="primary-booking" />
+          <CtaLink class="btn--large" cta="primary-booking" />
         </p>
       )}
+
+      <address class="booking__card">
+        <p class="label">{s.contactHeading}</p>
+        <p class="booking__name">{contact.name}</p>
+        <p class="booking__role">{contact.role}<br />{contact.organization}, {contact.place}</p>
+        <ul class="booking__contact">
+          <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+          <li><a href={`mailto:${contact.email}`}>{contact.email.split('@')[0]}@<wbr />{contact.email.split('@')[1]}</a></li>
+        </ul>
+      </address>
     </div>
 
     {b.mode === 'shared_embed' && (
       <div class="booking__embed" data-booking-embed style={`--embed-height: ${b.embedHeightPx}px`}>
         <p class="booking__embed-link">
-          <a href={b.publicUrl} target="_blank" rel="noopener" data-event="booking_open">{s.openInNewWindow}</a>
+          <a href={b.publicUrl} target="_blank" rel="noopener" data-event="booking_open">{s.openInNewWindow}<span class="visually-hidden"> (öppnas i nytt fönster)</span></a>
         </p>
         <div class="booking__frame" data-booking-frame>
-          <button type="button" class="button button--primary button--large" data-booking-load data-event="booking_open">{s.embedLoadLabel}</button>
+          <button type="button" class="btn btn--large" data-booking-load data-event="booking_open">{s.embedLoadLabel}</button>
           <noscript>
             <style>[data-booking-load] { display: none; }</style>
             <p class="booking__fallback">{s.embedFallback}</p>
@@ -47,16 +66,6 @@ const s = copy.bookingSection;
         </div>
       </div>
     )}
-
-    <address class="booking__card">
-      <p class="booking__card-heading">{s.contactHeading}</p>
-      <p class="booking__name">{contact.name}</p>
-      <p class="booking__role">{contact.role}<br />{contact.organization}, {contact.place}</p>
-      <ul class="booking__contact">
-        <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
-        <li><a href={`mailto:${contact.email}`}>{contact.email.split('@')[0]}@<wbr />{contact.email.split('@')[1]}</a></li>
-      </ul>
-    </address>
   </div>
 </section>
 

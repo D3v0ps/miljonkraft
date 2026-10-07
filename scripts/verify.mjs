@@ -18,7 +18,21 @@ const widths = [
   { w: 390, h: 844, name: '390' },
   { w: 768, h: 1024, name: '768' },
   { w: 1440, h: 900, name: '1440' },
+  { w: 1920, h: 1080, name: '1920' },
 ];
+
+// Skrollar igenom sidan så att allt som avtäcks vid skroll är synligt innan axe körs.
+async function revealAll(page) {
+  await page.evaluate(async () => {
+    const step = Math.round(window.innerHeight * 0.7);
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo({ top: y, behavior: 'instant' });
+      await new Promise((r) => setTimeout(r, 60));
+    }
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+  await page.waitForTimeout(1800);
+}
 const report = { baseUrl, checkedAt: new Date().toISOString(), viewports: {}, keyboard: {}, noJs: {}, reducedMotion: {}, links: {}, axe: {} };
 
 await mkdir(outDir, { recursive: true });
@@ -56,8 +70,9 @@ for (const v of widths) {
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(1200);
+  await page.waitForTimeout(2200);
   await page.screenshot({ path: `${outDir}/${v.name}-first.png` });
-  await page.screenshot({ path: `${outDir}/${v.name}-full.png`, fullPage: true });
+  await revealAll(page);
   const overflow = await overflowInfo(page);
   const metrics = await page.evaluate(() => {
     const h1 = document.querySelector('h1');
@@ -153,7 +168,7 @@ for (const v of [widths[1], widths[3]]) {
   }
   // Menyknapp med tangentbord (bara mobil).
   let menu = null;
-  if (v.w < 900) {
+  if (v.w < 1024) {
     const btn = page.locator('[data-menu-toggle]');
     if (await btn.count()) {
       await btn.focus();
@@ -183,9 +198,9 @@ for (const v of [widths[1], widths[3]]) {
     telLinks: [...document.querySelectorAll('a[href^="tel:"]')].map((a) => a.getAttribute('href')),
     mailLinks: [...document.querySelectorAll('a[href^="mailto:"]')].length,
     navLinksVisible: [...document.querySelectorAll('header nav a')].filter((a) => a.getBoundingClientRect().height > 0).length,
-    statusVisible: !!document.querySelector('[data-status]') && document.querySelector('[data-status]').getBoundingClientRect().height > 0,
+    statusVisible: !!document.querySelector('.status-note') && document.querySelector('.status-note').getBoundingClientRect().height > 0,
   }));
-  await page.screenshot({ path: `${outDir}/390-nojs-full.png`, fullPage: true });
+  await page.screenshot({ path: `${outDir}/390-nojs-first.png` });
   report.noJs = r;
   await ctx.close();
 }

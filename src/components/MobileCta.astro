@@ -3,7 +3,7 @@ import CtaLink from './CtaLink.astro';
 ---
 
 <aside class="mobile-cta" data-mobile-cta hidden aria-label="Kontakt">
-  <CtaLink cta="mobile" />
+  <CtaLink cta="mobile" forceShort={true} />
 </aside>
 
 <script>
@@ -12,7 +12,7 @@ import CtaLink from './CtaLink.astro';
   const bar = document.querySelector<HTMLElement>('[data-mobile-cta]');
   const heroCta = document.querySelector<HTMLElement>('[data-cta="primary"]');
   const bookingSection = document.getElementById('boka');
-  const narrow = window.matchMedia('(max-width: 899.98px)');
+  const narrow = window.matchMedia('(max-width: 1023.98px)');
   if (bar && heroCta && bookingSection && 'IntersectionObserver' in window) {
     bar.hidden = false;
     const syncWidth = () => document.documentElement.classList.toggle('has-mobile-cta', narrow.matches);
@@ -23,11 +23,9 @@ import CtaLink from './CtaLink.astro';
     const update = () => {
       const visible = passedHero && !bookingVisible;
       bar.classList.toggle('is-visible', visible);
-      // Baren ska bara gå att nå med tangentbord och skärmläsare när den syns.
       bar.inert = !visible;
     };
     update();
-    // Visas först när hero-knappen har passerat ovanför skärmen, inte när den ligger nedanför.
     new IntersectionObserver(([e]) => { passedHero = !e.isIntersecting && e.boundingClientRect.top < 0; update(); }, { threshold: 0 }).observe(heroCta);
     new IntersectionObserver(([e]) => { bookingVisible = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(bookingSection);
   }

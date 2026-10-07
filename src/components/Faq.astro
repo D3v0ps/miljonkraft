@@ -1,12 +1,17 @@
 ---
 import { copy } from '../config/site';
+import { splitHeading } from '../lib/heading';
 const faq = copy.faq;
+const [bold, thin] = splitHeading(faq.heading, 1);
 ---
 
 <section class="section faq" id={faq.id} aria-labelledby="faq-heading">
-  <div class="section__inner faq__inner">
-    <h2 id="faq-heading" class="faq__heading">{faq.heading}</h2>
-    <div class="faq__list">
+  <div class="container faq__grid">
+    <div>
+      <p class="label label--dot" data-reveal>Frågor och svar</p>
+      <h2 id="faq-heading" class="head__title" data-reveal>{bold} <span class="thin">{thin}</span></h2>
+    </div>
+    <div class="faq__list" data-reveal>
       {faq.items.map((item) => (
         <details class="faq__item" name="faq">
           <summary class="faq__question">{item.q}</summary>

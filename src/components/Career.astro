@@ -1,31 +1,62 @@
 ---
-import { copy } from '../config/site';
+import { copy, images } from '../config/site';
+import { splitHeading } from '../lib/heading';
+import CareerArt from './CareerArt.astro';
 const c = copy.career;
+const [bold, thin] = splitHeading(c.heading, 1);
+// Foton för första och sista steget, egna illustrationer för stegen däremellan.
+interface Img { src: string; w: number; h: number }
+interface TallImg extends Img { widths: readonly number[] }
+const photos: Record<number, { wide: Img; tall: TallImg }> = {
+  0: { wide: images.lager, tall: images.lagerPortrait },
+  [c.path.length - 1]: { wide: images.transport, tall: images.transportPortrait },
+};
+const arts = ['truck', 'system', 'network'] as const;
+// Långa sammansatta ord får ett mjukt bindestreck så att de kan brytas i smala kolumner.
+const soft = (s: string) => s.replace('Transportplanering', 'Transport­planering').replace('Kompetensutveckling', 'Kompetens­utveckling');
 ---
 
 <section class="section career" id={c.id} aria-labelledby="career-heading">
-  <div class="section__inner">
-    <div class="section__intro">
-      <h2 id="career-heading">{c.heading}</h2>
-      {c.paragraphs.map((p) => <p>{p}</p>)}
+  <div class="container">
+    <div class="head">
+      <div>
+        <p class="label label--dot" data-reveal>Nästa steg</p>
+        <h2 id="career-heading" class="head__title" data-reveal>{bold} <span class="thin">{thin}</span></h2>
+      </div>
+      <div class="info" data-reveal>
+        {c.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
     </div>
+
     <figure class="career__figure">
       <figcaption class="career__caption">
-        <span class="career__caption-title">{c.exampleLabel}</span>
+        <span class="label">{c.exampleLabel}</span>
         <span class="legend" aria-hidden="true">
           <span><i class="legend__role"></i>{c.legend.role}</span>
           <span><i class="legend__skill"></i>{c.legend.skill}</span>
         </span>
       </figcaption>
       <ol class="path">
-        {c.path.map((step) => (
-          <li data-kind={step.kind}>
-            <span class="path__tread">
-              <span class="path__kind">{step.kind === 'role' ? c.legend.role : c.legend.skill}</span>
-              {step.label}
-            </span>
-          </li>
-        ))}
+        {c.path.map((step, i) => {
+          const ph = photos[i];
+          return (
+            <li class="path__step" data-kind={step.kind} data-photo={ph ? '' : undefined} data-reveal style={`transition-delay:${i * 90}ms`}>
+              {ph ? (
+                <picture>
+                  <source type="image/webp" media="(min-width: 1024px)" srcset={ph.tall.widths.map((w) => `${ph.tall.src}-${w}.webp ${w}w`).join(', ')} sizes="18vw" />
+                  <source type="image/webp" srcset={`${ph.wide.src}-640.webp 640w, ${ph.wide.src}-1200.webp 1200w`} sizes="90vw" />
+                  <img src={`${ph.wide.src}-1200.jpg`} width={ph.wide.w} height={ph.wide.h} alt="" loading="lazy" decoding="async" />
+                </picture>
+              ) : (
+                <CareerArt art={arts[(i - 1) % arts.length]} />
+              )}
+              <span class="path__body">
+                <span class="path__kind">{soft(step.kind === 'role' ? c.legend.role : c.legend.skill)}</span>
+                <span class="path__name">{soft(step.label)}</span>
+              </span>
+            </li>
+          );
+        })}
       </ol>
     </figure>
   </div>
