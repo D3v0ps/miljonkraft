@@ -13,7 +13,7 @@ import CtaLink from './CtaLink.astro';
   const heroCta = document.querySelector<HTMLElement>('[data-cta="primary"]');
   const bookingSection = document.getElementById('boka');
   const narrow = window.matchMedia('(max-width: 1023.98px)');
-  if (bar && heroCta && bookingSection && 'IntersectionObserver' in window) {
+  if (bar && heroCta && bookingSection) {
     bar.hidden = false;
     const syncWidth = () => document.documentElement.classList.toggle('has-mobile-cta', narrow.matches);
     syncWidth();
@@ -25,8 +25,23 @@ import CtaLink from './CtaLink.astro';
       bar.classList.toggle('is-visible', visible);
       bar.inert = !visible;
     };
-    update();
-    new IntersectionObserver(([e]) => { passedHero = !e.isIntersecting && e.boundingClientRect.top < 0; update(); }, { threshold: 0 }).observe(heroCta);
-    new IntersectionObserver(([e]) => { bookingVisible = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(bookingSection);
+    // Läget räknas vid varje skroll, så att även hopp via menylänkar (som aldrig passerar knappen) ger rätt läge.
+    let queued = false;
+    const check = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      passedHero = heroCta.getBoundingClientRect().bottom < 0;
+      const r = bookingSection.getBoundingClientRect();
+      bookingVisible = r.top < vh * 0.85 && r.bottom > vh * 0.15;
+      update();
+    };
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
   }
 </script>
