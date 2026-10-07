@@ -1,69 +1,54 @@
 # Kvalitetsrapport Miljonkraft.se
 
-Slutkörning 7 oktober 2026 mot det slutliga bygget (`npm run build`, förhandsvisning via `astro preview` på localhost). Skärmbilderna i `docs/screenshots/` och rapporterna i `docs/verification/` kommer från denna körning. Alla skärmbilder har öppnats och granskats, inte bara sparats.
+Affischversionen, 7 oktober 2026. Körningar mot det byggda resultatet (`npm run build`, förhandsvisning via `astro preview` på localhost) och mot den publicerade adressen www.miljonkraft.se. Skärmbilderna i `docs/screenshots/` och rapporterna i `docs/verification/` kommer från dessa körningar och har öppnats och granskats.
 
 ## Sammanfattning
 
 | Kontroll | Resultat |
 | --- | --- |
 | Bygge och typkontroll | `npm run build` och `npx astro check` utan fel |
-| Horisontell överrinning vid 320, 390, 768, 1440 och 200 % zoom (720 px) | Ingen |
-| axe-core (WCAG 2.0/2.1/2.2 A och AA samt best practice) vid 320, 390, 768, 1440 | 0 regelbrott |
-| Tangentbord | Synlig fokusring på alla fokuserade element, inga träffytor under 24 px, mobilmenyn öppnas med Enter, Tab når första länken, Escape stänger och fokus återgår till knappen |
-| Utan JavaScript | Rubrik, alla åtta modellsteg, statusrad, telefon- och mejllänkar, navigationens länkar och huvudknappen finns och fungerar |
-| Reducerad rörelse | Inga element animerar |
-| Länkar | Alla ankare finns, externa länkar har rel="noopener", telefonlänk tel:+46762943431 |
-| Statuskoder i förhandsvisning | Startsida 200, saknad sida 404, sitemap 200 |
-| Kontrast (scripts/contrast.mjs) | Alla 20 textpar och kontrollpar klarar WCAG AA, se `node scripts/contrast.mjs` |
+| Horisontell överrinning vid 320, 390, 768, 1440, 1920 och 200 % zoom | Ingen |
+| axe-core (WCAG 2.0, 2.1, 2.2 A och AA samt best practice) vid 320, 390, 768, 1440, 1920 | 0 regelbrott, efter att hela sidan skrollats så att allt avtäckts |
+| Tangentbord | Synlig fokusring på alla fokuserade element. Mobilmenyn öppnas med Enter, Escape stänger och fokus återgår |
+| Utan JavaScript | Rubrik, alla åtta modellsteg, samarbetsavtalet, telefon- och mejllänkar, menyn och huvudknappen finns och fungerar. Menyn ligger i flödet |
+| Reducerad rörelse | Inga element animerar. Himlen ritas inte i WebGL, affischen står still |
+| Kontrast (`node scripts/contrast.mjs`) | Alla textpar klarar WCAG AA, även texten mot himlens mörkaste blå och mot solskenet |
 | Lighthouse mobil (labb) | Performance 100, Accessibility 100, Best practices 100, SEO 100 |
-| Lighthouse dator (labb) | Performance 100, Accessibility 100, Best practices 100, SEO 100 |
-
-## Mätvärden per skärmbredd
-
-| Bredd | H1-rader | H1-storlek | Brödtext | Knapp på första skärmen | Överrinning | axe-fel |
-| --- | --- | --- | --- | --- | --- | --- |
-| 320 | 4 | 31.68px | 16px | ja | nej | 0 |
-| 390 | 4 | 34.76px | 16.175px | ja | nej | 0 |
-| 768 | 3 | 51.392px | 17px | ja | nej | 0 |
-| 1440 | 3 | 60px | 17px | ja | nej | 0 |
-
-Första skärmen på 320 × 568 visar avsändare, budskap och knapp (kort etikett). På 1024 × 768 och 1366 × 768 ligger huvudknappen ovanför vikningen (se `1024-first.png` och `1366-first.png`).
+| Lighthouse dator (labb) | Performance 99, Accessibility 100, Best practices 100, SEO 100 |
+| Publicerad sajt | www.miljonkraft.se svarar 200, miljonkraft.se omdirigeras dit med 308, saknad sida ger 404, `/integritet` leder till `/integritet/`, produktionen har `index, follow` |
 
 ## Lighthouse, labbvärden
 
-Körning med Lighthouse 13.5.0 i headless Chromium mot `http://127.0.0.1:4321/`. Mobilprofilen använder Lighthouse standardemulering (Moto G Power, simulerad långsam 4G). Värdena är labbvärden mot en lokal server och säger inget om verkliga fältvärden på den publicerade sajten.
+Lighthouse 13.5 i headless Chromium mot `http://127.0.0.1:4321/`. Mobilprofilen använder standardemuleringen (simulerad långsam 4G, fyrdubbel processorbroms).
 
 | Mått | Mobil | Dator |
 | --- | --- | --- |
-| First Contentful Paint | 0.7 s | 0.2 s |
-| Largest Contentful Paint | 1.2 s | 0.3 s |
-| Total Blocking Time | 0 ms | 0 ms |
+| First Contentful Paint | 1.0 s | 0.3 s |
+| Largest Contentful Paint | 1.5 s | 0.4 s |
+| Total Blocking Time | 0 ms | 100 ms |
 | Cumulative Layout Shift | 0 | 0 |
-| Speed Index | 0.7 s | 0.2 s |
+| Speed Index | 1.4 s | 0.7 s |
 
-Målen LCP högst 2,5 s, INP högst 200 ms och CLS högst 0,1 avser verkliga besök vid 75:e percentilen och kan bara bekräftas med fältdata efter publicering. Mätning efter att bokningen öppnats är inte relevant i läget contact_only, eftersom ingen inbäddning laddas. Den ska göras om när shared_embed aktiveras.
+WebGL-himlen ritas bara på datorer med grafikkort. I mjukvarurendering, som i Lighthouse, står CSS-himlen kvar. Det är samma färger, så sidan ser likadan ut utan solstrålar och moln. Fältvärden för Core Web Vitals kan bara bekräftas efter en tids verkliga besök.
 
-Rapporter: `docs/verification/lighthouse-mobile.report.html`, `docs/verification/lighthouse-desktop.report.html`, `docs/verification/report.json`.
+## Fel som hittades och rättades under granskningen
 
-## Vad som granskats av oberoende granskare
-
-Tre granskningsrundor kördes med separata granskare och två motläsare per fynd.
-
-1. **Designpanel.** Tre förslag, två domare. Resultat i `docs/HANDOVER.md` avsnitt 3.
-2. **Kodgranskning i sex linser** (innehållstrohet mot masterprompten, svenska och UX-text, SEO och strukturerad data, tillgänglighet, bokningsmodulens tre lägen i isolerad arbetskopia, prestanda och rörelse). 37 fynd, varav 12 bekräftade efter motläsning och 25 avvisade eller redan åtgärdade. Samtliga bekräftade fynd är åtgärdade, inklusive sju textfynd som åtgärdades innan motläsningen hann köras.
-3. **Visuell granskning i fem linser** på renderade skärmbilder (typografi, komposition, mobil 320 och 390, Taste pre-flight, särprägel). Åtgärdat: felaktig linje i Miljonmodellens rutnät, Karriärstegen som verklig trappa, treradig rubrik på dator, luft under heroknappen, Vision som lodrät stapel, vänsterställd FAQ, linjer över hela bredden, mobiltrappa med snäpp, knapp på första skärmen vid 320 × 568, etiketter på herotrappan, markering vid bokningsrubriken, plats i kontaktkortet.
-
-Bokningsmodulen testades i alla tre lägen med exempeladresser (bygge, knapptexter, nya fönster, iframe-mall, reservlänk, ogiltig adress stoppar bygget). Riktig bokning är inte ansluten, se `docs/BOOKING_SETUP.md`.
+- Affischraderna rann över med några procent. Orsaken var ärvd spärrning: em räknades mot rubrikens grundstorlek. Spärrningen sätts nu på varje rad.
+- Bildpaneler avtäcktes aldrig, eftersom panelens egen klippning dolde den för skrollobservatören. Klippningen ligger nu på bilden.
+- Linjeteckningar ritades inte fram i Chrome. Attributväljaren `[pathLength]` gav ingen omstilning när steget avtäcktes. Elementväljare används i stället.
+- Konturtext visade inre linjer, eftersom variabla typsnitt har överlappande konturer. Fyllning i bakgrundsfärg över en dubbelt så bred kontur döljer dem.
+- Den fasta mobilknappen visades inte efter hopp via menylänkar. Läget räknas nu vid skroll.
+- Utan JavaScript låg mobilmenyn över affischen. Den ligger nu i flödet.
+- Etiketter i blått mot himlens överkant klarade inte kontrastkravet. De är nu antracit.
+- Canonical pekade på miljonkraft.se, som Vercel omdirigerar till www. Canonical, sitemap och robots.txt pekar nu på www.miljonkraft.se.
 
 ## Skärmbilder
 
-Första skärmen och hela sidan vid 320, 390, 768 och 1440 px, samt 1024 och 1366 (laptop), öppen mobilmeny, fokusläge, fast mobilknapp, reducerad rörelse, utan JavaScript, 200 % zoom, 404 och integritetssidan. Alla i `docs/screenshots/`.
+Första skärmen vid 320, 390, 768, 1024, 1366, 1440 och 1920 px, öppen mobilmeny, fokusläge, fast mobilknapp, reducerad rörelse, utan JavaScript, 200 % zoom, 404 och integritetssidan. Alla i `docs/screenshots/`.
 
 ## Återstående kontroller
 
-- Verklig domän, omdirigeringar och statuskoder på den valda värden.
-- Google Search Console och Bing Webmaster Tools (domänverifiering, sitemap).
-- Microsoft Bookings-anslutning och en godkänd testbokning hela vägen till bekräftelse.
+- Microsoft Bookings och en godkänd testbokning hela vägen till bekräftelse.
+- Google Search Console och Bing Webmaster Tools.
+- JSON-LD i Schema Markup Validator mot den publicerade adressen.
 - Fältvärden för Core Web Vitals efter publicering.
-- Kontroll av JSON-LD i Schema Markup Validator och Googles Rich Results Test mot den publicerade adressen.
-- Granskning mot den egna skillen project-design och startpaketets instruktioner, som inte fanns tillgängliga.
