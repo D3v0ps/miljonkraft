@@ -4,14 +4,14 @@ import { film } from '../lib/film';
 import { splitHeading } from '../lib/heading';
 const f = copy.film;
 const [bold, thin] = splitHeading(f.heading, 1);
-const fmt = (s: number) => `${Math.floor(s / 60)}.${String(Math.round(s % 60)).padStart(2, '0')}`;
+const fmt = (s: number) => `${Math.round(s)} s`;
 ---
 
 {film.available && (
   <section class="section film" id={f.id} aria-labelledby="film-heading">
     <div class="container">
       <div class="head">
-        <div>
+        <div class="head__col">
           <p class="label label--dot" data-reveal>{f.label}</p>
           <h2 id="film-heading" class="head__title" data-reveal>{bold} <span class="thin">{thin}</span></h2>
         </div>
@@ -23,7 +23,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}.${String(Math.round(s % 60)).p
           controls
           playsinline
           preload="none"
-          poster={film.poster}
+          poster={film.posterWebp ?? film.poster}
           width="1920"
           height="1080"
           aria-describedby="film-text-summary"
@@ -51,7 +51,11 @@ const fmt = (s: number) => `${Math.floor(s / 60)}.${String(Math.round(s % 60)).p
           <summary id="film-text-summary">{f.textToggle}</summary>
           <ol>
             {film.scenes.map((s) => (
-              <li><span class="film__time">{fmt(s.start)}</span> {s.text.join(' ')}</li>
+              <li>
+                <span class="film__time">{fmt(s.start)}</span>
+                {s.visual && <span class="film__visual">{s.visual}</span>}
+                {s.text.length > 0 && <span class="film__onscreen">{s.text.join(' ')}</span>}
+              </li>
             ))}
           </ol>
         </details>

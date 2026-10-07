@@ -117,7 +117,7 @@ export const nav = {
 
 export const copy = {
   hero: {
-    label: 'Miljonkraft Botkyrka',
+    label: 'Samhällskraft i Botkyrka',
     byline: 'Ett initiativ från Miljonbemanning',
     /** Tre meningar, en per rad från 768 px. På smala skärmar bryts den tredje meningen naturligt. */
     headline: ['Fler i arbete.', 'Starkare företag.', 'Ett starkare Botkyrka.'],
@@ -147,15 +147,16 @@ export const copy = {
       { art: 'city', text: 'Vi bygger ett samhälle där *fler får möjlighet att bidra*.' },
     ],
   },
+  /** Bevisen samlade i ett kapitel direkt efter Samhällskraft: kommunens citat, fakta, juryns motivering, utmärkelser och avtalet. */
   proof: {
     id: 'kommunen',
-    label: 'Botkyrka kommun om Alby',
+    label: 'Kommunen om arbetet i Alby',
   },
   companies: {
     id: 'for-foretag',
     heading: 'Vi vill förstå vad ni behöver',
     questions: [
-      'Vilka arbetsuppgifter väntar hos er framåt?',
+      'Vilka arbetsuppgifter väntar hos er framöver?',
       'Vad behöver en ny medarbetare kunna från första dagen?',
       'Vad kan ni lära ut på plats?',
     ],
@@ -209,11 +210,10 @@ export const copy = {
     paragraphs: [
       'Miljonbemannings resa började i Alby 2012. Här finns våra rötter och viljan att se fler människor få möjlighet att bidra.',
       'I dag för vi samman lokala företag och människor och arbetar med kompetensutveckling. För oss hör företagens utveckling och människors möjligheter ihop.',
-      'Våra grundare tilldelades SvD Affärsbragd 2023. Det är ett erkännande vi är stolta över och en drivkraft att fortsätta arbetet här hemma.',
     ],
     label: 'Där allt började',
     facts: [
-      { value: '2012', text: 'Resan började i Alby' },
+      { value: '2012', text: 'Starten i Alby' },
       { value: '5', text: 'Utmärkelser till oss och våra grundare' },
       { value: '2023', text: 'SvD Affärsbragd till våra grundare' },
     ],
@@ -231,12 +231,14 @@ export const copy = {
         featured: true,
         text: 'Det som de har gjort i Alby är fantastiskt för den stadsdelen, men också för Botkyrka och hela Stockholmsregionen.',
         who: 'Emanuel Ksiazkiewicz (S), kommunstyrelsens ordförande',
-        context: 'Botkyrka kommun, 31 maj 2023',
+        context: 'Om SvD Affärsbragd till Miljonbemannings grundare. Botkyrka kommun, 31 maj 2023',
         source: 'https://www.botkyrka.se/naringsliv-och-foretag/naringslivet-i-botkyrka/naringslivsnyheter/2023-05-31-miljonbemanning-fick-medalj-av-prinsen',
       },
     ],
-    sourceLabel: 'Källa Botkyrka kommun',
-    awardsLabel: 'Utmärkelser till oss och våra grundare',
+    sourceLabel: 'Källa botkyrka.se',
+    awardsLabel: 'Utmärkelserna',
+    /** Avslutar bevisen. Avtalet står som eget slag efter utmärkelserna. */
+    agreementLabel: 'Samarbetsavtal',
     awards: ['SvD Affärsbragd 2023', 'Årets Nybyggare', 'Årets Unga Pionjär', 'Årets Unga Företagare i Stockholm', 'Giraffpriset'],
   },
   vision: {
@@ -281,7 +283,7 @@ export const copy = {
     mute: 'Stäng av ljudet',
     unmute: 'Slå på ljudet',
     textToggle: 'Läs filmens text',
-    note: 'Musiken är skapad för filmen. Ljudet startar bara när du trycker på spela.',
+    note: 'Musiken är skapad för filmen. Ljudet startar bara när ni trycker på spela.',
   },
   faq: {
     id: 'fragor',

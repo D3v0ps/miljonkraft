@@ -59,7 +59,7 @@ Produktionsadressen är `https://www.miljonkraft.se` och sätts i `src/config/si
 
 ### Vercel
 
-Vercel är kopplat till repot. Varje push till `main` publiceras på miljonkraft.se.
+Vercel är kopplat till repot. Varje push till `main` publiceras på www.miljonkraft.se.
 
 `vercel.json` anger Astro-preset, avslutande snedstreck och två säkerhetshuvuden. Omdirigeringen mellan domänerna sköts i Vercels domäninställningar. Astros `dist/404.html` serveras av Vercel med statuskod 404.
 

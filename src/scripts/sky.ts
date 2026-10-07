@@ -2,7 +2,7 @@
  * Himlen bakom affischen. En ljus dagshimmel i profilens blå toner med mjuka moln,
  * ett varmt sken och solstrålar runt MB-punkten. Ritas bara när något ändras
  * (inledningen, skroll, muspekare eller ny storlek), aldrig i en evig loop.
- * Saknas WebGL syns CSS-gradienten under, som har samma färger.
+ * Saknas WebGL syns CSS-gradienten under, i samma toner ur profilen (#AECBD7, #D7E5EB, vitt).
  */
 const VERT = `attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
 
@@ -23,8 +23,7 @@ void main(){
   float y=uv.y;
   vec3 top=vec3(.682,.796,.843);
   vec3 mid=vec3(.843,.898,.922);
-  vec3 low=vec3(.933,.957,.965);
-  vec3 col=mix(low,mid,smoothstep(.0,.62,y));
+  vec3 col=mix(vec3(1.),mid,smoothstep(.0,.62,y));
   col=mix(col,top,smoothstep(.55,1.,y));
   col=mix(vec3(1.),col,smoothstep(.0,.42,y));
   vec2 s=uSun.xy/uRes;
@@ -171,7 +170,7 @@ export function startSky(canvas: HTMLCanvasElement, still: boolean) {
   }
   new ResizeObserver(() => {
     resize();
-    request();
+    draw();
   }).observe(canvas);
   canvas.addEventListener('webglcontextlost', () => canvas.classList.remove('is-ready'));
 }

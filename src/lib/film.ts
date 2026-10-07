@@ -8,7 +8,7 @@ import { join } from 'node:path';
 const dir = join(process.cwd(), 'public', 'film');
 const base = '/film/miljonkraft-film';
 
-export interface FilmScene { start: number; end: number; title?: string; text: string[] }
+export interface FilmScene { start: number; end: number; title?: string; visual?: string; text: string[] }
 
 function readText(): FilmScene[] {
   const file = join(dir, 'miljonkraft-film-text.json');
@@ -22,11 +22,12 @@ function readText(): FilmScene[] {
         start: Number(s.start ?? 0),
         end: Number(s.end ?? 0),
         title: typeof s.title === 'string' ? s.title : typeof s.chapter === 'string' ? s.chapter : undefined,
+        visual: typeof s.visual === 'string' && s.visual.trim() ? s.visual.trim() : undefined,
         text: (Array.isArray(lines) ? lines : [lines]).map((l) =>
           l && typeof l === 'object' && 'text' in (l as Record<string, unknown>) ? String((l as Record<string, unknown>).text) : String(l),
-        ),
+        ).filter((t) => t.trim().length > 0),
       };
-    });
+    }).filter((sc: FilmScene) => sc.visual || sc.text.length > 0);
   } catch {
     return [];
   }
@@ -41,7 +42,11 @@ export const film = {
   webm: has('miljonkraft-film-1080.webm') ? `${base}-1080.webm` : null,
   vertical: has('miljonkraft-film-vertikal.mp4') ? `${base}-vertikal.mp4` : null,
   poster: `${base}-poster.jpg`,
-  posterVertical: has('miljonkraft-film-poster-vertikal.jpg') ? `${base}-poster-vertikal.jpg` : null,
+  posterVertical: has('miljonkraft-film-poster-vertikal.webp')
+    ? `${base}-poster-vertikal.webp`
+    : has('miljonkraft-film-poster-vertikal.jpg')
+      ? `${base}-poster-vertikal.jpg`
+      : null,
   posterWebp: has('miljonkraft-film-poster.webp') ? `${base}-poster.webp` : null,
   chapters: has('miljonkraft-film-kapitel.vtt') ? `${base}-kapitel.vtt` : null,
   scenes: readText(),

@@ -7,7 +7,7 @@ const [bold, thin] = splitHeading(v.heading, 3);
 const [statement, ...rest] = v.paragraphs;
 ---
 
-<section class="section vision" id={v.id} aria-labelledby="vision-heading">
+<section class="section vision" id={v.id} aria-labelledby="vision-heading" data-progress="through">
   <span class="vision__sun" aria-hidden="true"></span>
   <div class="container">
     <p class="label label--dot" data-reveal>{v.label}</p>
@@ -22,7 +22,6 @@ const [statement, ...rest] = v.paragraphs;
       </div>
       <div class="info vision__text" data-reveal>
         {rest.map((p) => <p>{p}</p>)}
-        <p class="status-note vision__status">{copy.status.text}</p>
       </div>
     </div>
   </div>

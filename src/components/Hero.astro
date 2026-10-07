@@ -11,6 +11,29 @@ const keys = [
   ['hero-3', 'hero-3a', 'hero-3b'],
 ] as const;
 // Varje mening delas vid sista mellanslaget. På smala skärmar blir delarna egna rader.
+// Linjeteckning av en förort med lamellhus, punkthus och träd. Dekorativ, ritas fram under inledningen.
+const W = 600, G = 212;
+const blocks = [
+  { x: 24, w: 54, top: 34, cols: 4, rows: 10 },
+  { x: 92, w: 150, top: 132, cols: 10, rows: 4 },
+  { x: 262, w: 46, top: 72, cols: 3, rows: 8 },
+  { x: 324, w: 134, top: 112, cols: 9, rows: 5 },
+  { x: 474, w: 42, top: 18, cols: 3, rows: 11 },
+  { x: 530, w: 62, top: 156, cols: 4, rows: 3 },
+];
+const outlines = blocks.map((b) => `M${b.x} ${G}V${b.top}H${b.x + b.w}V${G}`);
+const windows = blocks
+  .flatMap((b) => {
+    const gx = b.w / b.cols, gy = (G - b.top - 14) / b.rows;
+    const out: string[] = [];
+    for (let c = 0; c < b.cols; c++) for (let r = 0; r < b.rows; r++) {
+      const x = b.x + gx * c + gx / 2 - 2.5, y = b.top + 10 + gy * r + gy / 2 - 3.5;
+      out.push(`M${x.toFixed(1)} ${y.toFixed(1)}h5v7h-5z`);
+    }
+    return out;
+  })
+  .join('');
+const trees = [84, 252, 316, 466, 522].map((x, i) => ({ x, r: i % 2 ? 9 : 12 }));
 const lines = h.headline.map((text, i) => {
   const cut = text.lastIndexOf(' ');
   const last = text.slice(cut + 1);
@@ -48,6 +71,16 @@ const lines = h.headline.map((text, i) => {
     </div>
 
     <div class="hero__bottom">
+      <div class="hero__city" aria-hidden="true">
+        <svg viewBox={`0 0 ${W} 222`} fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+          {outlines.map((d, i) => <path class="hero__city-line" pathLength="1" d={d} style={`--d:${i * 110}ms`} />)}
+          {trees.map((t, i) => (
+            <path class="hero__city-line" pathLength="1" d={`M${t.x} ${G}V${G - 16} m-${t.r} -${t.r} a${t.r} ${t.r} 0 1 0 ${t.r * 2} 0 a${t.r} ${t.r} 0 1 0 -${t.r * 2} 0`} style={`--d:${300 + i * 90}ms`} />
+          ))}
+          <path class="hero__city-ground" pathLength="1" d={`M0 ${G}H${W}`} />
+          <path class="hero__city-windows" d={windows} fill="currentColor" stroke="none" />
+        </svg>
+      </div>
       <div class="info hero__info hero__fade">
         <p class="hero__lead">{h.lead}</p>
         <p class="hero__body">{h.body}</p>
@@ -62,8 +95,8 @@ const lines = h.headline.map((text, i) => {
           )}
           <CtaLink class="btn--large" cta="primary" />
         </div>
+        <p class="status-note">{copy.status.text}</p>
       </div>
-      <p class="status-note hero__fade">{copy.status.text}</p>
     </div>
   </div>
 </section>

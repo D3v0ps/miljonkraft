@@ -10,7 +10,7 @@ const [p1, p2] = c.paragraphs;
 <section class="section companies" id={c.id} aria-labelledby="companies-heading">
   <div class="container">
     <div class="head">
-      <div>
+      <div class="head__col">
         <p class="label label--dot" data-reveal>För företag i Botkyrka</p>
         <h2 id="companies-heading" class="head__title" data-reveal>{bold} <span class="thin">{thin}</span></h2>
       </div>
@@ -23,7 +23,7 @@ const [p1, p2] = c.paragraphs;
       </ol>
       <div class="companies__side">
         <div class="panel panel--wide" data-wipe>
-          <Photo img={images.kontor} widths={[720, 1400]} sizes="(min-width: 1024px) 40vw, 92vw" />
+          <Photo img={images.kontor} widths={[720, 1400]} sizes="(min-width: 1600px) 630px, (min-width: 1024px) 40vw, 92vw" />
         </div>
         <p class="companies__callout info" data-reveal>{p2}</p>
       </div>

@@ -40,7 +40,6 @@ export function buildJsonLd() {
         description: site.meta.description,
         inLanguage: site.lang,
         isPartOf: { '@id': siteId },
-        about: { '@id': orgId },
         dateModified: site.lastModified,
         primaryImageOfPage: `${base}${site.meta.ogImage}`,
       },

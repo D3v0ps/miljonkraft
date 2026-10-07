@@ -9,19 +9,20 @@ import { writeFile, mkdtemp, copyFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 
-// [nyckel, text, vikt, letter-spacing i em]
+// [nyckel, text, vikt, letter-spacing i em, avslutande punkt i vikt 800 (valfritt)]
+// Röda punkter sätts alltid i vikt 800 så att de blir samma MB-punkt på alla rader.
 const items = [
   ['hero-1', 'FLER I ARBETE.', 800, -0.04],
-  ['hero-2', 'STARKARE FÖRETAG.', 200, -0.03],
+  ['hero-2', 'STARKARE FÖRETAG', 200, -0.03, '.'],
   ['hero-3', 'ETT STARKARE BOTKYRKA.', 800, -0.04],
   ['hero-1a', 'FLER I', 800, -0.04],
   ['hero-1b', 'ARBETE.', 800, -0.04],
   ['hero-2a', 'STARKARE', 200, -0.03],
-  ['hero-2b', 'FÖRETAG.', 200, -0.03],
+  ['hero-2b', 'FÖRETAG', 200, -0.03, '.'],
   ['hero-3a', 'ETT STARKARE', 800, -0.04],
   ['hero-3b', 'BOTKYRKA.', 800, -0.04],
   ['vision-1', 'SVERIGES LÄGSTA', 200, -0.03],
-  ['vision-2', 'ARBETSLÖSHET', 800, -0.04],
+  ['vision-2', 'ARBETSLÖSHET.', 800, -0.04],
   ['footer', 'MILJONKRAFT', 800, -0.04],
   ['manifest', 'SAMHÄLLSKRAFT', 800, -0.04],
   ['ticker', 'NÅ FÖRSTÅ RIKTA BEVISA UTVECKLA ÖVERGÅ BÄRA VÄXA', 800, -0.02],
@@ -35,17 +36,23 @@ const page = await browser.newPage();
 await page.goto('file://' + join(dir, 'm.html'));
 await page.evaluate(() => Promise.all([100, 200, 800].map((w) => document.fonts.load(`${w} 100px M`))));
 const out = {};
-for (const [key, text, weight, ls] of items) {
-  const em = await page.evaluate(({ text, weight, ls }) => {
+for (const [key, text, weight, ls, tail] of items) {
+  const em = await page.evaluate(({ text, weight, ls, tail }) => {
     const span = document.createElement('span');
     span.style.cssText = `font-family:M;font-weight:${weight};font-size:100px;letter-spacing:${ls}em;white-space:nowrap;position:absolute;`;
     span.textContent = text;
+    if (tail) {
+      const t = document.createElement('span');
+      t.style.fontWeight = '800';
+      t.textContent = tail;
+      span.appendChild(t);
+    }
     document.body.appendChild(span);
     const w = span.getBoundingClientRect().width;
     span.remove();
     // Sista tecknets spärrning hör inte till den synliga bredden.
     return (w - ls * 100) / 100;
-  }, { text, weight, ls });
+  }, { text, weight, ls, tail });
   out[key] = Math.round(em * 1000) / 1000;
 }
 await browser.close();

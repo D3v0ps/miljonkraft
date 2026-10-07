@@ -37,7 +37,7 @@ const s = copy.bookingSection;
         <p class="booking__role">{contact.role}<br />{contact.organization}, {contact.place}</p>
         <ul class="booking__contact">
           <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
-          <li><a href={`mailto:${contact.email}`}>{contact.email.split('@')[0]}@<wbr />{contact.email.split('@')[1]}</a></li>
+          <li><a href={`mailto:${contact.email}`} aria-label={contact.email}>{contact.email.split('@')[0]}@<wbr />{contact.email.split('@')[1]}</a></li>
         </ul>
       </address>
     </div>

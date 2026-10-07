@@ -1,21 +1,57 @@
 ---
+/**
+ * Bevisen i ett kapitel: kommunstyrelsens ordförandes citat, fakta, juryns motivering,
+ * utmärkelserna och samarbetsavtalet. Alla uppgifter kommer från site.ts och verifierade källor.
+ */
 import { copy } from '../config/site';
 const pr = copy.proof;
-const q = copy.about.quotes.find((x) => x.featured)!;
+const a = copy.about;
+const kso = a.quotes.find((x) => x.featured)!;
+const jury = a.quotes.find((x) => !x.featured)!;
 ---
 
-<section class="section proof" id={pr.id} aria-labelledby="proof-label">
+<section class="section proof" id={pr.id} aria-labelledby="proof-heading">
   <div class="container">
-    <h2 class="label label--dot" id="proof-label" data-reveal>{pr.label}</h2>
+    <h2 class="label label--dot" id="proof-heading" data-reveal>{pr.label}</h2>
+
     <figure class="proof__figure">
-      <blockquote class="proof__quote" cite={q.source} data-reveal>
-        <p>{q.text}</p>
+      <blockquote class="proof__quote" cite={kso.source} data-reveal>
+        <p>{kso.text}</p>
       </blockquote>
       <figcaption class="proof__caption" data-reveal>
-        <span class="proof__who">{q.who}</span>
-        <span class="proof__context">{q.context}. <a href={q.source} rel="noopener">{copy.about.sourceLabel}</a></span>
+        <span class="proof__who">{kso.who}</span>
+        <span class="proof__context">{kso.context}. <a href={kso.source} rel="noopener">{a.sourceLabel}</a></span>
       </figcaption>
     </figure>
-    <p class="proof__status info" data-reveal>{copy.status.text}</p>
+
+    <dl class="facts proof__facts">
+      {a.facts.map((f, i) => (
+        <div class="fact" data-reveal style={`transition-delay:${i * 100}ms`}>
+          <dt class="fact__value">{f.value}</dt>
+          <dd class="fact__text">{f.text}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="proof__grid">
+      <figure class="quote proof__jury" data-reveal>
+        <blockquote cite={jury.source}><p>{jury.text}</p></blockquote>
+        <figcaption>
+          <strong>{jury.who}</strong>
+          {jury.context}. <a href={jury.source} rel="noopener">{a.sourceLabel}</a>
+        </figcaption>
+      </figure>
+      <div class="awards" data-reveal>
+        <p class="label" id="awards-label">{a.awardsLabel}</p>
+        <ul class="awards__list" aria-labelledby="awards-label">
+          {a.awards.map((w) => <li>{w}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="proof__agreement info" data-reveal>
+      <p class="label label--dot">{a.agreementLabel}</p>
+      <p class="proof__status">{copy.status.text}</p>
+    </div>
   </div>
 </section>

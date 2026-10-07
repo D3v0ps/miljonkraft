@@ -45,7 +45,8 @@ console.log('mb-logo', meta.width, meta.height);
 
 // Favicon: MB-märket på vit yta.
 const icon = async (size) => {
-  const inner = Math.round(size * 0.86);
+  // Logotypens bredd plus två punktdiametrar ska rymmas i rutan (frizon = punktens diameter).
+  const inner = Math.floor(size * 0.76);
   const mark = await sharp(trimmed).resize({ width: inner }).png().toBuffer();
   const m = await sharp(mark).metadata();
   return sharp({ create: { width: size, height: size, channels: 4, background: '#FFFFFF' } })
@@ -58,7 +59,6 @@ for (const s of Object.keys(sizes)) sizes[s] = await icon(Number(s));
 await writeFile('public/apple-touch-icon.png', sizes[180]);
 await writeFile('public/icon-192.png', sizes[192]);
 await writeFile('public/icon-512.png', sizes[512]);
-await writeFile('public/favicon-32.png', sizes[32]);
 function ico(images) {
   const header = Buffer.alloc(6); header.writeUInt16LE(0, 0); header.writeUInt16LE(1, 2); header.writeUInt16LE(images.length, 4);
   const entries = []; let offset = 6 + 16 * images.length;
@@ -69,6 +69,9 @@ function ico(images) {
   return Buffer.concat([header, ...entries, ...images.map((i) => i.data)]);
 }
 await writeFile('public/favicon.ico', ico([{ size: 16, data: sizes[16] }, { size: 32, data: sizes[32] }, { size: 48, data: sizes[48] }]));
-const svgMark = (await sharp(trimmed).resize({ width: 56 }).png().toBuffer()).toString('base64');
-await writeFile('public/favicon.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#FFFFFF"/><image href="data:image/png;base64,${svgMark}" x="4" y="22" width="56" height="20"/></svg>`);
+// SVG-ikonen bäddar in logotypen i sitt eget proportionsförhållande, 48 enheter bred i en ruta på 64.
+const svgBuf = await sharp(trimmed).resize({ width: 192 }).png().toBuffer();
+const svgMeta = await sharp(svgBuf).metadata();
+const svgH = Math.round((48 * svgMeta.height / svgMeta.width) * 100) / 100;
+await writeFile('public/favicon.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#FFFFFF"/><image href="data:image/png;base64,${svgBuf.toString('base64')}" x="8" y="${((64 - svgH) / 2).toFixed(2)}" width="48" height="${svgH}"/></svg>`);
 console.log('bilder och ikoner klara');
