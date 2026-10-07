@@ -6,4 +6,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://miljonkraft.se/sitemap-index.xml
+Sitemap: https://www.miljonkraft.se/sitemap-index.xml

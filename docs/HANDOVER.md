@@ -1,6 +1,6 @@
 # Överlämning Miljonkraft.se
 
-Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxed-allen-juti3f`, som också är sammanslagen till `main`. Vercel är kopplat till repot och bygger `main` till miljonkraft.se.
+Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxed-allen-juti3f`, som också är sammanslagen till `main`. Vercel är kopplat till repot och publicerar `main` på www.miljonkraft.se.
 
 ## 1. Vad som levererats
 
@@ -56,7 +56,7 @@ Se `README.md`. All text, kontaktuppgifter, bokningsläge och bilder anges i `sr
 ## 7. Återstår
 
 1. **Microsoft Bookings.** Följ `docs/BOOKING_SETUP.md` och byt `mode` när en verifierad länk finns.
-2. **Domänkontroll på Vercel.** Kontrollera att miljonkraft.se och www pekar rätt, att www omdirigeras till apex, att saknad sida ger 404 och att produktionen inte har `noindex`. Sätt `PUBLIC_NOINDEX=1` för miljön Preview.
+2. **Domän på Vercel.** Kontrollerat 2026-10-07: miljonkraft.se omdirigeras med 308 till www.miljonkraft.se, som svarar 200. Sidans canonical, sitemap och delningslänkar använder därför www. Vill ni hellre ha miljonkraft.se utan www som primär adress: byt primär domän i Vercel och ändra `site.url` och `public/robots.txt`. Sätt `PUBLIC_NOINDEX=1` för miljön Preview.
 3. **Porträtt av Yacine.** Ett riktigt foto skulle stärka bokningsdelen. Inget porträtt har skapats eller hämtats, eftersom ett påhittat ansikte inte får användas.
 4. **Search Console och Bing Webmaster Tools.** Verifiera domänen och skicka in sitemap.
 5. **Integritetsinformation.** Texten på `/integritet/` bör bekräftas av Miljonbemanning.

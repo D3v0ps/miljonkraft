@@ -11,8 +11,12 @@
 export type BookingMode = 'shared_embed' | 'external_link' | 'contact_only';
 
 export const site = {
-  /** Produktionsadress. Används för canonical, Open Graph, sitemap och JSON-LD. */
-  url: 'https://miljonkraft.se',
+  /**
+   * Produktionsadress. Används för canonical, Open Graph, sitemap och JSON-LD.
+   * Vercel har www som primär domän och omdirigerar miljonkraft.se dit (kontrollerat 2026-10-07).
+   * Byts primär domän i Vercel ska adressen här och i public/robots.txt ändras samtidigt.
+   */
+  url: 'https://www.miljonkraft.se',
   name: 'Miljonkraft Botkyrka',
   shortName: 'Miljonkraft',
   tagline: 'Ett initiativ från Miljonbemanning',

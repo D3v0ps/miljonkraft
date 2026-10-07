@@ -52,16 +52,16 @@ npx lighthouse http://127.0.0.1:4321/ --output=html --output-path=docs/verificat
 `npm run build` ger en helt statisk `dist/` som kan läggas på valfri statisk värd (Cloudflare Pages, Netlify, Vercel, GitHub Pages eller en vanlig webbserver). Kontrollera hos värden att
 
 - `dist/404.html` serveras med statuskod 404 för saknade sidor,
-- `www.miljonkraft.se` omdirigeras permanent (301) till `https://miljonkraft.se`, eller tvärtom, så att bara en variant används,
+- bara en variant används. Vercel har i dag `www.miljonkraft.se` som primär domän och omdirigerar `miljonkraft.se` dit,
 - `http` omdirigeras till `https`.
 
-Produktionsadressen är `https://miljonkraft.se` och sätts i `src/config/site.ts`.
+Produktionsadressen är `https://www.miljonkraft.se` och sätts i `src/config/site.ts`. Byts primär domän i Vercel ska den och sitemap-raden i `public/robots.txt` ändras samtidigt.
 
 ### Vercel
 
 Vercel är kopplat till repot. Varje push till `main` publiceras på miljonkraft.se.
 
-Projektet är förberett för Vercel med `vercel.json` (Astro-preset, avslutande snedstreck, permanent omdirigering från www till apex, två säkerhetshuvuden). Astros `dist/404.html` serveras av Vercel med statuskod 404.
+`vercel.json` anger Astro-preset, avslutande snedstreck och två säkerhetshuvuden. Omdirigeringen mellan domänerna sköts i Vercels domäninställningar. Astros `dist/404.html` serveras av Vercel med statuskod 404.
 
 Via Vercels webbgränssnitt: importera GitHub-repot, behåll förvalet (byggkommando `npm run build`, utdata `dist`), lägg till domänerna `miljonkraft.se` och `www.miljonkraft.se` under Domains. Sätt miljövariabeln `PUBLIC_NOINDEX=1` för miljön Preview så att förhandsvisningar får `noindex` i HTML (Vercel lägger dessutom `X-Robots-Tag: noindex` på förhandsvisningar).
 
