@@ -43,7 +43,7 @@ const size = f => `${(statSync(f).size / 1048576).toFixed(2)} MB`;
 if (want('mp4')) {
   const f = join(out, 'miljonkraft-film-1080.mp4');
   run([...frames('landscape'), '-i', wav, '-map', '0:v', '-map', '1:a', '-vf', `${COLOR},format=yuv420p`,
-    '-c:v', 'libx264', '-profile:v', 'high', '-level', '4.1', '-preset', 'slow', '-crf', '20', '-tune', 'animation',
+    '-c:v', 'libx264', '-profile:v', 'high', '-level', '4.1', '-preset', 'slow', '-crf', '20.5', '-tune', 'animation',
     '-x264-params', 'aq-mode=3:deblock=-1,-1', '-g', '60', '-pix_fmt', 'yuv420p', ...TAGS,
     '-af', AUDIO_FILTER, '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-t', String(DUR), ...META, '-movflags', '+faststart', f]);
   console.log(f, size(f));

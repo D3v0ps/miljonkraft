@@ -22,7 +22,9 @@ function readText(): FilmScene[] {
         start: Number(s.start ?? 0),
         end: Number(s.end ?? 0),
         title: typeof s.title === 'string' ? s.title : typeof s.chapter === 'string' ? s.chapter : undefined,
-        text: Array.isArray(lines) ? lines.map(String) : [String(lines)],
+        text: (Array.isArray(lines) ? lines : [lines]).map((l) =>
+          l && typeof l === 'object' && 'text' in (l as Record<string, unknown>) ? String((l as Record<string, unknown>).text) : String(l),
+        ),
       };
     });
   } catch {
@@ -39,6 +41,7 @@ export const film = {
   webm: has('miljonkraft-film-1080.webm') ? `${base}-1080.webm` : null,
   vertical: has('miljonkraft-film-vertikal.mp4') ? `${base}-vertikal.mp4` : null,
   poster: `${base}-poster.jpg`,
+  posterVertical: has('miljonkraft-film-poster-vertikal.jpg') ? `${base}-poster-vertikal.jpg` : null,
   posterWebp: has('miljonkraft-film-poster.webp') ? `${base}-poster.webp` : null,
   chapters: has('miljonkraft-film-kapitel.vtt') ? `${base}-kapitel.vtt` : null,
   scenes: readText(),

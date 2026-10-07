@@ -18,7 +18,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}.${String(Math.round(s % 60)).p
         <p class="info film__note" data-reveal>{f.note}</p>
       </div>
 
-      <div class="film__frame" data-film data-wipe>
+      <div class={`film__frame${film.vertical && film.posterVertical ? ' film__frame--vertical' : ''}`} data-film data-wipe data-poster-vertical={film.posterVertical ?? undefined}>
         <video
           controls
           playsinline
@@ -29,8 +29,9 @@ const fmt = (s: number) => `${Math.floor(s / 60)}.${String(Math.round(s % 60)).p
           aria-describedby="film-text-summary"
           data-film-video
         >
+          {film.vertical && film.posterVertical && <source src={film.vertical} type="video/mp4" media="(max-width: 699.98px)" />}
           {film.webm && <source src={film.webm} type="video/webm" />}
-          {film.mp4Small && <source src={film.mp4Small} type="video/mp4" media="(max-width: 760px)" />}
+          {film.mp4Small && <source src={film.mp4Small} type="video/mp4" media="(max-width: 1279.98px)" />}
           <source src={film.mp4} type="video/mp4" />
           {film.chapters && <track kind="chapters" src={film.chapters} srclang="sv" label="Kapitel" default />}
           <a href={film.mp4}>Ladda ner filmen</a>
@@ -65,6 +66,13 @@ const fmt = (s: number) => `${Math.floor(s / 60)}.${String(Math.round(s % 60)).p
   const video = document.querySelector<HTMLVideoElement>('[data-film-video]');
   const play = document.querySelector<HTMLButtonElement>('[data-film-play]');
   if (frame && video && play) {
+    // Stående film och affisch på smala skärmar. Källan väljs av webbläsaren via media på source.
+    const vPoster = frame.dataset.posterVertical;
+    if (vPoster && window.matchMedia('(max-width: 699.98px)').matches) video.poster = vPoster;
+    // Kan webbläsaren inte spela den stående mp4-filen väljs en liggande källa. Då blir ramen liggande igen.
+    video.addEventListener('loadedmetadata', () => {
+      if (video.videoWidth > video.videoHeight) frame.classList.remove('film__frame--vertical');
+    });
     video.controls = false;
     play.hidden = false;
     const start = () => {

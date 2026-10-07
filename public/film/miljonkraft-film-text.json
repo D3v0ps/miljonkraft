@@ -1,0 +1,284 @@
+{
+  "title": "Miljonkraft Botkyrka, film",
+  "language": "sv-SE",
+  "duration": 56,
+  "description": "Textalternativ till filmen. All text som visas i bild, scen för scen, med start och slut i sekunder. Filmen har ingen speakerröst, bara musik.",
+  "music": "Originalmusik skapad med kod (scripts/film/music.py), 120 BPM, D-dur.",
+  "scenes": [
+    {
+      "id": "intro",
+      "chapter": "Ett initiativ från Miljonbemanning",
+      "start": 0,
+      "end": 4,
+      "visual": "Vit bild klarnar till en ljus himmel. Miljonbemannings logotyp tonas in.",
+      "text": [
+        {
+          "text": "ETT INITIATIV FRÅN MILJONBEMANNING",
+          "start": 0.85,
+          "end": 2.25
+        },
+        {
+          "text": "MILJONKRAFT BOTKYRKA",
+          "start": 2.45,
+          "end": 7.75
+        }
+      ]
+    },
+    {
+      "id": "soluppgang",
+      "chapter": "Miljonkraft Botkyrka",
+      "start": 4,
+      "end": 8,
+      "visual": "En röd sol stiger långsamt upp bakom en horisontlinje.",
+      "text": []
+    },
+    {
+      "id": "budskap",
+      "chapter": "Fler i arbete",
+      "start": 8,
+      "end": 14,
+      "visual": "Tre stora textrader slår in i takt med musiken. Solen står bakom den sista raden.",
+      "text": [
+        {
+          "text": "FLER I ARBETE.",
+          "start": 8,
+          "end": 14
+        },
+        {
+          "text": "STARKARE FÖRETAG.",
+          "start": 10,
+          "end": 14
+        },
+        {
+          "text": "ETT STARKARE BOTKYRKA.",
+          "start": 12,
+          "end": 14
+        }
+      ]
+    },
+    {
+      "id": "koppla",
+      "chapter": "Vi öppnar dörrar till arbete",
+      "start": 14,
+      "end": 20,
+      "visual": "Två textblock binds samman av ett rött understreck. Foto från en ljus kontorsmiljö.",
+      "text": [
+        {
+          "text": "MÄNNISKORS VILJA ATT ARBETA",
+          "start": 14,
+          "end": 15.95
+        },
+        {
+          "text": "FÖRETAGENS BEHOV AV KOMPETENS",
+          "start": 14.35,
+          "end": 15.95
+        },
+        {
+          "text": "VI ÖPPNAR DÖRRAR TILL ARBETE.",
+          "start": 16,
+          "end": 19.9
+        },
+        {
+          "text": "GER FÖRETAG KRAFT ATT VÄXA.",
+          "start": 16.5,
+          "end": 19.9
+        },
+        {
+          "text": "BYGGER ETT SAMHÄLLE DÄR FLER FÅR BIDRA.",
+          "start": 17,
+          "end": 19.9
+        }
+      ]
+    },
+    {
+      "id": "miljonmodellen",
+      "chapter": "Miljonmodellen",
+      "start": 20,
+      "end": 30,
+      "visual": "Modellens åtta steg byggs upp som en trappa, ett steg i sekunden.",
+      "text": [
+        {
+          "text": "MILJONMODELLEN",
+          "start": 20,
+          "end": 29.7
+        },
+        {
+          "text": "01 NÅ",
+          "start": 21,
+          "end": 29.7
+        },
+        {
+          "text": "02 FÖRSTÅ",
+          "start": 22,
+          "end": 29.7
+        },
+        {
+          "text": "03 RIKTA",
+          "start": 23,
+          "end": 29.7
+        },
+        {
+          "text": "04 BEVISA",
+          "start": 24,
+          "end": 29.7
+        },
+        {
+          "text": "05 UTVECKLA",
+          "start": 25,
+          "end": 29.7
+        },
+        {
+          "text": "06 ÖVERGÅ",
+          "start": 26,
+          "end": 29.7
+        },
+        {
+          "text": "07 BÄRA",
+          "start": 27,
+          "end": 29.7
+        },
+        {
+          "text": "08 VÄXA",
+          "start": 28,
+          "end": 29.7
+        }
+      ]
+    },
+    {
+      "id": "karriarstegen",
+      "chapter": "Karriärstegen",
+      "start": 30,
+      "end": 38,
+      "visual": "En trappa av yrkesroller och kompetensutveckling. Foton från en lagermiljö och en lastbilshytt.",
+      "text": [
+        {
+          "text": "KARRIÄRSTEGEN",
+          "start": 30,
+          "end": 37.6
+        },
+        {
+          "text": "ETT EXEMPEL PÅ EN MÖJLIG VÄG",
+          "start": 30.4,
+          "end": 37.6
+        },
+        {
+          "text": "LAGERARBETE (YRKESROLL)",
+          "start": 31,
+          "end": 37.6
+        },
+        {
+          "text": "TRUCKUTBILDNING (KOMPETENSUTVECKLING)",
+          "start": 32,
+          "end": 37.6
+        },
+        {
+          "text": "KUNSKAP OM LAGERSYSTEM (KOMPETENSUTVECKLING)",
+          "start": 33,
+          "end": 37.6
+        },
+        {
+          "text": "KOORDINERANDE ROLL (YRKESROLL)",
+          "start": 34,
+          "end": 37.6
+        },
+        {
+          "text": "TRANSPORTPLANERING (YRKESROLL)",
+          "start": 35,
+          "end": 37.6
+        }
+      ]
+    },
+    {
+      "id": "om-miljonbemanning",
+      "chapter": "Om Miljonbemanning",
+      "start": 38,
+      "end": 46,
+      "visual": "Fyra fakta visas en i taget och ligger kvar som en lista. Foto av en väst med Miljonbemannings logotyp.",
+      "text": [
+        {
+          "text": "RESAN BÖRJADE I ALBY 2012.",
+          "start": 38,
+          "end": 46
+        },
+        {
+          "text": "EN SAMHÄLLSKRAFT",
+          "start": 40,
+          "end": 46
+        },
+        {
+          "text": "som för samman lokala företag och människor",
+          "start": 40.25,
+          "end": 46
+        },
+        {
+          "text": "SVD AFFÄRSBRAGD 2023",
+          "start": 42,
+          "end": 46
+        },
+        {
+          "text": "Tilldelades Miljonbemannings grundare",
+          "start": 42.25,
+          "end": 46
+        },
+        {
+          "text": "SAMARBETSAVTAL MED BOTKYRKA KOMMUN",
+          "start": 44,
+          "end": 46
+        },
+        {
+          "text": "Miljonkraft Botkyrka",
+          "start": 44.25,
+          "end": 46
+        }
+      ]
+    },
+    {
+      "id": "vision",
+      "chapter": "Vår långsiktiga vision",
+      "start": 46,
+      "end": 50,
+      "visual": "Solen står högt på himlen.",
+      "text": [
+        {
+          "text": "VÅR LÅNGSIKTIGA VISION",
+          "start": 46,
+          "end": 49.6
+        },
+        {
+          "text": "BOTKYRKA MED SVERIGES LÄGSTA ARBETSLÖSHET",
+          "start": 46.5,
+          "end": 49.6
+        }
+      ]
+    },
+    {
+      "id": "samtal",
+      "chapter": "En bra början",
+      "start": 50,
+      "end": 56,
+      "visual": "Avslutning med Miljonbemannings logotyp.",
+      "text": [
+        {
+          "text": "ETT SAMTAL OM ERA FRAMTIDA BEHOV ÄR EN BRA BÖRJAN.",
+          "start": 50,
+          "end": 53
+        },
+        {
+          "text": "Miljonbemanning (logotyp)",
+          "start": 53,
+          "end": 56
+        },
+        {
+          "text": "Framtiden är nu.",
+          "start": 53.35,
+          "end": 56
+        },
+        {
+          "text": "miljonkraft.se",
+          "start": 53.7,
+          "end": 56
+        }
+      ]
+    }
+  ]
+}

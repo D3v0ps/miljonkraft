@@ -62,7 +62,7 @@ try {
       })),
     };
     writeFileSync(join(outDir, 'miljonkraft-film-text.json'), JSON.stringify(json, null, 2) + '\n');
-    let vtt = 'WEBVTT\nKind: chapters\nLanguage: sv\n\n';
+    let vtt = 'WEBVTT\n\n';
     data.scenes.forEach((s, i) => { vtt += `${i + 1}\n${vtTime(s.start)} --> ${vtTime(s.end)}\n${s.chapter}\n\n`; });
     writeFileSync(join(outDir, 'miljonkraft-film-kapitel.vtt'), vtt);
     console.log(`text alternative written to ${outDir}`);
