@@ -1,0 +1,9 @@
+# Miljonkraft.se
+# Publikt innehåll får indexeras. Ingen sökrobot blockeras.
+# OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning) är separata val.
+# Här tillåts båda tills uppdragsgivaren beslutar annat. Se docs/HANDOVER.md.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://miljonkraft.se/sitemap-index.xml

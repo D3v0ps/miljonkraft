@@ -1,0 +1,17 @@
+---
+import { copy } from '../config/site';
+---
+
+<div class="status" data-status>
+  <div class="section__inner status__inner">
+    <p class="status__text">{copy.status.text}</p>
+    <ul class="trust">
+      {copy.trust.map((t) => (
+        <li class="trust__item">
+          <span class="trust__fact">{t.fact}</span>
+          <span class="trust__note">{t.note}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+---
+import { copy, organization } from '../config/site';
+const a = copy.about;
+---
+
+<section class="section section--tint about" id={a.id} aria-labelledby="about-heading">
+  <div class="section__inner about__grid">
+    <div class="section__intro">
+      <h2 id="about-heading">{a.heading}</h2>
+      {a.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <div class="about__aside">
+      <p class="about__list-label" id="about-services-label">{a.servicesLabel}</p>
+      <ul class="about__list" aria-labelledby="about-services-label">
+        {a.services.map((s) => <li>{s}</li>)}
+      </ul>
+      <p><a class="button button--ghost" href={organization.aboutUrl} rel="noopener">{a.linkLabel}</a></p>
+    </div>
+  </div>
+</section>

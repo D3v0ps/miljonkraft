@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import StatusBand from '../components/StatusBand.astro';
+import Companies from '../components/Companies.astro';
+import Model from '../components/Model.astro';
+import Career from '../components/Career.astro';
+import About from '../components/About.astro';
+import Vision from '../components/Vision.astro';
+import BookingSection from '../components/BookingSection.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import MobileCta from '../components/MobileCta.astro';
+---
+
+<BaseLayout path="/" withJsonLd={true}>
+  <Header />
+  <main id="innehall">
+    <Hero />
+    <StatusBand />
+    <Companies />
+    <Model />
+    <Career />
+    <About />
+    <Vision />
+    <BookingSection />
+    <Faq />
+  </main>
+  <Footer />
+  <MobileCta />
+</BaseLayout>

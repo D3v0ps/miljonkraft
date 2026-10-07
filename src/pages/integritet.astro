@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { contact, organization, site } from '../config/site';
+const title = `Integritet | ${site.name}`;
+const description = 'Så hanteras uppgifter på miljonkraft.se. Webbplatsen samlar inte in personuppgifter och använder inga kakor.';
+---
+
+<BaseLayout title={title} description={description} path="/integritet/">
+  <main id="innehall" class="subpage">
+    <div class="subpage__inner">
+      <p class="subpage__brand"><a href="/">{site.name}</a></p>
+      <h1>Integritet</h1>
+      <p class="subpage__lead">Miljonkraft.se är en informationssida. Den samlar inte in personuppgifter, använder inga kakor och har ingen besöksstatistik.</p>
+      <h2>När ni kontaktar oss</h2>
+      <p>Kontaktvägarna på sidan är vanliga länkar till telefon och mejl. När ni mejlar eller ringer hanteras uppgifterna av {organization.name}, som ansvarar för behandlingen. Uppgifterna används bara för att svara på er förfrågan och boka ett samtal.</p>
+      <h2>Bokning</h2>
+      <p>Om en bokningskalender från Microsoft Bookings används på sidan hanteras bokningen i {organization.name}s Microsoft 365-miljö. Namn och mejladress behövs för att skicka en bekräftelse.</p>
+      <h2>Frågor</h2>
+      <p>Hör av er till <a href={`mailto:${contact.email}`}>{contact.email}</a> eller läs mer om <a href={organization.url} rel="noopener">{organization.name}</a>.</p>
+      <p class="subpage__meta">Senast uppdaterad {site.lastModified}.</p>
+      <p><a class="button button--ghost" href="/">Till startsidan</a></p>
+    </div>
+  </main>
+</BaseLayout>

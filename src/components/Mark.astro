@@ -1,0 +1,9 @@
+---
+/** Miljonkrafts märke. Tre steg som stiger, det översta i accentfärg. Dekorativt, texten står bredvid. */
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<svg class={className} width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" focusable="false">
+  <path d="M2 25h8v-8h8V9h8" stroke="currentColor" stroke-width="4" stroke-linejoin="miter" />
+  <path d="M18 9h8" stroke="var(--mark-accent, #D6341B)" stroke-width="4" />
+</svg>

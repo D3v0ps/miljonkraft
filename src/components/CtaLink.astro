@@ -1,0 +1,27 @@
+---
+/**
+ * Huvudknappen. Visar hela texten där den ryms och den korta etiketten på mycket smala skärmar.
+ * Båda texterna finns i HTML, CSS avgör vilken som visas.
+ */
+import { resolveBooking } from '../lib/booking';
+interface Props { class?: string; cta: string; forceShort?: boolean }
+const { class: className = '', cta, forceShort = false } = Astro.props;
+const b = resolveBooking();
+---
+<a
+  class={`button button--primary ${className}`.trim()}
+  href={b.href}
+  target={b.external ? '_blank' : undefined}
+  rel={b.external ? 'noopener' : undefined}
+  data-cta={cta}
+  data-event={b.openEvent}
+>
+  {forceShort ? (
+    <span>{b.ctaShort}</span>
+  ) : (
+    <>
+      <span class="cta-full">{b.ctaFull}</span>
+      <span class="cta-short">{b.ctaShort}</span>
+    </>
+  )}
+</a>

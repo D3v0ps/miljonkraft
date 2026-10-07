@@ -1,0 +1,104 @@
+[
+  [
+    "ink",
+    "bg",
+    4.5,
+    "brödtext"
+  ],
+  [
+    "muted",
+    "bg",
+    4.5,
+    "dämpad text"
+  ],
+  [
+    "ink",
+    "surface",
+    4.5,
+    "brödtext på tonad yta"
+  ],
+  [
+    "muted",
+    "surface",
+    4.5,
+    "dämpad text på tonad yta"
+  ],
+  [
+    "ink",
+    "surface-2",
+    4.5,
+    "text i kort"
+  ],
+  [
+    "muted",
+    "surface-2",
+    4.5,
+    "dämpad text i kort"
+  ],
+  [
+    "on-dark",
+    "dark",
+    4.5,
+    "hero och sidfot"
+  ],
+  [
+    "on-dark-muted",
+    "dark",
+    4.5,
+    "dämpad text i hero"
+  ],
+  [
+    "#FFFFFF",
+    "accent",
+    4.5,
+    "knapptext"
+  ],
+  [
+    "#FFFFFF",
+    "accent-hover",
+    4.5,
+    "knapptext hover"
+  ],
+  [
+    "accent-text",
+    "bg",
+    4.5,
+    "accentfärgad text"
+  ],
+  [
+    "accent-text",
+    "surface-2",
+    4.5,
+    "accentfärgad text i kort"
+  ],
+  [
+    "accent-dark",
+    "dark",
+    4.5,
+    "accent i hero (rubrikrad)"
+  ],
+  [
+    "accent",
+    "bg",
+    3,
+    "fokusring på ljus yta"
+  ],
+  [
+    "accent",
+    "surface",
+    3,
+    "fokusring på tonad yta"
+  ],
+  [
+    "accent-dark",
+    "dark",
+    3,
+    "fokusring på mörk yta"
+  ],
+  [
+    "line-strong",
+    "bg",
+    1,
+    "linjer (ej text)"
+  ]
+]

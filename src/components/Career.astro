@@ -1,0 +1,32 @@
+---
+import { copy } from '../config/site';
+const c = copy.career;
+---
+
+<section class="section career" id={c.id} aria-labelledby="career-heading">
+  <div class="section__inner">
+    <div class="section__intro">
+      <h2 id="career-heading">{c.heading}</h2>
+      {c.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <figure class="career__figure">
+      <figcaption class="career__caption">
+        <span class="career__caption-title">{c.exampleLabel}</span>
+        <span class="legend" aria-hidden="true">
+          <span><i class="legend__role"></i>{c.legend.role}</span>
+          <span><i class="legend__skill"></i>{c.legend.skill}</span>
+        </span>
+      </figcaption>
+      <ol class="path">
+        {c.path.map((step) => (
+          <li data-kind={step.kind}>
+            <span class="path__tread">
+              <span class="path__kind">{step.kind === 'role' ? c.legend.role : c.legend.skill}</span>
+              {step.label}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </figure>
+  </div>
+</section>

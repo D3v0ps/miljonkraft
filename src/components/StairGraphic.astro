@@ -1,0 +1,26 @@
+---
+/**
+ * Sidans grafiska huvudgrepp. En trappa med åtta steg som stiger åt höger,
+ * en per steg i Miljonmodellen. Dekorativ, modellens steg finns som text i #miljonmodellen.
+ */
+interface Props { class?: string; steps?: number; riser?: number; height?: number }
+const { class: className, steps = 8, riser = 42, height = 400 } = Astro.props;
+const W = 640, H = height, baseY = H - 20, tread = W / steps;
+const pts: string[] = [];
+let x = 0, y = baseY;
+pts.push(`${x},${y}`);
+for (let i = 0; i < steps; i++) {
+  y -= riser;
+  pts.push(`${x},${y}`);
+  x += tread;
+  pts.push(`${x},${y}`);
+}
+const line = pts.join(' ');
+const fill = `0,${H} ${line} ${W},${H}`;
+const topY = baseY - riser * steps;
+---
+<svg class={className} viewBox={`0 0 ${W} ${H}`} width={W} height={H} fill="none" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax meet">
+  <polygon class="stair__fill" points={fill} />
+  <polyline class="stair__line" points={line} stroke-width="3" stroke-linejoin="miter" vector-effect="non-scaling-stroke" pathLength="1" />
+  <line class="stair__top" x1={W - tread} y1={topY} x2={W} y2={topY} stroke-width="6" vector-effect="non-scaling-stroke" />
+</svg>

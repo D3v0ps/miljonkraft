@@ -1,0 +1,25 @@
+---
+import CtaLink from './CtaLink.astro';
+---
+
+<aside class="mobile-cta" data-mobile-cta hidden aria-label="Kontakt">
+  <CtaLink cta="mobile" />
+</aside>
+
+<script>
+  // Fast knapp på mobil. Visas när hero-knappen har skrollats förbi och döljs vid bokningssektionen,
+  // så att innehåll, fokus och sidfot förblir åtkomliga.
+  const bar = document.querySelector<HTMLElement>('[data-mobile-cta]');
+  const heroCta = document.querySelector<HTMLElement>('[data-cta="primary"]');
+  const bookingSection = document.getElementById('boka');
+  if (bar && heroCta && bookingSection && 'IntersectionObserver' in window) {
+    bar.hidden = false;
+    document.documentElement.classList.add('has-mobile-cta');
+    let passedHero = false;
+    let bookingVisible = false;
+    const update = () => bar.classList.toggle('is-visible', passedHero && !bookingVisible);
+    // Visas först när hero-knappen har passerat ovanför skärmen, inte när den ligger nedanför.
+    new IntersectionObserver(([e]) => { passedHero = !e.isIntersecting && e.boundingClientRect.top < 0; update(); }, { threshold: 0 }).observe(heroCta);
+    new IntersectionObserver(([e]) => { bookingVisible = e.isIntersecting; update(); }, { threshold: 0.15 }).observe(bookingSection);
+  }
+</script>

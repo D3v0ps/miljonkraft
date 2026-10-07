@@ -1,0 +1,15 @@
+---
+import { copy } from '../config/site';
+const v = copy.vision;
+const [statement, ...rest] = v.paragraphs;
+---
+
+<section class="section vision" id={v.id} aria-labelledby="vision-heading">
+  <div class="section__inner">
+    <h2 id="vision-heading">{v.heading}</h2>
+    <p class="vision__statement">{statement}</p>
+    <div class="vision__columns">
+      {rest.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { copy, site } from '../config/site';
+import { resolveBooking } from '../lib/booking';
+const b = resolveBooking();
+const title = `${copy.notFound.title} | ${site.name}`;
+---
+
+<BaseLayout title={title} description={copy.notFound.text} path="/404/" noindex={true}>
+  <main id="innehall" class="notfound">
+    <div class="notfound__inner">
+      <p class="notfound__brand">{site.name}</p>
+      <h1>{copy.notFound.title}</h1>
+      <p>{copy.notFound.text}</p>
+      <div class="notfound__actions">
+        <a class="button button--primary" href="/">{copy.notFound.linkLabel}</a>
+        <a class="button button--ghost" href={b.external ? b.href : `/${b.href.startsWith('#') ? b.href : ''}`} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined}>{b.ctaShort}</a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

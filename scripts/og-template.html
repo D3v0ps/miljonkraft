@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="sv-SE">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: 'Schibsted Grotesk'; font-weight: 400 900; src: url('../public/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2'); }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { font-family: 'Schibsted Grotesk', sans-serif; background: #161C21; color: #F4F1EC; position: relative; }
+  .byline { position: absolute; left: 80px; top: 72px; display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 500; color: #B8C0C7; }
+  .byline::before { content: ''; width: 28px; height: 4px; background: #FF6A4B; }
+  .brand { position: absolute; left: 80px; top: 112px; font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+  h1 { position: absolute; left: 80px; top: 214px; margin: 0; font-size: 84px; line-height: 1.0; letter-spacing: -0.03em; font-weight: 800; }
+  h1 span { display: block; }
+  h1 span:last-child { color: #FF6A4B; }
+  .stair { position: absolute; right: 0; bottom: 0; width: 560px; height: 360px; }
+</style>
+</head>
+<body>
+  <p class="byline">Ett initiativ från Miljonbemanning</p>
+  <p class="brand">Miljonkraft Botkyrka</p>
+  <h1><span>Fler i arbete.</span><span>Starkare företag.</span><span>Ett starkare Botkyrka.</span></h1>
+  <svg class="stair" viewBox="0 0 640 400" preserveAspectRatio="xMidYMax meet">
+    <polygon points="0,400 0,338 80,338 80,296 160,296 160,254 240,254 240,212 320,212 320,170 400,170 400,128 480,128 480,86 560,86 560,44 640,44 640,400" fill="rgba(255,255,255,0.055)"/>
+    <polyline points="0,380 0,338 80,338 80,296 160,296 160,254 240,254 240,212 320,212 320,170 400,170 400,128 480,128 480,86 560,86 560,44 640,44" fill="none" stroke="#B8C0C7" stroke-width="3"/>
+    <line x1="560" y1="44" x2="640" y2="44" stroke="#FF6A4B" stroke-width="6"/>
+  </svg>
+</body>
+</html>

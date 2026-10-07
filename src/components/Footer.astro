@@ -1,0 +1,24 @@
+---
+import { copy, site } from '../config/site';
+import Mark from './Mark.astro';
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <Mark class="site-footer__mark" />
+      <p class="site-footer__name">{copy.footer.name}</p>
+      <p class="site-footer__byline">{copy.footer.byline}</p>
+    </div>
+    <nav class="site-footer__nav" aria-label="Sidfot">
+      <ul>
+        {copy.footer.links.map((l) => (
+          <li>
+            <a href={l.href} rel={l.external ? 'noopener' : undefined}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <p class="site-footer__legal">© {site.copyrightYear} Miljonbemanning</p>
+  </div>
+</footer>

@@ -1,0 +1,78 @@
+---
+import { booking, contact, copy } from '../config/site';
+import { resolveBooking } from '../lib/booking';
+import CtaLink from './CtaLink.astro';
+const b = resolveBooking();
+const s = copy.bookingSection;
+---
+
+<section class="section booking" id={s.id} aria-labelledby="booking-heading">
+  <div class="section__inner booking__inner">
+    <div class="booking__intro">
+      <h2 id="booking-heading" class="booking__heading">{b.heading}</h2>
+      {s.intro.map((p) => <p class="booking__text">{p}</p>)}
+      {b.formatLine && <p class="booking__format">{b.formatLine}</p>}
+      <p class="booking__instruction">{b.instruction}</p>
+
+      {b.mode !== 'shared_embed' && (
+        <p class="booking__action">
+          <CtaLink class="button--large" cta="primary-booking" />
+        </p>
+      )}
+    </div>
+
+    {b.mode === 'shared_embed' && (
+      <div class="booking__embed" data-booking-embed style={`--embed-height: ${b.embedHeightPx}px`}>
+        <p class="booking__embed-link">
+          <a href={b.publicUrl} target="_blank" rel="noopener" data-event="booking_open">{s.openInNewWindow}</a>
+        </p>
+        <div class="booking__frame" data-booking-frame>
+          <button type="button" class="button button--primary button--large" data-booking-load data-event="booking_open">{s.embedLoadLabel}</button>
+          <template data-booking-template>
+            <iframe
+              src={b.embedUrl}
+              title={s.embedTitle}
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allow="payment 'none'; camera 'none'; microphone 'none'"
+            ></iframe>
+          </template>
+          <p class="booking__fallback" data-booking-fallback hidden>{s.embedFallback}</p>
+        </div>
+      </div>
+    )}
+
+    <address class="booking__card">
+      <p class="booking__card-heading">{s.contactHeading}</p>
+      <p class="booking__name">{contact.name}</p>
+      <p class="booking__role">{contact.role}<br />{contact.organization}</p>
+      <ul class="booking__contact">
+        <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+        <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+      </ul>
+    </address>
+  </div>
+</section>
+
+{b.mode === 'shared_embed' && (
+  <script>
+    // Inbäddningen laddas först på besökarens begäran. Utrymmet är reserverat via --embed-height.
+    const frameWrap = document.querySelector<HTMLElement>('[data-booking-frame]');
+    const loadBtn = document.querySelector<HTMLButtonElement>('[data-booking-load]');
+    const tpl = document.querySelector<HTMLTemplateElement>('[data-booking-template]');
+    const fallback = document.querySelector<HTMLElement>('[data-booking-fallback]');
+    if (frameWrap && loadBtn && tpl) {
+      loadBtn.addEventListener('click', () => {
+        const node = tpl.content.cloneNode(true) as DocumentFragment;
+        const iframe = node.querySelector('iframe');
+        if (!iframe) return;
+        let loaded = false;
+        iframe.addEventListener('load', () => { loaded = true; });
+        window.setTimeout(() => { if (!loaded && fallback) fallback.hidden = false; }, 15000);
+        loadBtn.replaceWith(node);
+        frameWrap.classList.add('is-loaded');
+        iframe.focus();
+      });
+    }
+  </script>
+)}

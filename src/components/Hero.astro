@@ -1,0 +1,29 @@
+---
+import { contact, copy } from '../config/site';
+import { resolveBooking } from '../lib/booking';
+import StairGraphic from './StairGraphic.astro';
+import CtaLink from './CtaLink.astro';
+const b = resolveBooking();
+const h = copy.hero;
+---
+
+<section class="hero" id="top" aria-labelledby="hero-heading">
+  <div class="section__inner hero__inner">
+    <div class="hero__content">
+      <p class="hero__byline">{h.byline}</p>
+      <h1 id="hero-heading" class="hero__title">
+        {h.headline.map((line) => <span>{line}</span>)}
+      </h1>
+      <p class="hero__lead">{h.lead}</p>
+      <p class="hero__body">{h.body}</p>
+      <div class="hero__actions">
+        <CtaLink class="button--large" cta="primary" />
+        <a class="hero__phone" href={contact.phoneHref}>Ring {contact.phoneDisplay}</a>
+      </div>
+    </div>
+    <div class="hero__graphic">
+      <StairGraphic class="hero__graphic--desktop" />
+      <StairGraphic class="hero__graphic--mobile" riser={16} height={168} />
+    </div>
+  </div>
+</section>

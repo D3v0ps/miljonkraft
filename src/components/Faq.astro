@@ -1,0 +1,18 @@
+---
+import { copy } from '../config/site';
+const faq = copy.faq;
+---
+
+<section class="section faq" id={faq.id} aria-labelledby="faq-heading">
+  <div class="section__inner faq__inner">
+    <h2 id="faq-heading" class="faq__heading">{faq.heading}</h2>
+    <div class="faq__list">
+      {faq.items.map((item) => (
+        <details class="faq__item" name="faq">
+          <summary class="faq__question">{item.q}</summary>
+          <p class="faq__answer">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

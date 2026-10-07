@@ -1,0 +1,18 @@
+---
+import { copy } from '../config/site';
+const c = copy.companies;
+---
+
+<section class="section companies" id={c.id} aria-labelledby="companies-heading">
+  <div class="section__inner">
+    <h2 id="companies-heading">{c.heading}</h2>
+    <div class="companies__grid">
+      <ul class="questions">
+        {c.questions.map((q) => <li>{q}</li>)}
+      </ul>
+      <div class="companies__text">
+        {c.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
