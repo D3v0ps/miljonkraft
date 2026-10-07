@@ -40,13 +40,13 @@ Inte använda: image-to-code (ingen visuell förlaga fanns), Awesome DESIGN.md (
 
 ## 3. Designriktning
 
-Två riktningar togs fram av en oberoende panel och bedömdes.
+Tre oberoende designförslag togs fram parallellt och bedömdes av två domare (en kundlins, en hantverkslins). De två starkaste:
 
-**Riktning A, Strecket.** Varumärkeskontinuitet först. Miljonbemannings skiffer och rödorange, Plus Jakarta Sans, det lilla strecket ur logotypen som enda motiv (ett streck markerar avsändaren, åtta stigande streck bär modellen). Mörk inledning och mörk bokningsdel som bokstöd.
+**Riktning A, Strecket.** Varumärkeskontinuitet först. Miljonbemannings skiffer och rödorange, Plus Jakarta Sans, det lilla strecket ur logotypen som enda motiv (ett streck markerar avsändaren, åtta stigande streck bär modellen). Mörk inledning och mörk bokningsdel som bokstöd. Domarpoäng 48 + 47.
 
-**Riktning B, Trappsteget.** Motiv först. En enda stigande trapplinje som börjar vid bokningsknappen, blir Miljonmodellens åtta steg och Karriärstegens exempel. Schibsted Grotesk i en familj, mörk inledning, ljusa varma läsytor, accenten bara som linje och markering.
+**Riktning B, Trappsteget.** Motiv först. En enda stigande trapplinje som börjar vid bokningsknappen, blir Miljonmodellens åtta steg och Karriärstegens exempel. Schibsted Grotesk i en familj, mörk inledning, ljusa varma läsytor, accenten bara som linje och markering. Domarpoäng 49 + 42.
 
-Vald riktning är **B** med två idéer från A inympade: strecket som avsändarmarkering före bylinen och statusraden, och en strikt accentdisciplin där den råa varumärkesfärgen aldrig används som text.
+Domarna delade sig (kundlinsen valde B, hantverkslinsen A). Den byggda sidan är en syntes med **B som stomme**: trapplinjen som motiv, Schibsted Grotesk, mörk inledning och ljusa läsytor. Från A hämtades strecket som avsändarmarkering före bylinen och statusraden, den fasta mobilknappen, tyngre textvikt på mörk yta och en strikt accentdisciplin där den råa varumärkesfärgen aldrig används som text. Hantverksdomarens invändning mot B (att trappgeometrin inte höll ihop) är hanterad genom att samma stegproportion används i hero, Miljonmodellen och Karriärstegen, och genom att linjen landar i en fylld nod vid bokningsrubriken.
 
 Fem designbeslut:
 
@@ -73,5 +73,5 @@ Se `README.md`. Kort: all text, kontaktuppgifter, produktionsadress och boknings
 ## 6. Kända avvägningar
 
 - Heron har fem textelement (byline, rubrik, två stycken, knappar) eftersom masterprompten fastslår två stycken. Knappen ligger ovanför vikningen på 390 × 844, 768 och 1440 × 900. På 320 × 568 hamnar den strax under, och den fasta mobilknappen tar vid när hero-knappen passerats.
-- Rubriken bryts på fyra rader på dator (den tredje meningen bryts efter "starkare") och tre rader på surfplatta. Det är ett medvetet val för att hålla rubrikstorleken stark.
+- Rubriken bryts på fyra rader på dator (den tredje meningen bryts medvetet efter "starkare" från 1024 px) och tre rader på surfplatta. Det håller rubrikstorleken stark och knappen ovanför vikningen på 1366 × 768.
 - Mejlförslaget i contact_only innehåller inga kolon. Mallens rader är meningsstarter som ifyllaren fullföljer.

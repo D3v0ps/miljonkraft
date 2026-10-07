@@ -234,6 +234,10 @@ p + p { margin-top: 1em; }
 .hero__phone { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--on-dark); font-weight: 500; }
 .hero__graphic { width: 100%; max-width: 40rem; justify-self: end; margin-top: 0.5rem; }
 .hero__graphic svg { width: 100%; height: auto; }
+@media (min-width: 1024px) {
+  .hero__graphic { align-self: stretch; display: flex; align-items: flex-end; justify-content: flex-end; max-width: 32rem; }
+  .hero__graphic--desktop { width: 100%; max-height: 36rem; }
+}
 .stair__line { stroke: var(--on-dark-muted); stroke-dasharray: 1; stroke-dashoffset: 0; }
 .stair__start { fill: var(--on-dark-muted); }
 .stair__top { stroke: var(--accent-dark); }
@@ -302,7 +306,7 @@ p + p { margin-top: 1em; }
 
 /* ---------- Miljonmodellen ---------- */
 .model__intro p + p { margin-top: 0.875em; }
-.steps-label { margin-top: 3rem; margin-bottom: 1.25rem; font-weight: 600; font-size: var(--text-small); color: var(--muted); display: flex; align-items: center; gap: 0.75rem; }
+.steps-label { max-width: none; margin-top: 3rem; margin-bottom: 1.25rem; font-weight: 600; font-size: var(--text-small); color: var(--muted); display: flex; align-items: center; gap: 0.75rem; }
 .steps-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
 .steps { display: grid; gap: 0; counter-reset: step; position: relative; }
 .steps li { position: relative; counter-increment: step; display: grid; grid-template-columns: 2.75rem 1fr; gap: 0 0.75rem; padding: 0.875rem 0 0.875rem; }
@@ -317,21 +321,24 @@ p + p { margin-top: 1em; }
 .steps p { grid-column: 2; color: var(--muted); font-size: var(--text-small); line-height: 1.5; max-width: 32ch; }
 /* Mobil: en lodrät trappa med en linje som binder ihop stegen. */
 .steps li:not(:last-child)::after { content: ''; position: absolute; left: calc(1.25rem - 1px); top: 3.4rem; bottom: -0.5rem; width: 2px; background: var(--line); }
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .steps li::after { display: none; }
+}
 @media (min-width: 640px) {
   .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 2rem; }
-  .steps li::after { display: none; }
   .steps li { padding: 1rem 0; border-top: 1px solid var(--line); }
 }
 @media (min-width: 1024px) {
-  /* Fyra steg per rad. Varje steg står lite högre än det föregående, som en trappa. */
-  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem 2rem; align-items: start; }
+  /* Fyra steg per rad. Varje steg står 1rem högre än det föregående och binds ihop med ett sättsteg, som en trappa. */
+  .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem 2rem; align-items: start; }
   .steps li { display: block; padding: 1rem 0 0; border-top: 2px solid var(--line-strong); }
   .steps li::before { margin-bottom: 0.875rem; }
+  .steps li:not(:nth-child(4n))::after { content: ''; position: absolute; top: -1rem; left: 100%; width: 2rem; height: 1rem; border-right: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); display: block; background: none; bottom: auto; }
   .steps h3 { min-height: 0; display: block; }
   .steps p { max-width: none; margin-top: 0.375rem; }
-  .steps li:nth-child(4n + 1) { margin-top: 3.75rem; }
-  .steps li:nth-child(4n + 2) { margin-top: 2.5rem; }
-  .steps li:nth-child(4n + 3) { margin-top: 1.25rem; }
+  .steps li:nth-child(4n + 1) { margin-top: 3rem; }
+  .steps li:nth-child(4n + 2) { margin-top: 2rem; }
+  .steps li:nth-child(4n + 3) { margin-top: 1rem; }
   .steps li:nth-child(4n + 4) { margin-top: 0; }
 }
 
@@ -352,24 +359,24 @@ p + p { margin-top: 1em; }
 }
 .path li[data-kind='role'] .path__tread { background: var(--dark); color: var(--on-dark); }
 .path li[data-kind='skill'] .path__tread { border: 2px dashed var(--accent); color: var(--accent-text); background: transparent; font-weight: 500; }
-.path__kind { display: block; font-size: 0.8125rem; font-weight: 500; margin-bottom: 0.125rem; }
-.path li[data-kind='role'] .path__kind { color: var(--on-dark-muted); }
-.path li[data-kind='skill'] .path__kind { color: var(--accent-text); }
+.path__kind { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 /* Mobil: varje steg står ett snäpp längre till höger än det förra. */
 .path li:nth-child(2) { margin-left: 0.75rem; }
 .path li:nth-child(3) { margin-left: 1.5rem; }
 .path li:nth-child(4) { margin-left: 2.25rem; }
 .path li:nth-child(5) { margin-left: 3rem; }
 @media (min-width: 1024px) {
-  .path { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 0.75rem; align-items: end; }
-  .path li { margin-left: 0 !important; }
+  /* Fem steg som stiger åt höger. Varje steg står 1.5rem högre än det förra, med ett sättsteg emellan. */
+  .path { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 1.5rem; align-items: end; }
+  .path li { margin-left: 0 !important; position: relative; }
   .path li::before { content: ''; display: block; border-top: 2px solid var(--line-strong); margin-bottom: 0.75rem; }
-  .path li:nth-child(1) { padding-top: 6rem; }
-  .path li:nth-child(2) { padding-top: 4.5rem; }
-  .path li:nth-child(3) { padding-top: 3rem; }
-  .path li:nth-child(4) { padding-top: 1.5rem; }
-  .path li:nth-child(5) { padding-top: 0; }
-  .path__tread { min-height: 5.5rem; display: flex; flex-direction: column; justify-content: center; }
+  .path li:not(:last-child)::after { content: ''; position: absolute; top: 0; left: 100%; width: 1.5rem; height: 1.5rem; margin-top: -1.5rem; border-right: 2px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); }
+  .path li:nth-child(1) { padding-bottom: 0; }
+  .path li:nth-child(2) { padding-bottom: 1.5rem; }
+  .path li:nth-child(3) { padding-bottom: 3rem; }
+  .path li:nth-child(4) { padding-bottom: 4.5rem; }
+  .path li:nth-child(5) { padding-bottom: 6rem; }
+  .path__tread { min-height: 4.5rem; display: flex; flex-direction: column; justify-content: center; padding: 0.875rem 1rem; }
 }
 
 /* ---------- Om Miljonbemanning ---------- */
@@ -386,10 +393,14 @@ p + p { margin-top: 1em; }
 }
 
 /* ---------- Vision ---------- */
-.vision__statement { font-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.75rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; max-width: 30ch; margin-top: 1.25rem; }
-.vision__columns { display: grid; gap: 1.5rem; margin-top: 2rem; }
+.vision__grid { display: grid; gap: 1.5rem; margin-top: 1.25rem; }
+.vision__statement { font-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.75rem); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; max-width: 26ch; }
 .vision__columns p { color: var(--ink); }
-@media (min-width: 900px) { .vision__columns { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+.vision__columns p + p { margin-top: 1em; }
+@media (min-width: 900px) {
+  .vision__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: start; margin-top: 2rem; }
+  .vision__columns { padding-top: 0.35rem; }
+}
 
 /* ---------- Bokning ---------- */
 .booking { background: var(--surface); border-top: 1px solid var(--line); }
@@ -417,7 +428,8 @@ p + p { margin-top: 1em; }
 .booking__name { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.01em; }
 .booking__role { color: var(--muted); margin-top: 0.25rem; line-height: 1.45; }
 .booking__contact { display: grid; gap: 0.5rem; margin-top: 1.25rem; }
-.booking__contact a { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; overflow-wrap: anywhere; }
+.booking__contact a { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; overflow-wrap: normal; }
+@media (max-width: 339.98px) { .booking__contact a { overflow-wrap: anywhere; font-size: var(--text-small); } }
 .booking__embed { grid-column: 1 / -1; }
 .booking__embed-link { margin-bottom: 0.75rem; font-weight: 500; }
 .booking__frame { min-height: var(--embed-height); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); display: grid; place-items: center; padding: 1.5rem; }
@@ -429,7 +441,7 @@ p + p { margin-top: 1em; }
 }
 
 /* ---------- FAQ ---------- */
-.faq__inner { max-width: 46rem; }
+.faq__heading, .faq__list { max-width: 46rem; }
 .faq__list { margin-top: 1.5rem; border-top: 1px solid var(--line); }
 .faq__item { border-bottom: 1px solid var(--line); }
 .faq__question {
@@ -454,7 +466,7 @@ p + p { margin-top: 1em; }
 .site-footer__byline { color: var(--on-dark-muted); font-size: var(--text-small); }
 .site-footer__nav ul { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
 .site-footer__nav a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--on-dark); font-weight: 500; }
-.site-footer__legal { color: var(--on-dark-muted); font-size: var(--text-small); }
+.site-footer__legal { max-width: none; color: var(--on-dark-muted); font-size: var(--text-small); }
 @media (min-width: 768px) {
   .site-footer__inner { grid-template-columns: 1fr auto; align-items: start; }
   .site-footer__legal { grid-column: 1 / -1; padding-top: 1.5rem; border-top: 1px solid var(--line-dark); }
