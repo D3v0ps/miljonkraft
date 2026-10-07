@@ -1,9 +1,10 @@
 import { contact, organization, site } from '../config/site';
 
 /**
- * Litet, korrekt JSON-LD-underlag med stabila identifierare.
+ * Litet, sanningsenligt JSON-LD-underlag med stabila identifierare.
  * Miljonkraft beskrivs som webbplats och sida, inte som egen juridisk organisation.
- * Avsändare och utgivare är Miljonbemanning. Kommunen är samarbetspart och anges inte som samma organisation.
+ * Avsändare och utgivare är Miljonbemanning. Kommunen är samarbetspart och anges inte.
+ * Ingen FAQ-markering, eftersom sidan inte har några synliga frågor och svar.
  */
 export function buildJsonLd() {
   const base = site.url.replace(/\/$/, '');
@@ -21,6 +22,24 @@ export function buildJsonLd() {
         '@id': orgId,
         name: organization.name,
         url: organization.url,
+        description: organization.description,
+        foundingDate: String(organization.foundingYear),
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: organization.address.street,
+          postalCode: organization.address.postalCode,
+          addressLocality: organization.address.locality,
+          addressCountry: organization.address.country,
+        },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'Miljonkraft Botkyrka',
+          name: contact.name,
+          email: contact.email,
+          telephone: contact.phoneE164,
+          areaServed: 'Botkyrka',
+          availableLanguage: 'sv',
+        },
         sameAs: [...organization.sameAs],
       },
       {
@@ -40,6 +59,7 @@ export function buildJsonLd() {
         description: site.meta.description,
         inLanguage: site.lang,
         isPartOf: { '@id': siteId },
+        publisher: { '@id': orgId },
         dateModified: site.lastModified,
         primaryImageOfPage: `${base}${site.meta.ogImage}`,
       },
@@ -48,7 +68,7 @@ export function buildJsonLd() {
         '@id': personId,
         name: contact.name,
         jobTitle: contact.role,
-        email: `mailto:${contact.email}`,
+        email: contact.email,
         telephone: contact.phoneE164,
         worksFor: { '@id': orgId },
       },

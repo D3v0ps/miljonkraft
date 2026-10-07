@@ -1,0 +1,29 @@
+---
+/**
+ * Ett avsnitt av den röda tråden, se src/lib/thread.ts.
+ * narrow gäller under 700 px och wide från 700 px. Anges bara narrow gäller den överallt.
+ * En bana kan ha from och to (0 till 1) som anger var i blockets skroll den ritas.
+ */
+type Track = string | { d: string; from?: number; to?: number };
+interface Props {
+  narrow: Track | readonly Track[];
+  wide?: Track | readonly Track[];
+  vb?: string;
+  vbWide?: string;
+  class?: string;
+}
+const { narrow, wide, vb = '0 0 1000 1000', vbWide = vb, class: cls = '' } = Astro.props;
+const list = (v: Track | readonly Track[]) =>
+  (Array.isArray(v) ? v : [v]).map((t: Track) => (typeof t === 'string' ? { d: t, from: 0, to: 1 } : { from: 0, to: 1, ...t }));
+const style = (t: { from: number; to: number }) => (t.from === 0 && t.to === 1 ? undefined : `--f:${t.from};--to:${t.to}`);
+---
+<div class={`t ${cls}`.trim()} aria-hidden="true">
+  <svg class={wide ? 't__narrow' : undefined} viewBox={vb} preserveAspectRatio="none" focusable="false">
+    {list(narrow).map((t) => <path d={t.d} pathLength="1" style={style(t)} />)}
+  </svg>
+  {wide && (
+    <svg class="t__wide" viewBox={vbWide} preserveAspectRatio="none" focusable="false">
+      {list(wide).map((t) => <path d={t.d} pathLength="1" style={style(t)} />)}
+    </svg>
+  )}
+</div>

@@ -1,14 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import { booking, contact, organization, site } from '../config/site';
 const title = `Integritetsinformation | ${site.name}`;
 const description = 'Så hanteras uppgifter på miljonkraft.se. Webbplatsen samlar inte in personuppgifter och använder inga kakor.';
 ---
 
 <BaseLayout title={title} description={description} path="/integritet/">
+  <Header />
   <main id="innehall" class="subpage">
     <div class="subpage__inner">
-      <p class="subpage__brand"><a href="/">{site.name}</a></p>
       <h1>Så hanteras era uppgifter</h1>
       <p class="subpage__lead">Miljonkraft.se är en informationssida. Den samlar inte in personuppgifter, använder inga kakor och har ingen besöksstatistik.</p>
       <h2>När ni kontaktar oss</h2>
@@ -22,7 +24,8 @@ const description = 'Så hanteras uppgifter på miljonkraft.se. Webbplatsen saml
       <h2>Frågor</h2>
       <p>Hör av er till <a href={`mailto:${contact.email}`}>{contact.email}</a> eller läs mer om <a href={organization.url} rel="noopener">{organization.name}</a>.</p>
       <p class="subpage__meta">Senast uppdaterad {site.lastModified}.</p>
-      <p><a class="btn btn--ghost" href="/">Till startsidan</a></p>
+      <p><a class="quiet-link" href="/">Till startsidan</a></p>
     </div>
   </main>
+  <Footer />
 </BaseLayout>

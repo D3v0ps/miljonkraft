@@ -1,0 +1,29 @@
+---
+import { copy, images } from '../../config/site';
+import { lane } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.origin;
+const img = images.mbVast;
+const portrait = images.mbVastPortrait;
+---
+<section class="ch" id={c.id} aria-labelledby="origin-h">
+  <div class="seg">
+    <Thread narrow={lane(-12)} />
+    <div class="seg__in origin">
+      <h2 id="origin-h" class="h2">{c.heading}</h2>
+      <p class="body origin__body">{c.body}</p>
+    </div>
+  </div>
+  {/* Bilden ligger över hela bredden. Tråden går bakom den och fortsätter under. */}
+  <picture class="photo">
+    <source media="(max-width: 699.98px)" type="image/webp" srcset={portrait.widths.map((w) => `${portrait.src}-${w}.webp ${w}w`).join(', ')} sizes="100vw" />
+    <source type="image/webp" srcset={`${img.src}-720.webp 720w, ${img.src}-1400.webp 1400w, ${img.src}-1920.webp 1920w`} sizes="100vw" />
+    <img src={`${img.src}-1200.jpg`} width={img.w} height={img.h} alt={img.alt} loading="lazy" decoding="async" />
+  </picture>
+  <div class="seg">
+    <Thread narrow={lane(14)} />
+    <div class="seg__in">
+      <p class="conviction">{c.conviction.map((l) => <span>{l}</span>)}</p>
+    </div>
+  </div>
+</section>

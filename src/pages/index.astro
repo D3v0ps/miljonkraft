@@ -1,40 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import Ticker from '../components/Ticker.astro';
-import Manifest from '../components/Manifest.astro';
-import Proof from '../components/Proof.astro';
-import Film from '../components/Film.astro';
-import Companies from '../components/Companies.astro';
-import Model from '../components/Model.astro';
-import Career from '../components/Career.astro';
-import About from '../components/About.astro';
-import Vision from '../components/Vision.astro';
-import BookingSection from '../components/BookingSection.astro';
-import Faq from '../components/Faq.astro';
+import Idea from '../components/story/Idea.astro';
+import Origin from '../components/story/Origin.astro';
+import Cycle from '../components/story/Cycle.astro';
+import Model from '../components/story/Model.astro';
+import Career from '../components/story/Career.astro';
+import Value from '../components/story/Value.astro';
+import Proof from '../components/story/Proof.astro';
+import Direction from '../components/story/Direction.astro';
+import Invitation from '../components/story/Invitation.astro';
 import Footer from '../components/Footer.astro';
-import MobileCta from '../components/MobileCta.astro';
+import FilmDialog from '../components/FilmDialog.astro';
 ---
 
 <BaseLayout path="/" withJsonLd={true}>
-  <Header />
+  <Header home={true} />
   <main id="innehall">
-    <Hero />
-    <Manifest />
-    <Proof />
-    <Companies />
-    <Film />
-    <Ticker />
+    <Idea />
+    <Origin />
+    <Cycle />
     <Model />
     <Career />
-    <About />
-    <Vision />
-    <BookingSection />
-    <Faq />
+    <Value />
+    <Proof />
+    <Direction />
+    <Invitation />
   </main>
   <Footer />
-  <MobileCta />
+  <FilmDialog />
 </BaseLayout>
 
 <script>

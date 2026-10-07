@@ -1,0 +1,80 @@
+---
+import { contact, copy } from '../../config/site';
+import { resolveBooking } from '../../lib/booking';
+import CtaLink from '../CtaLink.astro';
+const b = resolveBooking();
+const c = copy.invitation;
+const [user, domain] = contact.email.split('@');
+---
+<section class="ch ch--invite" id={c.id} aria-labelledby="invite-h">
+  <div class="seg seg--invite">
+    <span class="end-dot" aria-hidden="true"></span>
+    <div class="seg__in invite">
+      <h2 id="invite-h" class="h2 h2--xl">{c.heading}</h2>
+      <div class="invite__grid">
+        <div class="invite__main">
+          {c.intro.map((p) => <p class="body">{p}</p>)}
+          {b.formatLine && <p class="invite__format">{b.formatLine}</p>}
+          {b.mode !== 'shared_embed' && <p class="invite__action"><CtaLink class="btn--lg" cta="invitation" /></p>}
+          <p class="invite__instruction">{b.isReal ? c.instructionReal : c.instructionContact}</p>
+        </div>
+        <address class="contact">
+          <p class="contact__name">{contact.name}</p>
+          <p class="contact__role">{contact.role}, {contact.organization}</p>
+          <p><a href={contact.phoneHref}>{contact.phoneDisplay}</a></p>
+          <p><a href={`mailto:${contact.email}`}>{user}@<wbr />{domain}</a></p>
+        </address>
+      </div>
+
+      {b.mode === 'shared_embed' && (
+        <div class="embed" data-booking-embed style={`--embed-height: ${b.embedHeightPx}px`}>
+          <p class="embed__link">
+            <a href={b.publicUrl} target="_blank" rel="noopener" data-event="booking_open">{c.openInNewWindow}<span class="visually-hidden"> (öppnas i nytt fönster)</span></a>
+          </p>
+          <div class="embed__frame" data-booking-frame>
+            <button type="button" class="btn btn--lg" data-booking-load data-event="booking_open">{c.embedLoadLabel}</button>
+            <noscript>
+              <style>[data-booking-load] { display: none; }</style>
+              <p class="embed__fallback">{c.embedFallback}</p>
+            </noscript>
+            <template data-booking-template>
+              <iframe
+                src={b.embedUrl}
+                title={c.embedTitle}
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="payment 'none'; camera 'none'; microphone 'none'"
+              ></iframe>
+            </template>
+            <p class="embed__fallback" data-booking-fallback role="status" hidden>{c.embedFallback}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+{b.mode === 'shared_embed' && (
+  <script>
+    // Inbäddningen laddas först på besökarens begäran. Utrymmet är reserverat via --embed-height.
+    const frameWrap = document.querySelector<HTMLElement>('[data-booking-frame]');
+    const loadBtn = document.querySelector<HTMLButtonElement>('[data-booking-load]');
+    const tpl = document.querySelector<HTMLTemplateElement>('[data-booking-template]');
+    const fallback = document.querySelector<HTMLElement>('[data-booking-fallback]');
+    if (frameWrap && loadBtn && tpl) {
+      loadBtn.addEventListener('click', () => {
+        const node = tpl.content.cloneNode(true) as DocumentFragment;
+        const iframe = node.querySelector('iframe');
+        if (!iframe) return;
+        let loaded = false;
+        // Timern fångar bara nätverksstopp. En ram som blockeras av X-Frame-Options eller CSP avfyrar ändå load,
+        // därför ska inbäddningen kontrolleras manuellt i webbläsaren innan shared_embed aktiveras (se docs/BOOKING_SETUP.md).
+        iframe.addEventListener('load', () => { loaded = true; });
+        window.setTimeout(() => { if (!loaded && fallback) fallback.hidden = false; }, 15000);
+        loadBtn.replaceWith(node);
+        frameWrap.classList.add('is-loaded');
+        iframe.focus();
+      });
+    }
+  </script>
+)}

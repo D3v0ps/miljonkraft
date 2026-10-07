@@ -1,0 +1,30 @@
+---
+import { copy } from '../../config/site';
+import { career, lane, LANE_R } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.career;
+const pos = (i: number) => `--nx:${career.narrowPos[i][0]}%;--ny:${career.narrowPos[i][1]}%;--wx:${career.widePos[i][0]}%;--wy:${career.widePos[i][1]}%`;
+// Mjukt bindestreck så att det längsta ordet kan brytas på smala trappsteg.
+const soft = (s: string) => s.replace('Transportplanering', 'Transport­planering');
+---
+<section class="ch" id={c.id} aria-labelledby="career-h">
+  <div class="seg">
+    <Thread narrow={lane(-12)} />
+    <div class="seg__in">
+      <h2 id="career-h" class="h2">{c.heading}</h2>
+      <p class="caption" id="career-cap"><strong>{c.name}.</strong> {c.note}</p>
+    </div>
+  </div>
+  <div class="seg seg--career">
+    <Thread narrow={career.narrow} vb={career.narrowVb} wide={career.wide} vbWide={career.wideVb} />
+    <ol class="career" aria-describedby="career-cap">
+      {c.path.map((p, i) => <li class="career__step" style={pos(i)}><span class="career__dot" aria-hidden="true"></span><span class="career__label">{soft(p)}</span></li>)}
+    </ol>
+  </div>
+  <div class="seg seg--career-line">
+    <Thread narrow={lane(14)} wide={lane(-14, LANE_R)} />
+    <div class="seg__in">
+      <p class="statement">{c.line.map((l) => <span>{l}</span>)}</p>
+    </div>
+  </div>
+</section>

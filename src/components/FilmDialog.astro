@@ -1,0 +1,45 @@
+---
+/**
+ * Filmen i en dialog som öppnas från sidfoten. Inget av filmen laddas innan besökaren öppnar den.
+ * Utan JavaScript leder länken direkt till filmfilen.
+ */
+import { copy } from '../config/site';
+import { film } from '../lib/film';
+const f = copy.film;
+const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
+---
+{film.available && (
+  <dialog class="film" aria-labelledby="film-title" data-film>
+    <div class="film__bar">
+      <h2 id="film-title" class="film__title">{f.title}</h2>
+      <button type="button" class="film__close" data-film-close>{f.close}</button>
+    </div>
+    <video
+      class="film__video"
+      controls
+      playsinline
+      preload="none"
+      data-poster={film.posterWebp ?? film.poster}
+      data-poster-vertical={film.posterVertical ?? undefined}
+      data-src={film.mp4}
+      data-src-small={film.mp4Small ?? undefined}
+      data-src-vertical={film.vertical ?? undefined}
+    >
+      {film.chapters && <track kind="chapters" srclang="sv" label="Kapitel" data-src={film.chapters} />}
+    </video>
+    {film.scenes.length > 0 && (
+      <details class="film__text">
+        <summary>Läs filmens text</summary>
+        <ol>
+          {film.scenes.map((s) => (
+            <li>
+              <span class="film__time">{fmt(s.start)}</span>
+              {s.visual && <span class="film__visual">{s.visual}</span>}
+              {s.text.map((t) => <span>{t}</span>)}
+            </li>
+          ))}
+        </ol>
+      </details>
+    )}
+  </dialog>
+)}

@@ -1,14 +1,22 @@
 {
   "name": "Miljonkraft Botkyrka",
   "short_name": "Miljonkraft",
-  "description": "Fler i arbete. Starkare företag. Ett starkare Botkyrka. Ett initiativ från Miljonbemanning.",
+  "description": "Miljonkraft Botkyrka kopplar lokala företag med människor som vill arbeta och utvecklas. Ett initiativ från Miljonbemanning med rötterna i Alby.",
   "lang": "sv-SE",
   "start_url": "/",
   "display": "browser",
   "background_color": "#FFFFFF",
-  "theme_color": "#D7E5EB",
+  "theme_color": "#FFFFFF",
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

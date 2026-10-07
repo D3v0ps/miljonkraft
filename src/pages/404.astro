@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import { copy, site } from '../config/site';
 import { resolveBooking } from '../lib/booking';
 const b = resolveBooking();
@@ -9,15 +11,16 @@ const ctaHref = b.href.startsWith('#') ? `/${b.href}` : b.href;
 ---
 
 <BaseLayout title={title} description={copy.notFound.text} path="/404/" noindex={true}>
+  <Header />
   <main id="innehall" class="notfound">
     <div class="notfound__inner">
-      <p class="notfound__brand">{site.name}</p>
       <h1>{copy.notFound.title}</h1>
       <p>{copy.notFound.text}</p>
       <div class="notfound__actions">
         <a class="btn" href="/">{copy.notFound.linkLabel}</a>
-        <a class="btn btn--ghost" href={ctaHref} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined} data-event={b.openEvent}>{b.ctaShort}{b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}</a>
+        <a class="quiet-link" href={ctaHref} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined} data-event={b.openEvent}>{b.ctaFull}{b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}</a>
       </div>
     </div>
   </main>
+  <Footer />
 </BaseLayout>

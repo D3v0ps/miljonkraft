@@ -1,12 +1,14 @@
 ---
 /**
- * Huvudknappen. Visar hela texten där den ryms och den korta etiketten på mycket smala skärmar.
- * Båda texterna finns i HTML, CSS avgör vilken som visas.
+ * Huvudknappen. Båda texterna finns i HTML, CSS avgör vilken som visas.
+ * I contact_only öppnar den ett förifyllt mejl och heter aldrig Boka.
  */
 import { resolveBooking } from '../lib/booking';
-interface Props { class?: string; cta: string; forceShort?: boolean }
-const { class: className = '', cta, forceShort = false } = Astro.props;
+interface Props { class?: string; cta: string }
+const { class: className = '', cta } = Astro.props;
 const b = resolveBooking();
+// Ord med bindestreck, som 30-minuters, bryts aldrig mitt i.
+const parts = b.ctaFull.split(/(\S+-\S+)/);
 ---
 <a
   class={`btn ${className}`.trim()}
@@ -16,13 +18,6 @@ const b = resolveBooking();
   data-cta={cta}
   data-event={b.openEvent}
 >
-  {forceShort ? (
-    <span>{b.ctaShort}</span>
-  ) : (
-    <>
-      <span class="cta-full">{b.ctaFull}</span>
-      <span class="cta-short">{b.ctaShort}</span>
-    </>
-  )}
+  <span class="cta-full">{parts.map((p) => (/-/.test(p) ? <span class="nw">{p}</span> : p))}</span><span class="cta-short">{b.ctaShort}</span>
   {b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}
 </a>

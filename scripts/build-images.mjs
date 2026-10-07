@@ -12,7 +12,7 @@ const photos = [
   // [källfil, utnamn, beskärning i procent från toppen (fokus), bredder]
   ['assets-src/bildbank/MB_bildbank_9-lager.jpg', 'lager', 'attention', [640, 1200]],
   ['assets-src/bildbank/MB_bildbank_10-transport.jpg', 'transport', 'attention', [640, 1200]],
-  ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast', 'centre', [720, 1400]],
+  ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast', 'centre', [720, 1400, 1920]],
   ['assets-src/bildbank/MB_bildbank_6-kontor.jpg', 'kontor', 'attention', [720, 1400]],
 ];
 for (const [src, name, position, widths] of photos) {
@@ -24,7 +24,7 @@ for (const [src, name, position, widths] of photos) {
 
 // Stående beskärningar för höga paneler. [källfil, utnamn, utsnitt i originalet (1920 × 1080), bredder]
 const portraits = [
-  ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast-portrait', { left: 548, top: 0, width: 864, height: 1080 }, [600, 864]],
+  ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast-portrait', { left: 548, top: 0, width: 864, height: 1080 }, [600, 720, 864]],
   ['assets-src/bildbank/MB_bildbank_10-transport.jpg', 'transport-portrait', { left: 470, top: 0, width: 648, height: 1080 }, [420, 648]],
   ['assets-src/bildbank/MB_bildbank_9-lager.jpg', 'lager-portrait', { left: 560, top: 0, width: 648, height: 1080 }, [420, 648]],
 ];

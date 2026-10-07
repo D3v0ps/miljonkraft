@@ -1,0 +1,22 @@
+---
+import { copy } from '../../config/site';
+import { lane } from '../../lib/thread';
+import Thread from '../Thread.astro';
+import CtaLink from '../CtaLink.astro';
+const c = copy.idea;
+---
+<section class="ch ch--idea" id={c.id} aria-labelledby="idea-h">
+  <div class="halo" aria-hidden="true"></div>
+  <div class="seg seg--idea">
+    <Thread class="t--idea" narrow={lane(14, 25, true)} />
+    <span class="meet" aria-hidden="true"><span class="meet__a"></span><span class="meet__b"></span></span>
+    <div class="seg__in idea">
+      <h1 id="idea-h" class="idea__h">{c.headline}</h1>
+      <p class="idea__lead">{c.lead}</p>
+      <p class="idea__actions">
+        <CtaLink class="btn--lg" cta="primary" />
+        <a class="quiet-link" href={c.readMoreHref}>{c.readMore}</a>
+      </p>
+    </div>
+  </div>
+</section>

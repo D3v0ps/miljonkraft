@@ -8,8 +8,6 @@ export interface ResolvedBooking {
   ctaShort: string;
   /** Full knapptext där den ryms. */
   ctaFull: string;
-  /** Rubrik för bokningssektionen. */
-  heading: string;
   /** Instruktion i bokningssektionen. */
   instruction: string;
   /** Adress som alla huvudknappar leder till. */
@@ -55,15 +53,15 @@ function assertUrl(value: string, name: string): string {
 
 export function resolveBooking(): ResolvedBooking {
   const mode = booking.mode;
-  const section = copy.bookingSection;
+  const section = copy.invitation;
 
   if (mode === 'contact_only') {
     return {
       mode,
       isReal: false,
-      ctaShort: 'Föreslå ett samtal',
-      ctaFull: 'Föreslå ett samtal på 30\u00A0minuter',
-      heading: `Föreslå ett samtal på 30 minuter med ${contact.firstName}`,
+      // Knappen bokar inget i det här läget och får därför aldrig heta Boka.
+      ctaShort: 'Föreslå samtal',
+      ctaFull: 'Föreslå ett 30-minuters samtal',
       instruction: section.instructionContact,
       href: encodeMailto(contact.email, booking.mail.subject, booking.mail.body),
       external: false,
@@ -81,11 +79,10 @@ export function resolveBooking(): ResolvedBooking {
   return {
     mode,
     isReal: true,
-    ctaShort: 'Boka möte',
-    ctaFull: `Boka 30 minuter med ${contact.firstName}`,
-    heading: `Boka 30 minuter med ${contact.firstName}`,
+    ctaShort: 'Boka 30 min',
+    ctaFull: `Boka 30 min med ${contact.firstName}`,
     instruction: section.instructionReal,
-    href: mode === 'external_link' ? publicUrl : nav.bookingHref,
+    href: mode === 'external_link' ? publicUrl : nav.invitationHref,
     external: mode === 'external_link',
     publicUrl,
     embedUrl,

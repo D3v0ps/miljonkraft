@@ -1,31 +1,19 @@
 ---
-import { contact, copy, site } from '../config/site';
-import fit from '../lib/type-fit.json';
-import { splitPeriod } from '../lib/heading';
+import { copy, site } from '../config/site';
+import { film } from '../lib/film';
 import MbLogo from './MbLogo.astro';
 const fo = copy.footer;
-const [devise, hasPeriod] = splitPeriod(fo.devise);
 ---
-
-<footer class="site-footer" data-progress="enter">
-  <div class="container">
-    <div class="site-footer__top">
-      <div class="site-footer__brand">
-        <MbLogo height={48} />
-        <p class="site-footer__devise">{devise}{hasPeriod && <span class="dot">.</span>}</p>
-        <p class="site-footer__name">{fo.name}</p>
-        <p class="site-footer__byline">{fo.byline}</p>
-      </div>
-      <nav class="site-footer__nav" aria-label="Sidfot">
-        <ul>
-          {fo.links.map((l) => (
-            <li><a href={l.href} rel={l.external ? 'noopener' : undefined}>{l.label}</a></li>
-          ))}
-          <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
-        </ul>
-      </nav>
+<footer class="foot">
+  <div class="foot__in">
+    <p class="foot__status">{copy.status.text.join(' ')}</p>
+    <div class="foot__row">
+      <p class="foot__brand"><MbLogo height={28} /><span>{fo.byline}</span></p>
+      <ul class="foot__links">
+        {film.available && <li><a href={film.mp4} data-film-open>{copy.film.linkLabel}</a></li>}
+        {fo.links.map((l) => <li><a href={l.href} rel={l.external ? 'noopener' : undefined}>{l.label}</a></li>)}
+      </ul>
+      <p class="foot__legal">© {site.copyrightYear} Miljonbemanning</p>
     </div>
-    <p class="site-footer__legal">© {site.copyrightYear} Miljonbemanning</p>
-    <p class="site-footer__giant" aria-hidden="true" style={`--k:${fit.footer}`}><span class="outline">Miljonkraft</span><span class="fill">Miljonkraft</span></p>
   </div>
 </footer>

@@ -1,0 +1,24 @@
+---
+import { copy } from '../../config/site';
+import { lane, weave } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.value;
+const pos = (i: number) => `--nx:${weave.narrowPos[i][0]}%;--ny:${weave.narrowPos[i][1]}%;--wx:${weave.widePos[i][0]}%;--wy:${weave.widePos[i][1]}%`;
+---
+<section class="ch" id={c.id} aria-labelledby="value-h">
+  <div class="seg seg--weave">
+    <Thread narrow={weave.narrow} vb={weave.narrowVb} wide={weave.wide} vbWide={weave.wideVb} />
+    <h2 id="value-h" class="weave">
+      <span class="weave__word" style={pos(0)}>{c.left}</span>
+      <span class="visually-hidden"> × </span>
+      <span class="weave__word" style={pos(1)}>{c.right}</span>
+    </h2>
+  </div>
+  <div class="seg">
+    <Thread narrow={lane(14)} />
+    <div class="seg__in">
+      <p class="statement statement--solo">{c.statement}</p>
+      <p class="body">{c.body}</p>
+    </div>
+  </div>
+</section>

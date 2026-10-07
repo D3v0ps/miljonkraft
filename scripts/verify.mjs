@@ -100,22 +100,19 @@ for (const v of widths) {
   await ctx.close();
 }
 
-// Interaktionslägen på mobil: öppen meny, fokus, fast knapprad. Samt 1024 och 1366 (vanlig laptop) första skärm, 404 och integritet.
+// Mobil: fokus och fast sidhuvud efter skroll. Samt 1024 och 1366 (vanlig laptop) första skärm, 404 och integritet.
 {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
-  await page.evaluate(() => { document.fonts.ready; document.documentElement.style.scrollBehavior = 'auto'; });
-  await page.click('[data-menu-toggle]');
-  await page.waitForTimeout(400);
-  await page.screenshot({ path: `${outDir}/390-menu-open.png` });
-  await page.keyboard.press('Escape');
+  await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; });
   for (let i = 0; i < 3; i++) await page.keyboard.press('Tab');
   await page.waitForTimeout(300);
   await page.screenshot({ path: `${outDir}/390-focus.png` });
-  await page.evaluate(() => window.scrollTo(0, 1400));
+  await page.evaluate(() => window.scrollTo(0, 2400));
   await page.waitForTimeout(500);
-  await page.screenshot({ path: `${outDir}/390-scrolled-cta-bar.png` });
+  await page.screenshot({ path: `${outDir}/390-scrolled.png` });
+  report.headerCtaVisibleAfterScroll = await page.evaluate(() => { const r = document.querySelector('[data-cta="header"]').getBoundingClientRect(); return r.top >= 0 && r.bottom <= window.innerHeight && r.height > 0; });
   await ctx.close();
   for (const [w, h, name] of [[1024, 768, '1024-first'], [1366, 768, '1366-first']]) {
     const c = await browser.newContext({ viewport: { width: w, height: h }, deviceScaleFactor: 1 });
@@ -162,29 +159,12 @@ for (const v of [widths[1], widths[3]]) {
       const r = el.getBoundingClientRect();
       const hidden = r.width === 0 || r.height === 0;
       const ringOf = (n) => { const c = getComputedStyle(n); return (c.outlineStyle !== 'none' && parseFloat(c.outlineWidth) > 0) || c.boxShadow !== 'none'; };
-      // Vissa kontroller ritar fokus på ett inre element, t.ex. filmens spelkort som annars klipps av ramen.
-      const inner = el.querySelector('.film__play-inner');
-      const hasRing = ringOf(el) || (inner ? ringOf(inner) : false);
+      const hasRing = ringOf(el);
       return { tag: el.tagName.toLowerCase(), text: (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40), href: el.getAttribute('href'), hasRing, hidden, w: Math.round(r.width), h: Math.round(r.height), top: Math.round(r.top) };
     });
     if (info) focusTrail.push(info);
   }
-  // Menyknapp med tangentbord (bara mobil).
-  let menu = null;
-  if (v.w < 1024) {
-    const btn = page.locator('[data-menu-toggle]');
-    if (await btn.count()) {
-      await btn.focus();
-      await page.keyboard.press('Enter');
-      const expanded = await btn.getAttribute('aria-expanded');
-      await page.keyboard.press('Tab');
-      const firstItem = await page.evaluate(() => document.activeElement?.textContent?.trim());
-      await page.keyboard.press('Escape');
-      const afterEsc = await btn.getAttribute('aria-expanded');
-      const focusBack = await page.evaluate(() => document.activeElement?.hasAttribute('data-menu-toggle'));
-      menu = { expandedAfterEnter: expanded, firstItemAfterTab: firstItem, expandedAfterEscape: afterEsc, focusReturnedToButton: focusBack };
-    }
-  }
+  const menu = null;
   report.keyboard[v.name] = { focusTrail, menu, missingRing: focusTrail.filter((f) => !f.hasRing).length, tinyTargets: focusTrail.filter((f) => !f.hidden && (f.w < 24 || f.h < 24)).length };
   await ctx.close();
 }
@@ -200,8 +180,10 @@ for (const v of [widths[1], widths[3]]) {
     modelSteps: document.querySelectorAll('#miljonmodellen ol li').length,
     telLinks: [...document.querySelectorAll('a[href^="tel:"]')].map((a) => a.getAttribute('href')),
     mailLinks: [...document.querySelectorAll('a[href^="mailto:"]')].length,
-    navLinksVisible: [...document.querySelectorAll('header nav a')].filter((a) => a.getBoundingClientRect().height > 0).length,
-    statusVisible: !!document.querySelector('.status-note') && document.querySelector('.status-note').getBoundingClientRect().height > 0,
+    headerCtaVisible: (document.querySelector('[data-cta="header"]')?.getBoundingClientRect().height ?? 0) > 0,
+    statusVisible: (document.querySelector('.foot__status')?.getBoundingClientRect().height ?? 0) > 0,
+    // Utan JavaScript ritas tråden ändå med CSS när sidan skrollas. Här kontrolleras att den inte döljs av skriptets reservläge.
+    threadHiddenByFallback: document.documentElement.classList.contains('js'),
   }));
   await page.screenshot({ path: `${outDir}/390-nojs-first.png` });
   report.noJs = r;
@@ -215,8 +197,9 @@ for (const v of [widths[1], widths[3]]) {
   await page.goto(baseUrl, { waitUntil: 'networkidle' });
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: `${outDir}/390-reduced-motion-first.png` });
-  const animated = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((el) => { const cs = getComputedStyle(el); return cs.animationName !== 'none' && cs.animationDuration !== '0s'; }).length);
-  report.reducedMotion = { elementsStillAnimating: animated };
+  const animated = await page.evaluate(() => [...document.querySelectorAll('body *')].filter((el) => getComputedStyle(el).animationName !== 'none').length);
+  const threadDrawn = await page.evaluate(() => [...document.querySelectorAll('.t path')].every((p) => getComputedStyle(p).strokeDasharray === 'none'));
+  report.reducedMotion = { elementsStillAnimating: animated, threadDrawn };
   await ctx.close();
 }
 
@@ -247,8 +230,20 @@ for (const v of [widths[1], widths[3]]) {
     jsonLd: !!document.querySelector('script[type="application/ld+json"]'),
     ogImage: document.querySelector('meta[property="og:image"]')?.content,
   }));
+  // Synliga ord på startsidan (briefen: 350 till 500). Dold text för skärmläsare och stängda detaljer räknas inte.
+  const words = await page.evaluate(() => {
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let n = 0;
+    for (let t = walker.nextNode(); t; t = walker.nextNode()) {
+      const el = t.parentElement;
+      if (!el || el.closest('script, style, template, noscript, .visually-hidden, dialog:not([open]), details:not([open]) > :not(summary)')) continue;
+      if (!el.checkVisibility({ checkOpacity: false, checkVisibilityCSS: true })) continue;
+      n += (t.textContent.match(/[\p{L}\p{N}]+(?:[-'’][\p{L}\p{N}]+)*/gu) || []).length;
+    }
+    return n;
+  });
   report.links = links;
-  report.meta = titleMeta;
+  report.meta = { ...titleMeta, visibleWords: words };
   await ctx.close();
 }
 
@@ -262,5 +257,10 @@ for (const [k, v] of Object.entries(report.keyboard)) if (v.missingRing) problem
 if (report.links.anchorsMissing.length) problems.push(`Ankare saknas: ${report.links.anchorsMissing.join(', ')}`);
 if (report.links.externalWithoutNoopener.length) problems.push(`Externa länkar utan noopener: ${report.links.externalWithoutNoopener.join(', ')}`);
 if (report.noJs.modelSteps !== 8) problems.push(`Utan JS syns ${report.noJs.modelSteps} modellsteg, förväntat 8`);
+if (report.reducedMotion.elementsStillAnimating) problems.push(`${report.reducedMotion.elementsStillAnimating} element animerar trots reducerad rörelse`);
+if (!report.reducedMotion.threadDrawn) problems.push('Med reducerad rörelse är tråden inte färdigritad');
+if (report.meta.visibleWords < 350 || report.meta.visibleWords > 500) problems.push(`Synliga ord ${report.meta.visibleWords}, briefen anger 350 till 500`);
+if (report.meta.h1Count !== 1) problems.push(`${report.meta.h1Count} h1 på startsidan`);
+if (!report.headerCtaVisibleAfterScroll) problems.push('Knappen i sidhuvudet syns inte efter skroll på mobil');
 console.log(JSON.stringify({ meta: report.meta, noJs: report.noJs, reducedMotion: report.reducedMotion, viewports: Object.fromEntries(Object.entries(report.viewports).map(([k, v]) => [k, { overflow: v.overflow.horizontalOverflow, offenders: v.overflow.offenders.slice(0, 3), metrics: v.metrics, consoleErrors: v.consoleErrors, failed: v.failedRequests, http4xx: v.responses4xx5xx }])), keyboard: Object.fromEntries(Object.entries(report.keyboard).map(([k, v]) => [k, { menu: v.menu, missingRing: v.missingRing, tinyTargets: v.tinyTargets, trail: v.focusTrail.map((f) => `${f.tag}:${f.text || f.href}`).slice(0, 30) }])), problems }, null, 2));
 process.exitCode = problems.length ? 1 : 0;

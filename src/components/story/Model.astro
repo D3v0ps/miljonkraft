@@ -1,0 +1,21 @@
+---
+import { copy } from '../../config/site';
+import { lane } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.model;
+---
+<section class="ch" id={c.id} aria-labelledby="model-h">
+  <div class="seg">
+    <Thread narrow={lane(14)} />
+    <div class="seg__in">
+      <h2 id="model-h" class="h2 model__h"><span class="model__theory">{c.theory}</span> <span class="model__reality">{c.reality}</span></h2>
+      <p class="model__name"><strong>{c.name}.</strong> {c.intro}</p>
+    </div>
+  </div>
+  <div class="seg">
+    <Thread narrow={lane(0)} />
+    <ol class="seg__in stanza" aria-label={c.name}>
+      {c.steps.map((s) => <li class="stanza__step" data-lit><span class="stanza__dot" aria-hidden="true"></span>{s}</li>)}
+    </ol>
+  </div>
+</section>

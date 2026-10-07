@@ -1,0 +1,27 @@
+---
+import { copy } from '../../config/site';
+import { horizon, lane } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.direction;
+---
+<section class="ch ch--sky" id={c.id} aria-labelledby="direction-h">
+  <div class="sky">
+  <div class="seg seg--sky">
+    <Thread narrow={lane(14)} />
+    <div class="seg__in">
+      <p class="kicker">{c.label}</p>
+      <h2 id="direction-h" class="h2 h2--xl">{c.heading}</h2>
+      <p class="lead">{c.text}</p>
+    </div>
+  </div>
+  <div class="seg seg--horizon">
+    <div class="sun" aria-hidden="true"><span class="sun__disc"></span></div>
+    <Thread class="t--horizon" narrow={horizon} />
+  </div>
+  </div>
+  <div class="seg seg--ground">
+    <div class="seg__in">
+      <p class="beyond">{c.beyond}</p>
+    </div>
+  </div>
+</section>

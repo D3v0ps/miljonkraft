@@ -1,0 +1,29 @@
+---
+import { copy } from '../../config/site';
+import { lane } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.proof;
+---
+<section class="ch" id={c.id} aria-labelledby="proof-h">
+  <div class="seg">
+    <Thread narrow={lane(-12)} />
+    <div class="seg__in">
+      <h2 id="proof-h" class="h2">{c.heading}</h2>
+    </div>
+  </div>
+  <div class="seg">
+    <Thread narrow={lane(0)} />
+    <ol class="seg__in proofs">
+      {c.items.map((it) => (
+        <li class="proof" data-lit>
+          <span class="proof__dot" aria-hidden="true"></span>
+          <p class="proof__value">{it.value}</p>
+          <div class="proof__body">
+            <h3 class="proof__title">{it.title}</h3>
+            <p class="proof__text">{it.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

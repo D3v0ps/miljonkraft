@@ -1,0 +1,28 @@
+---
+import { copy } from '../../config/site';
+import { cycle, lane } from '../../lib/thread';
+import Thread from '../Thread.astro';
+const c = copy.cycle;
+const pos = (i: number) => `--nx:${cycle.narrowPos[i][0]}%;--ny:${cycle.narrowPos[i][1]}%;--wx:${cycle.widePos[i][0]}%;--wy:${cycle.widePos[i][1]}%`;
+---
+<section class="ch" id={c.id} aria-labelledby="cycle-h">
+  <div class="seg">
+    <Thread narrow={lane(14)} />
+    <div class="seg__in">
+      <h2 id="cycle-h" class="h2">{c.heading}</h2>
+    </div>
+  </div>
+  <figure class="seg seg--cycle cycle">
+    <Thread narrow={cycle.narrow} vb={cycle.narrowVb} wide={cycle.wide} vbWide={cycle.wideVb} />
+    <ul class="cycle__nodes">
+      {c.nodes.map((n, i) => <li class:list={['cycle__node', { 'cycle__node--core': i === 1 }]} style={pos(i)}>{n}</li>)}
+    </ul>
+    <figcaption class="visually-hidden">{c.figureLabel}</figcaption>
+  </figure>
+  <div class="seg">
+    <Thread narrow={lane(-12)} />
+    <div class="seg__in">
+      <p class="lead">{c.line}</p>
+    </div>
+  </div>
+</section>
