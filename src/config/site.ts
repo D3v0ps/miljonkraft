@@ -244,7 +244,7 @@ export const copy = {
     name: 'Miljonkraft Botkyrka',
     byline: 'Ett initiativ från Miljonbemanning',
     links: [
-      { label: 'Kontakt', href: '#boka' },
+      { label: 'Kontakt', href: '#boka', external: false },
       { label: 'Miljonbemanning', href: 'https://miljonbemanning.se', external: true },
       { label: 'Integritet', href: '/integritet/', external: false },
     ],

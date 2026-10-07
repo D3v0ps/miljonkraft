@@ -8,7 +8,7 @@ import { site } from './src/config/site.ts';
 // då skrivs noindex i HTML (se BaseLayout.astro) och sitemap/robots pekar ändå på produktion.
 export default defineConfig({
   site: site.url,
-  trailingSlash: 'ignore',
+  trailingSlash: 'always',
   compressHTML: true,
   build: {
     format: 'directory',
