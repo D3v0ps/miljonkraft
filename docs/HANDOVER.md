@@ -26,6 +26,7 @@ Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxe
 4. **ESF-villkoret är borttaget.** Meningen om att projektet startar om Svenska ESF-rådet beviljar stöd finns inte längre på sidan eller i filmen. Samarbetsavtalet med Botkyrka kommun står kvar, och visionsavsnittet beskriver fortfarande Miljonkraft Botkyrka som ett planerat projekt.
 5. **Bilder.** Egna bilder och illustrationer var tillåtna, liksom stockbilder. Sidan använder Miljonbemannings egen bildbank och egna linjeillustrationer. Stockbilder behövdes inte.
 6. **Pusha och slå samman till `main` alltid.**
+7. **www.miljonkraft.se är primär domän.** miljonkraft.se omdirigeras dit i Vercel. Canonical, sitemap, robots.txt och delningslänkar använder www.
 
 ## 3. Designen i korthet
 
@@ -56,7 +57,7 @@ Se `README.md`. All text, kontaktuppgifter, bokningsläge och bilder anges i `sr
 ## 7. Återstår
 
 1. **Microsoft Bookings.** Följ `docs/BOOKING_SETUP.md` och byt `mode` när en verifierad länk finns.
-2. **Domän på Vercel.** Kontrollerat 2026-10-07: miljonkraft.se omdirigeras med 308 till www.miljonkraft.se, som svarar 200. Sidans canonical, sitemap och delningslänkar använder därför www. Vill ni hellre ha miljonkraft.se utan www som primär adress: byt primär domän i Vercel och ändra `site.url` och `public/robots.txt`. Sätt `PUBLIC_NOINDEX=1` för miljön Preview.
+2. **Förhandsvisningar på Vercel.** Sätt `PUBLIC_NOINDEX=1` för miljön Preview så att förhandsvisningar inte indexeras. Domänen är klar: www.miljonkraft.se är primär och miljonkraft.se omdirigeras dit med 308 (kontrollerat 2026-10-07).
 3. **Porträtt av Yacine.** Ett riktigt foto skulle stärka bokningsdelen. Inget porträtt har skapats eller hämtats, eftersom ett påhittat ansikte inte får användas.
 4. **Search Console och Bing Webmaster Tools.** Verifiera domänen och skicka in sitemap.
 5. **Integritetsinformation.** Texten på `/integritet/` bör bekräftas av Miljonbemanning.

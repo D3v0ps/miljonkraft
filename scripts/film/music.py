@@ -122,6 +122,11 @@ def edge_fade(x, a=0.002, r=0.004):
     return x * (w if x.ndim == 1 else w[:, None])
 
 
+def smooth_attack(t, a):
+    """sin^2 attack ramp: no corner at the end of the attack, so no broadband tick."""
+    return np.sin(0.5 * np.pi * np.minimum(1.0, t / a)) ** 2
+
+
 def saw_blep(freq, n, phase0=0.0):
     """Band-limited sawtooth (polyBLEP). freq may be a scalar or an array of length n."""
     f = np.broadcast_to(np.asarray(freq, dtype=float), (n,)).copy()
@@ -224,7 +229,7 @@ def pluck(m, dur=0.9, bright=0.6, tau=0.32, seed=0):
             break
         tk = tau / (1.0 + 0.32 * (k - 1) * (1.25 - bright))
         y += amp * np.sin(2 * np.pi * f * k * t + g.uniform(-0.15, 0.15)) * np.exp(-t / tk)
-    y *= np.minimum(1.0, t / 0.0025)
+    y *= smooth_attack(t, 0.004)
     return edge_fade(y, 0.0005, 0.03)
 
 
@@ -241,7 +246,7 @@ def bell(m, dur=3.2, seed=0):
         if f * r > 16000:
             continue
         y += a * np.sin(2 * np.pi * f * r * t + g.uniform(0, 2 * np.pi)) * np.exp(-t / d)
-    y *= np.minimum(1.0, t / 0.0015)
+    y *= smooth_attack(t, 0.003)
     return edge_fade(y, 0.0005, 0.08)
 
 
@@ -258,7 +263,7 @@ def lead(m, dur, vel=1.0):
     kmax = int(min(12000.0 / f0, 24))
     for k in range(1, kmax + 1):
         y += (1.0 / k ** 1.35) * np.sin(k * ph) * np.exp(-t * (k - 1) * 0.9)
-    env = np.minimum(1.0, t / 0.012) * (0.62 + 0.38 * np.exp(-t / 0.35))
+    env = smooth_attack(t, 0.014) * (0.62 + 0.38 * np.exp(-t / 0.35))
     off = sec(dur)
     env[off:] *= np.exp(-(t[off:] - t[off]) / (rel / 4))
     return edge_fade(y * env * vel, 0.001, 0.02)

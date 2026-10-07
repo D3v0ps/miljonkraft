@@ -13,7 +13,7 @@ export type BookingMode = 'shared_embed' | 'external_link' | 'contact_only';
 export const site = {
   /**
    * Produktionsadress. Används för canonical, Open Graph, sitemap och JSON-LD.
-   * Vercel har www som primär domän och omdirigerar miljonkraft.se dit (kontrollerat 2026-10-07).
+   * www är primär domän enligt Karims beslut 2026-10-07. Vercel omdirigerar miljonkraft.se hit.
    * Byts primär domän i Vercel ska adressen här och i public/robots.txt ändras samtidigt.
    */
   url: 'https://www.miljonkraft.se',
