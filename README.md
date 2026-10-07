@@ -54,6 +54,24 @@ npx lighthouse http://127.0.0.1:4321/ --output=html --output-path=docs/verificat
 
 Produktionsadressen är `https://miljonkraft.se` och sätts i `src/config/site.ts`.
 
+### Vercel
+
+Projektet är förberett för Vercel med `vercel.json` (Astro-preset, avslutande snedstreck, permanent omdirigering från www till apex, två säkerhetshuvuden). Astros `dist/404.html` serveras av Vercel med statuskod 404.
+
+Via Vercels webbgränssnitt: importera GitHub-repot, behåll förvalet (byggkommando `npm run build`, utdata `dist`), lägg till domänerna `miljonkraft.se` och `www.miljonkraft.se` under Domains. Sätt miljövariabeln `PUBLIC_NOINDEX=1` för miljön Preview så att förhandsvisningar får `noindex` i HTML (Vercel lägger dessutom `X-Robots-Tag: noindex` på förhandsvisningar).
+
+Via kommandoraden:
+
+```bash
+npm i -g vercel
+vercel login
+vercel link        # koppla mappen till Vercel-projektet
+vercel             # förhandsvisning på en unik adress
+vercel --prod      # produktion
+```
+
+Med Vercels Claude Code-plugin (`npx plugins add vercel/vercel-plugin`) finns kommandona `/deploy`, `/deploy prod`, `/env` och `/status` som gör samma sak med förkontroller.
+
 ## Dokumentation
 
 - `docs/HANDOVER.md` överlämning, designbeslut, vad som fungerar och vad som återstår
