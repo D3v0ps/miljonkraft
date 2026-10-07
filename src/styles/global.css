@@ -44,7 +44,7 @@
   --text-lead: clamp(1.125rem, 1.05rem + 0.45vw, 1.375rem);
   --text-h3: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
   --text-h2: clamp(1.75rem, 1.35rem + 1.7vw, 2.625rem);
-  --text-h1: clamp(1.875rem, 1.1rem + 4.4vw, 4.5rem);
+  --text-h1: clamp(1.875rem, 1.1rem + 4.4vw, 3.5rem);
   --measure: 62ch;
 
   --gutter: clamp(1rem, 4vw, 2.5rem);
@@ -223,20 +223,23 @@ p + p { margin-top: 1em; }
   max-width: 24ch;
 }
 .hero__title span { display: block; }
+.hero__br { display: none; }
+@media (min-width: 1024px) { .hero__br { display: inline; } }
 .hero__title span:nth-child(3) { color: var(--accent-dark); }
 .hero__lead { margin-top: 1.5rem; font-size: var(--text-lead); line-height: 1.45; font-weight: 500; max-width: 34ch; }
-.hero__body { margin-top: 1rem; color: var(--on-dark-muted); max-width: 48ch; }
+.hero__body { margin-top: 1rem; color: var(--on-dark-muted); max-width: 48ch; font-weight: 450; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 2rem; }
 .hero__phone { color: var(--on-dark); font-weight: 500; }
 .hero__graphic { width: 100%; max-width: 40rem; justify-self: end; margin-top: 0.5rem; }
 .hero__graphic svg { width: 100%; height: auto; }
-.stair__fill { fill: rgba(255, 255, 255, 0.055); }
 .stair__line { stroke: var(--on-dark-muted); stroke-dasharray: 1; stroke-dashoffset: 0; }
+.stair__start { fill: var(--on-dark-muted); }
 .stair__top { stroke: var(--accent-dark); }
+.stair__end { stroke: var(--accent-dark); fill: none; }
 @media (prefers-reduced-motion: no-preference) {
   /* Ett enda orkestrerat ögonblick vid sidladdning. Trappan ritas upp och visar riktningen framåt. */
   .stair__line { animation: stair-draw 1100ms var(--ease-out) 150ms both; }
-  .stair__top { animation: stair-top 300ms var(--ease-out) 1000ms both; }
+  .stair__top, .stair__end { animation: stair-top 300ms var(--ease-out) 1050ms both; }
 }
 @keyframes stair-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
 @keyframes stair-top { from { opacity: 0; } to { opacity: 1; } }
@@ -250,8 +253,16 @@ p + p { margin-top: 1em; }
   .hero__graphic { max-width: 32rem; margin-top: 1.5rem; }
 }
 @media (min-width: 1024px) {
-  .hero__inner { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 4rem; }
+  /* Rubrik och luft dimensioneras så att avsändare, budskap och knapp ryms på 1366 × 768. */
+  :root { --text-h1: clamp(3rem, 1.5rem + 3.2vw, 4rem); --text-lead: 1.3125rem; }
+  .hero { padding-block: 3rem 0; }
+  .hero__inner { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 3.5rem; }
   .hero__graphic { align-self: end; }
+  .hero__lead { margin-top: 1.25rem; }
+  .hero__actions { margin-top: 1.75rem; }
+}
+@media (min-width: 1200px) {
+  .hero__inner { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 4rem; }
 }
 
 /* ---------- Statusrad ---------- */
@@ -442,7 +453,7 @@ p + p { margin-top: 1em; }
 .mobile-cta {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
   padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom));
-  background: rgba(250, 248, 245, 0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: rgba(250, 248, 245, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   border-top: 1px solid var(--line);
   transform: translateY(110%); transition: transform var(--dur) var(--ease-out);
 }

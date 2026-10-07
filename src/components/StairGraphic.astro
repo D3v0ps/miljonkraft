@@ -1,13 +1,15 @@
 ---
 /**
  * Sidans grafiska huvudgrepp. En trappa med åtta steg som stiger åt höger,
- * en per steg i Miljonmodellen. Dekorativ, modellens steg finns som text i #miljonmodellen.
+ * ett per steg i Miljonmodellen. Linjen börjar i en fylld nod och slutar i en
+ * ihålig nod, nästa steg som ännu inte är taget. Dekorativ, modellens steg
+ * finns som text i #miljonmodellen.
  */
 interface Props { class?: string; steps?: number; riser?: number; height?: number }
 const { class: className, steps = 8, riser = 42, height = 400 } = Astro.props;
-const W = 640, H = height, baseY = H - 20, tread = W / steps;
+const W = 640, H = height, pad = 10, baseY = H - pad - 4, tread = (W - pad * 2) / steps;
 const pts: string[] = [];
-let x = 0, y = baseY;
+let x = pad, y = baseY;
 pts.push(`${x},${y}`);
 for (let i = 0; i < steps; i++) {
   y -= riser;
@@ -16,11 +18,12 @@ for (let i = 0; i < steps; i++) {
   pts.push(`${x},${y}`);
 }
 const line = pts.join(' ');
-const fill = `0,${H} ${line} ${W},${H}`;
 const topY = baseY - riser * steps;
+const endX = pad + tread * steps;
 ---
 <svg class={className} viewBox={`0 0 ${W} ${H}`} width={W} height={H} fill="none" aria-hidden="true" focusable="false" preserveAspectRatio="xMidYMax meet">
-  <polygon class="stair__fill" points={fill} />
-  <polyline class="stair__line" points={line} stroke-width="3" stroke-linejoin="miter" vector-effect="non-scaling-stroke" pathLength="1" />
-  <line class="stair__top" x1={W - tread} y1={topY} x2={W} y2={topY} stroke-width="6" vector-effect="non-scaling-stroke" />
+  <polyline class="stair__line" points={line} stroke-width="2.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke" pathLength="1" />
+  <rect class="stair__start" x={pad - 5} y={baseY - 5} width="10" height="10" />
+  <line class="stair__top" x1={endX - tread} y1={topY} x2={endX} y2={topY} stroke-width="5" vector-effect="non-scaling-stroke" />
+  <rect class="stair__end" x={endX - 6} y={topY - 6} width="12" height="12" stroke-width="2.5" vector-effect="non-scaling-stroke" />
 </svg>

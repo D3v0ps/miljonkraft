@@ -4,6 +4,8 @@ import { copy, site } from '../config/site';
 import { resolveBooking } from '../lib/booking';
 const b = resolveBooking();
 const title = `${copy.notFound.title} | ${site.name}`;
+// Samma mål som huvudknapparna: mejlförslag i contact_only, extern sida, eller bokningssektionen på startsidan.
+const ctaHref = b.href.startsWith('#') ? `/${b.href}` : b.href;
 ---
 
 <BaseLayout title={title} description={copy.notFound.text} path="/404/" noindex={true}>
@@ -14,7 +16,7 @@ const title = `${copy.notFound.title} | ${site.name}`;
       <p>{copy.notFound.text}</p>
       <div class="notfound__actions">
         <a class="button button--primary" href="/">{copy.notFound.linkLabel}</a>
-        <a class="button button--ghost" href={b.external ? b.href : `/${b.href.startsWith('#') ? b.href : ''}`} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined}>{b.ctaShort}</a>
+        <a class="button button--ghost" href={ctaHref} rel={b.external ? 'noopener' : undefined} target={b.external ? '_blank' : undefined} data-event={b.openEvent}>{b.ctaShort}</a>
       </div>
     </div>
   </main>

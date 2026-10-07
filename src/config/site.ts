@@ -92,7 +92,7 @@ export const booking = {
       'Vi vill gärna ta ett samtal på 30 minuter om vårt företag och vad vi behöver framöver.',
       '',
       'Vårt företag heter ',
-      'Ni når mig på ',
+      'Du når mig på ',
       'Tider som passar oss är ',
       'Vi ses helst digitalt, hos oss eller hos er i Alby (stryk det som inte passar)',
       '',
@@ -113,9 +113,9 @@ export const nav = {
 
 export const copy = {
   hero: {
-    eyebrow: 'Miljonkraft Botkyrka',
+    /** Avsändarnamnet Miljonkraft Botkyrka bärs av ordmärket i sidhuvudet direkt ovanför heron. */
     byline: 'Ett initiativ från Miljonbemanning',
-    /** Tre meningar. Komponenten bryter rad efter varje mening. */
+    /** Tre meningar, en per rad. På breda skärmar bryts den tredje meningen medvetet efter 'starkare' (se Hero.astro). */
     headline: ['Fler i arbete.', 'Starkare företag.', 'Ett starkare Botkyrka.'],
     lead:
       'Vi vill koppla människors vilja att arbeta till företagens behov av kompetens. Ju bättre vi förstår er verksamhet, desto bättre kan vi förbereda människor för att lyckas hos er.',
@@ -128,7 +128,7 @@ export const copy = {
   },
   trust: [
     { fact: 'Rötter i Alby sedan 2012', note: 'Miljonbemanning' },
-    { fact: 'SvD Affärsbragd 2023', note: 'Tilldelades grundarna' },
+    { fact: 'SvD Affärsbragd 2023', note: 'Miljonbemannings grundare' },
   ],
   companies: {
     id: 'for-foretag',
@@ -214,7 +214,7 @@ export const copy = {
       'Välj en tid som passar. Vill ni hellre ses hos er eller hos oss i Alby, hör av er så hittar vi en tid.',
     /** Instruktion i contact_only. */
     instructionContact:
-      'Skicka ett mejl med några tider som passar er, så återkommer Yacine med en bekräftelse. Vill ni hellre ses hos er eller hos oss i Alby, skriv det i mejlet.',
+      'Skicka ett mejl med några tider som passar er, så återkommer jag och bekräftar en tid. Vill ni hellre ses hos er eller hos oss i Alby, skriv det i mejlet.',
     openInNewWindow: 'Öppna bokningen i ett nytt fönster',
     embedTitle: 'Bokningskalender för ett samtal på 30 minuter med Yacine Laghmari',
     embedLoadLabel: 'Visa lediga tider',
@@ -252,7 +252,7 @@ export const copy = {
   },
   notFound: {
     title: 'Sidan finns inte',
-    text: 'Adressen du följde leder ingenstans. Startsidan samlar allt om Miljonkraft Botkyrka och hur ni når Yacine.',
+    text: 'Adressen leder ingenstans. Startsidan samlar allt om Miljonkraft Botkyrka och hur ni når Yacine.',
     linkLabel: 'Till startsidan',
   },
 } as const;
