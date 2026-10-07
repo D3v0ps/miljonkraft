@@ -1,0 +1,21 @@
+---
+import { copy } from '../config/site';
+const pr = copy.proof;
+const q = copy.about.quotes.find((x) => x.featured)!;
+---
+
+<section class="section proof" id={pr.id} aria-labelledby="proof-label">
+  <div class="container">
+    <h2 class="label label--dot" id="proof-label" data-reveal>{pr.label}</h2>
+    <figure class="proof__figure">
+      <blockquote class="proof__quote" cite={q.source} data-reveal>
+        <p>{q.text}</p>
+      </blockquote>
+      <figcaption class="proof__caption" data-reveal>
+        <span class="proof__who">{q.who}</span>
+        <span class="proof__context">{q.context}. <a href={q.source} rel="noopener">{copy.about.sourceLabel}</a></span>
+      </figcaption>
+    </figure>
+    <p class="proof__status info" data-reveal>{copy.status.text}</p>
+  </div>
+</section>

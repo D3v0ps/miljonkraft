@@ -147,6 +147,10 @@ export const copy = {
       { art: 'city', text: 'Vi bygger ett samhälle där *fler får möjlighet att bidra*.' },
     ],
   },
+  proof: {
+    id: 'kommunen',
+    label: 'Botkyrka kommun om Alby',
+  },
   companies: {
     id: 'for-foretag',
     heading: 'Vi vill förstå vad ni behöver',
@@ -216,12 +220,15 @@ export const copy = {
     /** Verifierade citat ur publika källor. Ändra aldrig ordalydelsen. */
     quotes: [
       {
+        featured: false,
         text: 'Genom att leta efter talangerna på platser som valts bort av andra startade de en entreprenörsresa som är en på miljonen.',
         who: 'Juryns motivering',
         context: 'SvD Affärsbragd 2023',
         source: 'https://www.botkyrka.se/naringsliv-och-foretag/naringslivet-i-botkyrka/naringslivsnyheter/2023-05-31-miljonbemanning-fick-medalj-av-prinsen',
       },
       {
+        /** Lyfts fram som eget affischcitat i sektionen Kommunen (src/components/Proof.astro). */
+        featured: true,
         text: 'Det som de har gjort i Alby är fantastiskt för den stadsdelen, men också för Botkyrka och hela Stockholmsregionen.',
         who: 'Emanuel Ksiazkiewicz (S), kommunstyrelsens ordförande',
         context: 'Botkyrka kommun, 31 maj 2023',

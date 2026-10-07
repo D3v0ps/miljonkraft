@@ -33,7 +33,7 @@ const [bold, thin] = splitHeading(a.heading, 2);
     </div>
 
     <div class="quotes">
-      {a.quotes.map((q) => (
+      {a.quotes.filter((q) => !q.featured).map((q) => (
         <figure class="quote" data-reveal>
           <blockquote cite={q.source}><p>{q.text}</p></blockquote>
           <figcaption>
