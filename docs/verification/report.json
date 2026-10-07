@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://127.0.0.1:4321/",
-  "checkedAt": "2026-10-07T16:56:04.044Z",
+  "checkedAt": "2026-10-07T18:54:20.303Z",
   "viewports": {
     "320": {
       "overflow": {
@@ -8,6 +8,18 @@
         "scrollWidth": 320,
         "horizontalOverflow": false,
         "offenders": [
+          {
+            "tag": "span",
+            "cls": "film__play-inner",
+            "right": 345,
+            "left": 62
+          },
+          {
+            "tag": "span",
+            "cls": "film__play-label",
+            "right": 328,
+            "left": 130
+          },
           {
             "tag": "div",
             "cls": "ticker__track",
@@ -73,18 +85,6 @@
             "cls": "ticker__word",
             "right": 336,
             "left": 130
-          },
-          {
-            "tag": "span",
-            "cls": "ticker__dot",
-            "right": 364,
-            "left": 353
-          },
-          {
-            "tag": "span",
-            "cls": "ticker__word",
-            "right": 521,
-            "left": 381
           }
         ]
       },
@@ -94,7 +94,7 @@
         "bodyFontSize": "16px",
         "ctaVisibleInFirstScreen": false,
         "ctaHeight": 64,
-        "pageHeight": 13738,
+        "pageHeight": 13670,
         "navHeight": 76
       },
       "consoleErrors": [],
@@ -193,7 +193,7 @@
         "bodyFontSize": "16.14px",
         "ctaVisibleInFirstScreen": true,
         "ctaHeight": 64,
-        "pageHeight": 13607,
+        "pageHeight": 13600,
         "navHeight": 76
       },
       "consoleErrors": [],
@@ -292,7 +292,7 @@
         "bodyFontSize": "16.896px",
         "ctaVisibleInFirstScreen": false,
         "ctaHeight": 64,
-        "pageHeight": 14306,
+        "pageHeight": 14297,
         "navHeight": 76
       },
       "consoleErrors": [],
@@ -391,7 +391,7 @@
         "bodyFontSize": "18px",
         "ctaVisibleInFirstScreen": true,
         "ctaHeight": 64,
-        "pageHeight": 13563,
+        "pageHeight": 13514,
         "navHeight": 76
       },
       "consoleErrors": [],
@@ -490,7 +490,7 @@
         "bodyFontSize": "18px",
         "ctaVisibleInFirstScreen": true,
         "ctaHeight": 64,
-        "pageHeight": 14301,
+        "pageHeight": 14266,
         "navHeight": 76
       },
       "consoleErrors": [],
@@ -656,7 +656,7 @@
           "hidden": false,
           "w": 131,
           "h": 19,
-          "top": 3218
+          "top": 3217
         },
         {
           "tag": "button",
@@ -666,7 +666,7 @@
           "hidden": false,
           "w": 358,
           "h": 636,
-          "top": 5253
+          "top": 5246
         },
         {
           "tag": "summary",
@@ -676,7 +676,7 @@
           "hidden": false,
           "w": 134,
           "h": 44,
-          "top": 5903
+          "top": 5898
         },
         {
           "tag": "a",
@@ -686,7 +686,7 @@
           "hidden": false,
           "w": 358,
           "h": 64,
-          "top": 12018
+          "top": 12013
         },
         {
           "tag": "a",
@@ -696,7 +696,7 @@
           "hidden": false,
           "w": 112,
           "h": 44,
-          "top": 12308
+          "top": 12309
         },
         {
           "tag": "a",
@@ -706,7 +706,7 @@
           "hidden": false,
           "w": 331,
           "h": 44,
-          "top": 12356
+          "top": 12351
         },
         {
           "tag": "summary",
@@ -716,7 +716,7 @@
           "hidden": false,
           "w": 358,
           "h": 68,
-          "top": 12708
+          "top": 12716
         },
         {
           "tag": "summary",
@@ -726,7 +726,7 @@
           "hidden": false,
           "w": 358,
           "h": 96,
-          "top": 12778
+          "top": 12786
         },
         {
           "tag": "summary",
@@ -736,7 +736,7 @@
           "hidden": false,
           "w": 358,
           "h": 68,
-          "top": 12876
+          "top": 12884
         },
         {
           "tag": "a",
@@ -746,7 +746,7 @@
           "hidden": false,
           "w": 76,
           "h": 44,
-          "top": 13243
+          "top": 13238
         },
         {
           "tag": "a",
@@ -756,7 +756,7 @@
           "hidden": false,
           "w": 163,
           "h": 44,
-          "top": 13230
+          "top": 13238
         },
         {
           "tag": "a",
@@ -766,7 +766,7 @@
           "hidden": false,
           "w": 96,
           "h": 44,
-          "top": 13278
+          "top": 13286
         },
         {
           "tag": "a",
@@ -776,7 +776,7 @@
           "hidden": false,
           "w": 111,
           "h": 44,
-          "top": 13278
+          "top": 13272
         },
         {
           "tag": "a",
@@ -786,7 +786,7 @@
           "hidden": false,
           "w": 207,
           "h": 54,
-          "top": -118
+          "top": -103
         },
         {
           "tag": "a",
@@ -816,7 +816,7 @@
           "hidden": false,
           "w": 135,
           "h": 44,
-          "top": 500
+          "top": 515
         },
         {
           "tag": "a",
@@ -826,7 +826,7 @@
           "hidden": false,
           "w": 266,
           "h": 64,
-          "top": 556
+          "top": 571
         },
         {
           "tag": "a",
@@ -836,7 +836,7 @@
           "hidden": false,
           "w": 357,
           "h": 44,
-          "top": 2540
+          "top": 2553
         },
         {
           "tag": "a",
@@ -846,7 +846,7 @@
           "hidden": false,
           "w": 131,
           "h": 19,
-          "top": 3130
+          "top": 3144
         },
         {
           "tag": "button",
@@ -856,7 +856,7 @@
           "hidden": false,
           "w": 358,
           "h": 636,
-          "top": 5165
+          "top": 5173
         },
         {
           "tag": "summary",
@@ -866,7 +866,7 @@
           "hidden": false,
           "w": 134,
           "h": 44,
-          "top": 5817
+          "top": 5825
         },
         {
           "tag": "a",
@@ -906,7 +906,7 @@
           "hidden": false,
           "w": 358,
           "h": 68,
-          "top": 12634
+          "top": 12647
         },
         {
           "tag": "summary",
@@ -916,7 +916,7 @@
           "hidden": false,
           "w": 358,
           "h": 96,
-          "top": 12704
+          "top": 12717
         },
         {
           "tag": "summary",
@@ -926,7 +926,7 @@
           "hidden": false,
           "w": 358,
           "h": 68,
-          "top": 12802
+          "top": 12815
         },
         {
           "tag": "a",
@@ -946,7 +946,7 @@
           "hidden": false,
           "w": 163,
           "h": 44,
-          "top": 13156
+          "top": 13169
         },
         {
           "tag": "a",
@@ -956,7 +956,7 @@
           "hidden": false,
           "w": 96,
           "h": 44,
-          "top": 13204
+          "top": 13217
         },
         {
           "tag": "a",
@@ -966,7 +966,7 @@
           "hidden": false,
           "w": 111,
           "h": 44,
-          "top": 13204
+          "top": 13217
         },
         {
           "tag": "a",
@@ -976,7 +976,7 @@
           "hidden": false,
           "w": 207,
           "h": 54,
-          "top": -192
+          "top": -172
         },
         {
           "tag": "a",
@@ -1006,7 +1006,7 @@
           "hidden": false,
           "w": 135,
           "h": 44,
-          "top": 468
+          "top": 488
         },
         {
           "tag": "a",
@@ -1016,7 +1016,7 @@
           "hidden": false,
           "w": 266,
           "h": 64,
-          "top": 524
+          "top": 546
         }
       ],
       "menu": {
@@ -1098,7 +1098,7 @@
           "hidden": false,
           "w": 135,
           "h": 44,
-          "top": 704
+          "top": 756
         },
         {
           "tag": "a",
@@ -1108,7 +1108,7 @@
           "hidden": false,
           "w": 455,
           "h": 64,
-          "top": 760
+          "top": 746
         },
         {
           "tag": "a",
@@ -1118,7 +1118,7 @@
           "hidden": false,
           "w": 131,
           "h": 19,
-          "top": 2822
+          "top": 2808
         },
         {
           "tag": "a",
@@ -1128,7 +1128,7 @@
           "hidden": false,
           "w": 131,
           "h": 19,
-          "top": 3426
+          "top": 3387
         },
         {
           "tag": "button",
@@ -1138,7 +1138,7 @@
           "hidden": false,
           "w": 1336,
           "h": 752,
-          "top": 5214
+          "top": 5165
         },
         {
           "tag": "summary",
@@ -1148,7 +1148,7 @@
           "hidden": false,
           "w": 149,
           "h": 44,
-          "top": 5982
+          "top": 5933
         },
         {
           "tag": "a",
@@ -1158,7 +1158,7 @@
           "hidden": false,
           "w": 455,
           "h": 64,
-          "top": 11947
+          "top": 11898
         },
         {
           "tag": "a",
@@ -1168,7 +1168,7 @@
           "hidden": false,
           "w": 125,
           "h": 44,
-          "top": 12251
+          "top": 12202
         },
         {
           "tag": "a",
@@ -1178,7 +1178,7 @@
           "hidden": false,
           "w": 370,
           "h": 44,
-          "top": 12251
+          "top": 12202
         },
         {
           "tag": "summary",
@@ -1188,7 +1188,7 @@
           "hidden": false,
           "w": 763,
           "h": 76,
-          "top": 12613
+          "top": 12564
         },
         {
           "tag": "summary",
@@ -1198,7 +1198,7 @@
           "hidden": false,
           "w": 763,
           "h": 76,
-          "top": 12679
+          "top": 12642
         },
         {
           "tag": "summary",
@@ -1208,7 +1208,7 @@
           "hidden": false,
           "w": 763,
           "h": 76,
-          "top": 12757
+          "top": 12707
         },
         {
           "tag": "a",
@@ -1218,7 +1218,7 @@
           "hidden": false,
           "w": 76,
           "h": 44,
-          "top": 13202
+          "top": 13152
         },
         {
           "tag": "a",
@@ -1228,7 +1228,7 @@
           "hidden": false,
           "w": 163,
           "h": 44,
-          "top": 13202
+          "top": 13152
         },
         {
           "tag": "a",
@@ -1238,7 +1238,7 @@
           "hidden": false,
           "w": 96,
           "h": 44,
-          "top": 13189
+          "top": 13152
         },
         {
           "tag": "a",
@@ -1248,7 +1248,7 @@
           "hidden": false,
           "w": 111,
           "h": 44,
-          "top": 13189
+          "top": 13139
         },
         {
           "tag": "a",
@@ -1258,7 +1258,7 @@
           "hidden": false,
           "w": 227,
           "h": 57,
-          "top": -101
+          "top": -102
         },
         {
           "tag": "a",
@@ -1318,7 +1318,7 @@
           "hidden": false,
           "w": 135,
           "h": 44,
-          "top": 664
+          "top": 715
         },
         {
           "tag": "a",
@@ -1328,7 +1328,7 @@
           "hidden": false,
           "w": 455,
           "h": 64,
-          "top": 720
+          "top": 705
         },
         {
           "tag": "a",
@@ -1338,7 +1338,7 @@
           "hidden": false,
           "w": 131,
           "h": 19,
-          "top": 2788
+          "top": 2767
         },
         {
           "tag": "a",
@@ -1348,7 +1348,7 @@
           "hidden": false,
           "w": 131,
           "h": 19,
-          "top": 3392
+          "top": 3352
         },
         {
           "tag": "button",
@@ -1358,7 +1358,7 @@
           "hidden": false,
           "w": 1336,
           "h": 752,
-          "top": 5180
+          "top": 5130
         },
         {
           "tag": "summary",
@@ -1368,7 +1368,7 @@
           "hidden": false,
           "w": 149,
           "h": 44,
-          "top": 5948
+          "top": 5898
         },
         {
           "tag": "a",
@@ -1378,7 +1378,7 @@
           "hidden": false,
           "w": 455,
           "h": 64,
-          "top": 11911
+          "top": 11863
         },
         {
           "tag": "a",
@@ -1388,7 +1388,7 @@
           "hidden": false,
           "w": 125,
           "h": 44,
-          "top": 12218
+          "top": 12168
         },
         {
           "tag": "a",
@@ -1398,7 +1398,7 @@
           "hidden": false,
           "w": 370,
           "h": 44,
-          "top": 12218
+          "top": 12168
         },
         {
           "tag": "summary",
@@ -1408,7 +1408,7 @@
           "hidden": false,
           "w": 763,
           "h": 76,
-          "top": 12568
+          "top": 12530
         },
         {
           "tag": "summary",
@@ -1418,7 +1418,7 @@
           "hidden": false,
           "w": 763,
           "h": 76,
-          "top": 12646
+          "top": 12608
         },
         {
           "tag": "summary",
@@ -1428,7 +1428,7 @@
           "hidden": false,
           "w": 763,
           "h": 76,
-          "top": 12724
+          "top": 12673
         },
         {
           "tag": "a",
@@ -1438,7 +1438,7 @@
           "hidden": false,
           "w": 76,
           "h": 44,
-          "top": 13156
+          "top": 13118
         },
         {
           "tag": "a",
@@ -1448,7 +1448,7 @@
           "hidden": false,
           "w": 163,
           "h": 44,
-          "top": 13156
+          "top": 13118
         },
         {
           "tag": "a",
@@ -1458,7 +1458,7 @@
           "hidden": false,
           "w": 96,
           "h": 44,
-          "top": 13156
+          "top": 13118
         },
         {
           "tag": "a",
@@ -1468,7 +1468,7 @@
           "hidden": false,
           "w": 111,
           "h": 44,
-          "top": 13156
+          "top": 13118
         }
       ],
       "menu": null,
@@ -1565,6 +1565,8 @@
       "h1 Fler i arbete.   Starkare företag.   Ett starkare ",
       "h2 Vi är en  Samhällskraft Samhällskraft",
       "h2 Kommunen om arbetet i Alby",
+      "h3 Utmärkelserna",
+      "h3 Samarbetsavtal",
       "h2 Vi vill förstå vad ni behöver",
       "h2 Miljonkraft på en minut",
       "h2 Miljonmodellen gör vägen tydlig",

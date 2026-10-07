@@ -214,8 +214,8 @@ export const copy = {
     label: 'Där allt började',
     facts: [
       { value: '2012', text: 'Starten i Alby' },
-      { value: '5', text: 'Utmärkelser till oss och våra grundare' },
-      { value: '2023', text: 'SvD Affärsbragd till våra grundare' },
+      { value: '5', text: 'Utmärkelser' },
+      { value: '2023', text: 'SvD Affärsbragd' },
     ],
     /** Verifierade citat ur publika källor. Ändra aldrig ordalydelsen. */
     quotes: [
@@ -239,7 +239,7 @@ export const copy = {
     awardsLabel: 'Utmärkelserna',
     /** Avslutar bevisen. Avtalet står som eget slag efter utmärkelserna. */
     agreementLabel: 'Samarbetsavtal',
-    awards: ['SvD Affärsbragd 2023', 'Årets Nybyggare', 'Årets Unga Pionjär', 'Årets Unga Företagare i Stockholm', 'Giraffpriset'],
+    awards: ['SvD Affärsbragd 2023', 'Årets Nybyggare', 'Årets Unga Pionjär', 'Årets Unga Företagare i\u00A0Stockholm', 'Giraffpriset'],
   },
   vision: {
     id: 'vision',
@@ -283,7 +283,7 @@ export const copy = {
     mute: 'Stäng av ljudet',
     unmute: 'Slå på ljudet',
     textToggle: 'Läs filmens text',
-    note: 'Musiken är skapad för filmen. Ljudet startar bara när ni trycker på spela.',
+    note: 'Musiken är skapad för filmen. Ljudet startar först när ni startar filmen.',
   },
   faq: {
     id: 'fragor',
@@ -299,7 +299,7 @@ export const copy = {
       },
       {
         q: 'Hur går samtalet till?',
-        a: 'Vi pratar i 30 minuter om ert företag och vad ni behöver framöver. Vi kan ses digitalt, hos er eller hos oss i Alby.',
+        a: 'Ett samtal på 30 minuter om er verksamhet och era planer. Vi ses digitalt, hos er eller hos oss i Alby.',
       },
     ],
   },

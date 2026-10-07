@@ -161,7 +161,10 @@ for (const v of [widths[1], widths[3]]) {
       const cs = getComputedStyle(el);
       const r = el.getBoundingClientRect();
       const hidden = r.width === 0 || r.height === 0;
-      const hasRing = (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0) || cs.boxShadow !== 'none';
+      const ringOf = (n) => { const c = getComputedStyle(n); return (c.outlineStyle !== 'none' && parseFloat(c.outlineWidth) > 0) || c.boxShadow !== 'none'; };
+      // Vissa kontroller ritar fokus på ett inre element, t.ex. filmens spelkort som annars klipps av ramen.
+      const inner = el.querySelector('.film__play-inner');
+      const hasRing = ringOf(el) || (inner ? ringOf(inner) : false);
       return { tag: el.tagName.toLowerCase(), text: (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40), href: el.getAttribute('href'), hasRing, hidden, w: Math.round(r.width), h: Math.round(r.height), top: Math.round(r.top) };
     });
     if (info) focusTrail.push(info);

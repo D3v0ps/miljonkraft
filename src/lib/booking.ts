@@ -62,7 +62,7 @@ export function resolveBooking(): ResolvedBooking {
       mode,
       isReal: false,
       ctaShort: 'Föreslå ett samtal',
-      ctaFull: 'Föreslå ett samtal på 30 minuter',
+      ctaFull: 'Föreslå ett samtal på 30\u00A0minuter',
       heading: `Föreslå ett samtal på 30 minuter med ${contact.firstName}`,
       instruction: section.instructionContact,
       href: encodeMailto(contact.email, booking.mail.subject, booking.mail.body),

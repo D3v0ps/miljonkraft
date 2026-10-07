@@ -42,7 +42,7 @@ const jury = a.quotes.find((x) => !x.featured)!;
         </figcaption>
       </figure>
       <div class="awards" data-reveal>
-        <p class="label" id="awards-label">{a.awardsLabel}</p>
+        <h3 class="label" id="awards-label">{a.awardsLabel}</h3>
         <ul class="awards__list" aria-labelledby="awards-label">
           {a.awards.map((w) => <li>{w}</li>)}
         </ul>
@@ -50,7 +50,7 @@ const jury = a.quotes.find((x) => !x.featured)!;
     </div>
 
     <div class="proof__agreement info" data-reveal>
-      <p class="label label--dot">{a.agreementLabel}</p>
+      <h3 class="label label--dot">{a.agreementLabel}</h3>
       <p class="proof__status">{copy.status.text}</p>
     </div>
   </div>

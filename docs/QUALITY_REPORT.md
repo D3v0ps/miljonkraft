@@ -1,6 +1,6 @@
 # Kvalitetsrapport Miljonkraft.se
 
-Affischversionen, 7 oktober 2026. Körningar mot det byggda resultatet (`npm run build`, förhandsvisning via `astro preview` på localhost) och mot den publicerade adressen www.miljonkraft.se. Skärmbilderna i `docs/screenshots/` och rapporterna i `docs/verification/` kommer från dessa körningar och har öppnats och granskats.
+Affischversionen med film, 7 oktober 2026. Körningar mot det byggda resultatet (`npm run build`, förhandsvisning via `astro preview` på localhost) och mot den publicerade adressen www.miljonkraft.se. Skärmbilderna i `docs/screenshots/` och rapporterna i `docs/verification/` kommer från dessa körningar och har öppnats och granskats.
 
 ## Sammanfattning
 
@@ -9,13 +9,15 @@ Affischversionen, 7 oktober 2026. Körningar mot det byggda resultatet (`npm run
 | Bygge och typkontroll | `npm run build` och `npx astro check` utan fel |
 | Horisontell överrinning vid 320, 390, 768, 1440, 1920 och 200 % zoom | Ingen |
 | axe-core (WCAG 2.0, 2.1, 2.2 A och AA samt best practice) vid 320, 390, 768, 1440, 1920 | 0 regelbrott, efter att hela sidan skrollats så att allt avtäckts |
-| Tangentbord | Synlig fokusring på alla fokuserade element. Mobilmenyn öppnas med Enter, Escape stänger och fokus återgår |
-| Utan JavaScript | Rubrik, alla åtta modellsteg, samarbetsavtalet, telefon- och mejllänkar, menyn och huvudknappen finns och fungerar. Menyn ligger i flödet |
-| Reducerad rörelse | Inga element animerar. Himlen ritas inte i WebGL, affischen står still |
-| Kontrast (`node scripts/contrast.mjs`) | Alla textpar klarar WCAG AA, även texten mot himlens mörkaste blå och mot solskenet |
+| Tangentbord | Synlig fokusring på alla fokuserade element, även filmens spelkort. Mobilmenyn öppnas med Enter, Escape stänger och fokus återgår |
+| Utan JavaScript | Rubrik, alla åtta modellsteg, samarbetsavtalet, telefon- och mejllänkar, menyn, huvudknappen och filmen med vanliga kontroller fungerar |
+| Om huvudskriptet inte laddas | Allt innehåll blir synligt när sidan har laddats |
+| Reducerad rörelse | Inga element animerar |
+| Utskrift | Allt avtäckt, svar och filmtext öppna |
+| Kontrast (`node scripts/contrast.mjs`) | Alla 18 par klarar WCAG AA, även text mot himlens blå och mot solskenet |
 | Lighthouse mobil (labb) | Performance 100, Accessibility 100, Best practices 100, SEO 100 |
-| Lighthouse dator (labb) | Performance 99, Accessibility 100, Best practices 100, SEO 100 |
-| Publicerad sajt | www.miljonkraft.se svarar 200, miljonkraft.se omdirigeras dit med 308, saknad sida ger 404, `/integritet` leder till `/integritet/`, produktionen har `index, follow` |
+| Lighthouse dator (labb) | Performance 100, Accessibility 100, Best practices 100, SEO 100 |
+| Publicerad sajt | www.miljonkraft.se svarar 200, miljonkraft.se omdirigeras dit med 308, saknad sida ger 404, filmerna serveras med stöd för spolning |
 
 ## Lighthouse, labbvärden
 
@@ -24,23 +26,25 @@ Lighthouse 13.5 i headless Chromium mot `http://127.0.0.1:4321/`. Mobilprofilen 
 | Mått | Mobil | Dator |
 | --- | --- | --- |
 | First Contentful Paint | 1.0 s | 0.3 s |
-| Largest Contentful Paint | 1.5 s | 0.4 s |
-| Total Blocking Time | 0 ms | 100 ms |
+| Largest Contentful Paint | 1.8 s | 0.4 s |
+| Total Blocking Time | 0 ms | 0 ms |
 | Cumulative Layout Shift | 0 | 0 |
-| Speed Index | 1.4 s | 0.7 s |
+| Speed Index | 1.4 s | 0.5 s |
+| Överförd vikt vid första visning | 155 KB | 116 KB |
 
-WebGL-himlen ritas bara på datorer med grafikkort. I mjukvarurendering, som i Lighthouse, står CSS-himlen kvar. Det är samma färger, så sidan ser likadan ut utan solstrålar och moln. Fältvärden för Core Web Vitals kan bara bekräftas efter en tids verkliga besök.
+Filmen laddas först när besökaren trycker på spela. WebGL-himlen ritas bara på datorer med grafikkort. Fältvärden för Core Web Vitals kan bara bekräftas efter en tids verkliga besök.
 
-## Fel som hittades och rättades under granskningen
+## Granskning i tre rundor
 
-- Affischraderna rann över med några procent. Orsaken var ärvd spärrning: em räknades mot rubrikens grundstorlek. Spärrningen sätts nu på varje rad.
-- Bildpaneler avtäcktes aldrig, eftersom panelens egen klippning dolde den för skrollobservatören. Klippningen ligger nu på bilden.
-- Linjeteckningar ritades inte fram i Chrome. Attributväljaren `[pathLength]` gav ingen omstilning när steget avtäcktes. Elementväljare används i stället.
-- Konturtext visade inre linjer, eftersom variabla typsnitt har överlappande konturer. Fyllning i bakgrundsfärg över en dubbelt så bred kontur döljer dem.
-- Den fasta mobilknappen visades inte efter hopp via menylänkar. Läget räknas nu vid skroll.
-- Utan JavaScript låg mobilmenyn över affischen. Den ligger nu i flödet.
-- Etiketter i blått mot himlens överkant klarade inte kontrastkravet. De är nu antracit.
-- Canonical pekade på miljonkraft.se, som Vercel omdirigerar till www. Canonical, sitemap och robots.txt pekar nu på www.miljonkraft.se.
+1. **Granskning med 106 agenter.** Sex oberoende granskare (text och fakta, dator, mobil, tillgänglighet, grafisk profil, teknik och SEO) och en kreativ chef. Varje allvarligt fynd prövades av två motläsare, en som återskapade felet och en som bedömde om det var värt att rätta. Resultat: 76 fynd, 61 efter sammanslagning, 54 bekräftade (6 blockerande, 24 bör rättas, 24 småfel) och 7 avvisade. Två domare poängsatte åtta idéer för mer wow och bevis.
+2. **Åtgärder.** Alla blockerande fynd rättade, bland annat filmens spelknapp som inte gick att pausa förbi, rubriker som rann över sin kolumn, klippta etiketter och illustrationer över text. Idéerna med högst poäng byggdes: bevisen samlade i ett kapitel, knappen och avtalet direkt under affischen på mobil, stadssiluetten i heron, solen som stiger i Vision och samma röda punkt på alla affischrader.
+3. **Kontroll med 43 agenter.** Varje av de 54 fynden kontrollerades på nytt bygge: 38 rättade, 14 delvis, 2 lämnade enligt Karims beslut. Ett svep efter nya fel gav 22 bekräftade fynd, bland dem ett blockerande (fokusringen runt filmen klipptes). Alla 22 och de öppna delarna av de 14 är åtgärdade, utom de som anges nedan.
+
+## Medvetet lämnat som det är
+
+- Text som kommer från masterprompten står kvar: Miljonmodellens stycken och stegtexter, etiketterna Yrkesroll och Lagerarbete i Karriärstegen, företagsstycket och visionsmeningen.
+- Bokningsrubriken i contact_only speglar masterpromptens knapptext.
+- På mobil hämtas både den liggande och den stående filmaffischen (41 KB extra), så att besökare utan JavaScript ändå ser en affisch.
 
 ## Skärmbilder
 
@@ -52,3 +56,4 @@ Första skärmen vid 320, 390, 768, 1024, 1366, 1440 och 1920 px, öppen mobilme
 - Google Search Console och Bing Webmaster Tools.
 - JSON-LD i Schema Markup Validator mot den publicerade adressen.
 - Fältvärden för Core Web Vitals efter publicering.
+- En titt på filmen i Safari på iPhone, där den stående H.264-filen används.

@@ -5,7 +5,8 @@ Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxe
 ## 1. Vad som levererats
 
 - En statisk webbplats (Astro) gjord som en ljus affisch i Miljonbemannings grafiska profil 3.0. Startsida, integritetssida och 404-sida.
-- Sektioner i ordning: affischen (hero), Samhällskraft, För företag, Filmen (visas när filmfilerna finns), Miljonmodellen, Karriärstegen, Där allt började (bevis), Vision, Föreslå ett samtal, Vanliga frågor, sidfot.
+- Sektioner i ordning: affischen (hero), Samhällskraft, Kommunen om arbetet i Alby (bevisen samlade), För företag, Filmen, Miljonmodellen, Karriärstegen, Där allt började, Vision, Föreslå ett samtal, Vanliga frågor, sidfot.
+- Filmen Miljonkraft på en minut med egen musik, liggande för sidan och stående för telefon och sociala medier.
 - Bokningsmodul med tre lägen. **contact_only** är aktivt: alla huvudknappar öppnar ett förifyllt mejl till Yacine. **external_link** och **shared_embed** aktiveras i `src/config/site.ts` när en riktig Bookings-länk finns, se `docs/BOOKING_SETUP.md`.
 - Metadata, canonical, Open Graph med ny delningsbild, favicon-set ur MB-logotypen, webbmanifest, robots.txt, sitemap och JSON-LD.
 - Verifieringsskript, kontrastkontroll, Lighthouse-rapporter och skärmbilder i `docs/`.
@@ -16,7 +17,8 @@ Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxe
 | Fungerande kontakt | Klar. Telefon, mejl och mejlförslag med förifyllt ämne |
 | Publicering | Vercel är kopplat av Karim. Varje push till `main` publiceras |
 | Ansluten bokning | **Återstår.** Ingen verifierad Bookings-länk finns |
-| Filmen | Se avsnitt 4 |
+| Filmen | Klar och publicerad, se avsnitt 4 |
+| Granskning | Tre rundor med totalt 149 agenter, se `docs/QUALITY_REPORT.md` |
 
 ## 2. Beslut från Karim under arbetet
 
@@ -30,14 +32,15 @@ Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxe
 
 ## 3. Designen i korthet
 
-- **Affischen.** Tre meningar som var och en fyller sin bredd exakt, uppmätta i Montserrat med `scripts/measure-type.mjs`. Viktkontrast mellan 800 och 200. Röda punkter efter meningarna. MB-punkten blir en röd sol som stiger bakom raden Ett starkare Botkyrka.
+- **Affischen.** Tre meningar som var och en fyller sin bredd exakt, uppmätta i Montserrat med `scripts/measure-type.mjs`. Viktkontrast mellan 800 och 200. Röda punkter i vikt 800 efter meningarna. MB-punkten blir en röd sol som stiger bakom raden Ett starkare Botkyrka. Till vänster ritas en linjeteckning av en förort med lamellhus, punkthus och träd fram under inledningen.
+- **Bevisen i ett kapitel.** Direkt efter Samhällskraft: kommunstyrelsens ordförandes citat med sammanhang och källa, fakta (2012, 5 utmärkelser, 2023), juryns motivering, utmärkelserna och samarbetsavtalet. Allt ur verifierade källor.
 - **Himlen.** CSS-gradient i profilens blå toner med ett varmt sken. Ovanpå ritas en WebGL-himmel med mjuka moln och solstrålar (`src/scripts/sky.ts`). Den rör sig bara under inledningen, vid skroll och vid muspekare, aldrig i en evig loop. Den hoppar över sig själv på datorer utan grafikkort och vid reducerad rörelse.
 - **Rörelse.** Raderna stiger upp ur sina linjer, solen går upp, ordet SAMHÄLLSKRAFT fylls när man skrollar, Miljonmodellens steg tänds ett i taget, illustrationerna ritas fram, urtavlan i bokningsdelen fylls till en halv timme. Allt finns som stillbild utan JavaScript och med reducerad rörelse.
 - **Konturtext.** Variabla typsnitt har överlappande konturer. Konturord ritas därför med fyllning i bakgrundsfärg över en dubbelt så bred kontur (`paint-order`), så att inga inre linjer syns.
 
 ## 4. Filmen
 
-Filmen tas fram av skripten i `scripts/film/` (se `scripts/film/README.md` när den finns): en deterministisk HTML-animation som renderas bild för bild i Chromium, och musik som syntetiseras i Python. All musik är egen och skapad i kod. Sektionen Filmen och länken Se filmen i heron visas automatiskt när `public/film/miljonkraft-film-1080.mp4` och postern finns. Ljudet startar bara när besökaren trycker på spela. Filmens text finns som textalternativ under spelaren.
+56 sekunder i nio scener, 1920 × 1080 för sidan och 1080 × 1920 för telefon och sociala medier (`public/film/miljonkraft-film-vertikal.mp4`). Musiken är egen, skapad i kod, -16 LUFS. Skripten i `scripts/film/` renderar om filmen exakt likadant, se `scripts/film/README.md`. På sidan startar filmen bara när besökaren trycker på spela eller på Se filmen i heron, och ljudet följer med eftersom det är ett aktivt val. Stående telefoner får den stående filmen. Under spelaren finns filmens text scen för scen med bildbeskrivningar, och ett kapitelspår. Musiken finns separat som `public/film/miljonkraft-musik.mp3`.
 
 ## 5. Bilder och rättigheter
 

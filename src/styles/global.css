@@ -148,7 +148,7 @@ p { text-wrap: pretty; }
 .btn--small { min-height: 2.75rem; padding: 0.4rem 1.1rem; font-size: 0.8125rem; }
 .btn--large { min-height: 4rem; padding: 0.6rem 2rem; font-size: 1rem; }
 .cta-short { display: none; }
-@media (max-width: 439.98px) {
+@media (max-width: 499.98px) {
   .cta-full { display: none; }
   .cta-short { display: inline; }
   .btn--large { padding-inline: 1.25rem; letter-spacing: 0.05em; gap: 0.65rem; }
@@ -195,7 +195,6 @@ p { text-wrap: pretty; }
 @media (max-width: 379.98px) {
   .brand { gap: 0.6rem; }
   .brand picture img { height: 1.35rem; }
-  .brand__name { font-size: 0.6875rem; letter-spacing: 0.14em; }
   .menu-toggle__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .menu-toggle { min-width: 2.75rem; justify-content: center; padding-inline: 0.5rem; }
 }
@@ -249,7 +248,7 @@ p { text-wrap: pretty; }
 /* Raderna får brytas om någon ökar textavståndet (WCAG 1.4.12). I normalläget ryms de exakt. */
 .pt-line { display: block; white-space: normal; font-size: calc(var(--w, 1) * 100cqw / var(--k)); }
 /* Spärrningen sätts på varje del så att em räknas mot radens egen storlek. */
-.pt-seg { display: inline-block; letter-spacing: -0.04em; }
+.pt-seg { display: inline-block; letter-spacing: -0.04em; overflow-wrap: anywhere; }
 .pt-l2 .pt-seg { letter-spacing: -0.03em; }
 .pt-in { display: inline-block; }
 .pt-l1 { grid-area: l1; --w: 0.68; font-weight: 800; }
@@ -265,7 +264,7 @@ p { text-wrap: pretty; }
   width: min(86%, 27cqw); aspect-ratio: 1;
   translate: -50% calc(54% - var(--p) * 60%);
   border-radius: 50%; background: var(--rod);
-  box-shadow: 0 0 3cqw 0.8cqw rgba(255, 153, 142, 0.5);
+  box-shadow: 0 0 2.2cqw 0.4cqw rgba(255, 153, 142, 0.5);
 }
 
 .hero__bottom { margin-top: auto; display: grid; gap: 1.5rem 3rem; grid-template-columns: 1fr; align-items: end; }
@@ -274,11 +273,19 @@ p { text-wrap: pretty; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.75rem 1.5rem; margin-top: 1.5rem; }
 .hero__phone { display: inline-flex; align-items: center; min-height: 2.75rem; font-weight: 600; }
 .hero__film { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 2.75rem; padding: 0; background: none; border: 0; font-weight: 700; font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; }
-.hero__film-icon { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--rod); color: var(--vit); }
+.hero__film-icon { display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--rod); color: var(--vit);  transition: transform var(--dur) var(--ease-out); }
 .hero__film-icon svg { width: 0.8rem; height: 0.8rem; margin-left: 2px; }
 .status-note { position: relative; max-width: 30rem; font-size: var(--fs-small); font-weight: 600; line-height: 1.55; }
 .status-note::before { content: ''; display: inline-block; width: 0.6rem; height: 0.6rem; margin-right: 0.6rem; border-radius: 50%; background: var(--rod); vertical-align: 0.05em; }
 .info .status-note { margin: 1.5rem 0 0 auto; }
+@media (min-width: 1200px) { .hero__info { max-width: 40rem; } }
+@media (min-width: 900px) and (max-height: 860px) {
+  .hero { padding-top: calc(var(--header-h) + 1rem); }
+  .hero__inner { gap: 1rem; }
+  .hero__actions { margin-top: 1rem; }
+  .info .status-note { margin-top: 1rem; }
+  .hero__lead { font-size: 1.2rem; }
+}
 .hero__city { display: none; color: var(--bla-text); }
 .hero__city svg { width: 100%; height: auto; overflow: visible; }
 .hero__city-line, .hero__city-ground { opacity: 0.55; }
@@ -288,11 +295,11 @@ p { text-wrap: pretty; }
   .hero__bottom .hero__info { grid-column: 2; grid-row: 1; }
   .hero__city { display: block; grid-column: 1; grid-row: 1; align-self: end; max-width: 38rem; margin-bottom: -0.25rem; }
 }
-@media (max-width: 699.98px) {
-  .hero__actions { justify-content: flex-start; }
+@media (max-width: 699.98px) { .hero__actions { justify-content: flex-start; } }
+@media (max-width: 699.98px), (max-width: 899.98px) and (orientation: portrait) {
   .hero__info { display: flex; flex-direction: column; }
-  .hero__info .hero__actions { order: -2; margin: 0 0 1.25rem; }
-  .hero__info .status-note { order: -1; margin: 0 0 1.75rem; }
+  .hero__info .hero__actions { order: -2; margin-block: 0 1.25rem; }
+  .hero__info .status-note { order: -1; margin-block: 0 1.75rem; }
 }
 /* Smala stående skärmar: varje mening delas i två rader som var och en fyller bredden. Solen står bredvid FLER I.
    Liggande telefoner får den tredelade affischen, annars blir rubriken flera skärmar hög. */
@@ -356,7 +363,7 @@ p { text-wrap: pretty; }
 .manifest__title { margin-top: 1.5rem; container-type: inline-size; letter-spacing: normal; line-height: 1; }
 .manifest__intro { display: block; font-size: clamp(1.75rem, 1rem + 3vw, 3.75rem); letter-spacing: -0.02em; line-height: 1; }
 .manifest__word { display: grid; margin-top: 0.08em; }
-.manifest__word > span { grid-area: 1 / 1; display: block; white-space: normal; font-size: calc(100cqw / var(--k)); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; padding-top: 0.08em; }
+.manifest__word > span { grid-area: 1 / 1; display: block; white-space: normal; overflow-wrap: anywhere; font-size: calc(100cqw / var(--k)); font-weight: 800; letter-spacing: -0.04em; line-height: 0.9; padding-top: 0.08em; }
 .manifest__outline { color: var(--vit); -webkit-text-stroke: 4px var(--antracit); paint-order: stroke fill; }
 .manifest__fill { -webkit-text-stroke: 4px var(--antracit); paint-order: stroke fill; }
 html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-path: inset(-20% calc(100% - var(--f) * 100%) -10% 0); }
@@ -380,7 +387,7 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 /* Längsta ordet, STOCKHOLMSREGIONEN., är 12,4 em brett. Storleken begränsas så att det alltid ryms. */
 .proof__quote { container-type: inline-size; }
 .proof__quote p { font-size: min(clamp(1.9rem, 0.9rem + 4.2vw, 5.4rem), 7.6cqw); font-weight: 300; line-height: 1.04; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: break-word; max-width: 21ch; }
-.proof__quote p::before { content: '\201D'; color: var(--rod); font-weight: 800; margin-right: 0.08em; }
+.proof__quote p::before { content: '\201D'; content: '\201D' / ''; color: var(--rod); font-weight: 800; margin-right: 0.08em; }
 .proof__caption { display: grid; gap: 0.2rem; margin-top: clamp(1.5rem, 3vw, 2.5rem); padding-top: 1.1rem; border-top: 2px solid var(--antracit); max-width: 34rem; }
 .proof__who { font-weight: 700; }
 .proof__context { font-size: var(--fs-small); }
@@ -389,7 +396,7 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 .proof .fact:nth-child(2) .fact__value { color: var(--bla-ljusast); }
 @media (min-width: 900px) {
   /* Tre kolumner: siffran överst och texten under, så att kolumnerna inte flyter ihop. */
-  .proof__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(2rem, 4vw, 4rem); }
+  .facts.proof__facts { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(2rem, 4vw, 4rem); }
   .proof__facts .fact { grid-template-columns: minmax(0, 1fr); align-content: start; gap: 0.75rem; padding-block: 1.5rem 1.75rem; border-bottom: 2px solid var(--antracit); }
   .proof__facts .fact__text { text-align: left; max-width: 18rem; }
 }
@@ -425,7 +432,7 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 .panel img { width: 100%; height: 100%; object-fit: cover; }
 .panel--wide { aspect-ratio: 16 / 10; }
 .panel--tall { aspect-ratio: 4 / 5; }
-.companies__callout { font-size: var(--fs-lead); font-weight: 700; line-height: 1.35; }
+.companies__callout { font-size: var(--fs-lead); font-weight: 700; line-height: 1.35; text-wrap: balance; }
 .companies__callout::after { content: ''; display: inline-block; width: 1.2em; height: 0.16em; background: var(--rod); margin-left: 0.3em; vertical-align: 0.1em; }
 @media (min-width: 1024px) { .companies__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
 
@@ -551,15 +558,35 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 .film__play {
   position: absolute; inset: 0; display: grid; place-items: end center; padding: 0 1rem clamp(1rem, 6%, 3rem); background: transparent; border: 0; cursor: pointer;
 }
+.film__play-inner { display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 1.6rem 1rem 1rem; background: var(--vit); color: var(--antracit); font-weight: 700; font-size: 0.9375rem; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 20px 60px rgba(30, 37, 43, 0.25); transition: transform var(--dur) var(--ease-out); }
+.film__play-icon { flex: none; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 50%; background: var(--rod); color: var(--vit); }
+.film__play-icon svg { width: 1rem; height: 1rem; margin-left: 3px; }
+/* Fokus ritas innanför ramen, som annars klipper ringen. */
+.film__play:focus-visible { outline: none; }
+.film__play:focus-visible .film__play-inner { outline: 3px solid var(--rod); outline-offset: 3px; }
+.film__frame video:focus-visible { outline: 3px solid var(--rod); outline-offset: -6px; }
+/* Stående film i en hög ram på stående telefoner. Ramen ryms mellan sidhuvudet och den fasta knappen. */
+@media (max-width: 699.98px) and (orientation: portrait) {
+  .film__frame--vertical { aspect-ratio: 9 / 16; width: min(100%, calc((100svh - var(--header-h) - 5.5rem) * 9 / 16)); margin-inline: auto; }
+  html:not(.js) .film__frame--vertical video { object-fit: contain; }
+}
 @media (max-width: 699.98px) {
-  .film__frame--vertical { aspect-ratio: 9 / 16; width: min(100%, calc(82svh * 9 / 16)); margin-inline: auto; }
   .film__play-inner { padding: 0.75rem 1.1rem 0.75rem 0.75rem; gap: 0.75rem; font-size: 0.8125rem; }
+  .film__play-label { white-space: nowrap; }
   .film__play-icon { width: 2.75rem; height: 2.75rem; }
 }
-.film__play-inner { display: inline-flex; align-items: center; gap: 1rem; padding: 1rem 1.6rem 1rem 1rem; background: var(--vit); color: var(--antracit); font-weight: 700; font-size: 0.9375rem; letter-spacing: 0.08em; text-transform: uppercase; box-shadow: 0 20px 60px rgba(30, 37, 43, 0.25); transition: transform var(--dur) var(--ease-out); }
-.film__play-icon { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 50%; background: var(--rod); color: var(--vit); }
-.film__play-icon svg { width: 1rem; height: 1rem; margin-left: 3px; }
-@media (hover: hover) and (pointer: fine) { .film__play:hover .film__play-inner { transform: scale(1.04); } }
+/* På 16:9-affischen ligger kortet i det vita fältet under horisontlinjen. */
+@media (min-width: 700px) { .film__play { padding-bottom: clamp(0.5rem, 1.5%, 1.25rem); } }
+@media (min-width: 700px) and (max-width: 1279.98px) {
+  .film__play-inner { padding: 0.5rem 1rem 0.5rem 0.5rem; gap: 0.75rem; font-size: 0.8125rem; }
+  .film__play-icon { width: 2.25rem; height: 2.25rem; }
+  .film__play-icon svg { width: 0.8rem; height: 0.8rem; margin-left: 2px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .film__play:hover .film__play-inner { transform: scale(1.04); }
+  .hero__film:hover { text-decoration: underline; text-decoration-color: var(--rod); text-decoration-thickness: 2px; text-underline-offset: 0.35em; }
+  .hero__film:hover .hero__film-icon { transform: scale(1.08); }
+}
 .film__controls { position: absolute; left: 1rem; bottom: 1rem; display: flex; gap: 0.5rem; }
 .film__ctrl { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0.4rem 0.9rem; background: rgba(255, 255, 255, 0.92); color: var(--antracit); border: 0; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; }
 .film__ctrl svg { width: 0.95rem; height: 0.95rem; }
@@ -570,13 +597,14 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 .film__time { display: inline-block; min-width: 3.25rem; font-weight: 700; color: var(--bla-text); font-variant-numeric: tabular-nums; }
 .film__text li { display: grid; grid-template-columns: 3.25rem minmax(0, 1fr); gap: 0 0.5rem; }
 .film__visual, .film__onscreen { grid-column: 2; }
+.film__onscreen span { display: block; }
 .film__visual { color: var(--antracit-80); font-style: italic; }
 .film__note { font-size: var(--fs-small); }
 
 /* ---------- Vision ---------- */
 .vision { overflow: hidden; isolation: isolate; }
-.vision::before { content: ''; position: absolute; inset: 0; z-index: -1; -webkit-mask-image: linear-gradient(transparent, #000 8rem); mask-image: linear-gradient(transparent, #000 8rem); background: radial-gradient(45% 40% at 85% 30%, rgba(255, 204, 198, 0.7), rgba(255, 204, 198, 0) 70%), linear-gradient(180deg, var(--vit) 0%, #EEF4F6 30%, var(--bla-ljusast) 100%); }
-.vision__sun { position: absolute; right: 7%; top: 5%; width: clamp(5rem, 12vw, 11rem); aspect-ratio: 1; border-radius: 50%; background: var(--rod); box-shadow: 0 0 5rem 1.5rem rgba(255, 153, 142, 0.5); z-index: -1; }
+.vision::before { content: ''; position: absolute; inset: 0; z-index: -1; -webkit-mask-image: linear-gradient(transparent, #000 8rem); mask-image: linear-gradient(transparent, #000 8rem); background: radial-gradient(45% 40% at 85% 30%, rgba(255, 204, 198, 0.7), rgba(255, 204, 198, 0) 70%), linear-gradient(180deg, var(--vit) 0%, var(--bla-ljusast) 100%); }
+.vision__sun { position: absolute; right: 7%; top: 5%; width: clamp(5rem, 12vw, 11rem); aspect-ratio: 1; border-radius: 50%; background: var(--rod); box-shadow: 0 0 2rem 0.5rem rgba(255, 153, 142, 0.5); z-index: -1; }
 .vision__poster { container-type: inline-size; margin-top: clamp(1.5rem, 4vw, 3rem); color: var(--antracit); line-height: 0.88; text-transform: uppercase; font-weight: 800; }
 .vision__poster > span { display: block; white-space: nowrap; font-size: calc(100cqw / var(--k)); letter-spacing: -0.04em; }
 .vision__poster > span + span { margin-top: 0.08em; }
@@ -584,11 +612,11 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 .vision__cols { display: grid; gap: 1.5rem 4rem; margin-top: clamp(2.5rem, 5vw, 4rem); }
 .vision__heading { font-size: clamp(1.75rem, 1.1rem + 2.4vw, 3.25rem); }
 .vision__heading .thin { display: block; padding-top: 0.12em; }
-html.js .vision__sun { transform: translateY(calc(max(0, 0.55 - var(--p, 1)) * 200%)); transition: transform 120ms linear; }
+html.js .vision__sun { transform: translateY(calc(max(0, 0.2 - var(--p, 1)) * 550%)); transition: transform 120ms linear; }
 .vision__statement { margin-top: 1.25rem; font-size: var(--fs-lead); font-weight: 600; line-height: 1.4; max-width: 36rem; }
 .vision__status { margin-top: 1.5rem; margin-left: auto; text-align: left; }
 @media (min-width: 900px) { .vision__cols { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 699.98px) { .vision__sun { top: 1.25rem; right: 1rem; width: 4rem; } .vision .container > .label { max-width: calc(100% - 5rem); } }
+@media (max-width: 699.98px) { .vision__sun { top: 2.75rem; right: 1rem; width: 4rem; } .vision .container > .label { max-width: calc(100% - 5rem); } }
 
 /* ---------- Bokning ---------- */
 .booking { background: var(--gra-3); }
@@ -715,6 +743,7 @@ html:has(.site-header.is-open) .mobile-cta { transform: translateY(110%); visibi
 @media (forced-colors: active) {
   .poster-title, .poster-title .pt-line > .pt-seg, .vision__poster { line-height: 1.08; }
   .sun, .vision__sun { forced-color-adjust: none; }
+  .quote::before, .proof::before, .proof__quote p::before { forced-color-adjust: none; color: CanvasText; background: none; }
   .btn { border: 2px solid ButtonText; }
   .btn::after { forced-color-adjust: none; background: CanvasText; }
   .faq__question::after { forced-color-adjust: none; background: linear-gradient(CanvasText, CanvasText) center / 100% 2px no-repeat, linear-gradient(CanvasText, CanvasText) center / 2px 100% no-repeat; }
@@ -726,6 +755,8 @@ html:has(.site-header.is-open) .mobile-cta { transform: translateY(110%); visibi
   .mobile-cta, .hero__sky canvas, .film__play, .ticker { display: none !important; }
   .manifest__fill, .site-footer__giant .fill { clip-path: none !important; }
   .hero { min-height: 0; }
+  .pt-l1, .pt-l2, .pt-l3 { transform: none !important; }
+  .btn, .path__step[data-kind='role'], .awards__list li:first-child, .legend__role, .sun, .vision__sun { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 
 /* ---------- Reducerad rörelse ---------- */

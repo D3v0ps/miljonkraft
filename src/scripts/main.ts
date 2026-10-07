@@ -120,4 +120,18 @@ if (canvas) {
   else setTimeout(load, 300);
 }
 
+/* ---------- Utskrift: allt avtäckt och alla svar öppna ---------- */
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll<HTMLElement>('[data-reveal], [data-wipe], [data-clock]').forEach((el) => el.classList.add('is-in'));
+  document.querySelectorAll<HTMLDetailsElement>('details').forEach((d) => {
+    d.dataset.wasOpen = String(d.open);
+    d.open = true;
+  });
+});
+window.addEventListener('afterprint', () => {
+  document.querySelectorAll<HTMLDetailsElement>('details').forEach((d) => {
+    if (d.dataset.wasOpen === 'false') d.open = false;
+  });
+});
+
 root.classList.add('js-ready');

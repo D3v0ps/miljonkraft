@@ -13,13 +13,14 @@ const keys = [
 // Varje mening delas vid sista mellanslaget. På smala skärmar blir delarna egna rader.
 // Linjeteckning av en förort med lamellhus, punkthus och träd. Dekorativ, ritas fram under inledningen.
 const W = 600, G = 212;
+// Husen lämnar luckor där träden står, så att kronorna aldrig korsar en vägg.
 const blocks = [
-  { x: 24, w: 54, top: 34, cols: 4, rows: 10 },
-  { x: 92, w: 150, top: 132, cols: 10, rows: 4 },
-  { x: 262, w: 46, top: 72, cols: 3, rows: 8 },
-  { x: 324, w: 134, top: 112, cols: 9, rows: 5 },
-  { x: 474, w: 42, top: 18, cols: 3, rows: 11 },
-  { x: 530, w: 62, top: 156, cols: 4, rows: 3 },
+  { x: 20, w: 50, top: 34, cols: 4, rows: 10 },
+  { x: 100, w: 128, top: 132, cols: 9, rows: 4 },
+  { x: 252, w: 44, top: 72, cols: 3, rows: 8 },
+  { x: 326, w: 112, top: 112, cols: 8, rows: 5 },
+  { x: 462, w: 42, top: 18, cols: 3, rows: 11 },
+  { x: 534, w: 56, top: 156, cols: 4, rows: 3 },
 ];
 const outlines = blocks.map((b) => `M${b.x} ${G}V${b.top}H${b.x + b.w}V${G}`);
 const windows = blocks
@@ -33,7 +34,7 @@ const windows = blocks
     return out;
   })
   .join('');
-const trees = [84, 252, 316, 466, 522].map((x, i) => ({ x, r: i % 2 ? 9 : 12 }));
+const trees = [84, 240, 310, 450, 518].map((x, i) => ({ x, r: i % 2 ? 9 : 12 }));
 const lines = h.headline.map((text, i) => {
   const cut = text.lastIndexOf(' ');
   const last = text.slice(cut + 1);

@@ -26,10 +26,10 @@ const fmt = (s: number) => `${Math.round(s)} s`;
           poster={film.posterWebp ?? film.poster}
           width="1920"
           height="1080"
-          aria-describedby="film-text-summary"
+          aria-labelledby="film-heading"
           data-film-video
         >
-          {film.vertical && film.posterVertical && <source src={film.vertical} type="video/mp4" media="(max-width: 699.98px)" />}
+          {film.vertical && film.posterVertical && <source src={film.vertical} type="video/mp4" media="(max-width: 699.98px) and (orientation: portrait)" />}
           {film.webm && <source src={film.webm} type="video/webm" />}
           {film.mp4Small && <source src={film.mp4Small} type="video/mp4" media="(max-width: 1279.98px)" />}
           <source src={film.mp4} type="video/mp4" />
@@ -41,7 +41,7 @@ const fmt = (s: number) => `${Math.round(s)} s`;
             <span class="film__play-icon" aria-hidden="true">
               <svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0v14l12-7z" /></svg>
             </span>
-            {f.play}
+            <span class="film__play-label">{f.play}</span>
           </span>
         </button>
       </div>
@@ -54,7 +54,7 @@ const fmt = (s: number) => `${Math.round(s)} s`;
               <li>
                 <span class="film__time">{fmt(s.start)}</span>
                 {s.visual && <span class="film__visual">{s.visual}</span>}
-                {s.text.length > 0 && <span class="film__onscreen">{s.text.join(' ')}</span>}
+                {s.text.length > 0 && <span class="film__onscreen">{s.text.map((t) => <span>{t}</span>)}</span>}
               </li>
             ))}
           </ol>
@@ -72,7 +72,7 @@ const fmt = (s: number) => `${Math.round(s)} s`;
   if (frame && video && play) {
     // Stående film och affisch på smala skärmar. Källan väljs av webbläsaren via media på source.
     const vPoster = frame.dataset.posterVertical;
-    if (vPoster && window.matchMedia('(max-width: 699.98px)').matches) video.poster = vPoster;
+    if (vPoster && window.matchMedia('(max-width: 699.98px) and (orientation: portrait)').matches) video.poster = vPoster;
     // Kan webbläsaren inte spela den stående mp4-filen väljs en liggande källa. Då blir ramen liggande igen.
     video.addEventListener('loadedmetadata', () => {
       if (video.videoWidth > video.videoHeight) frame.classList.remove('film__frame--vertical');
