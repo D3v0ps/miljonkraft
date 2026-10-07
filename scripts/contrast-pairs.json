@@ -1,122 +1,18 @@
 [
-  [
-    "ink",
-    "bg",
-    4.5,
-    "brödtext"
-  ],
-  [
-    "muted",
-    "bg",
-    4.5,
-    "dämpad text"
-  ],
-  [
-    "ink",
-    "surface",
-    4.5,
-    "brödtext på tonad yta"
-  ],
-  [
-    "muted",
-    "surface",
-    4.5,
-    "dämpad text på tonad yta"
-  ],
-  [
-    "ink",
-    "surface-2",
-    4.5,
-    "text i kort"
-  ],
-  [
-    "muted",
-    "surface-2",
-    4.5,
-    "dämpad text i kort"
-  ],
-  [
-    "on-dark",
-    "dark",
-    4.5,
-    "hero och sidfot"
-  ],
-  [
-    "on-dark-muted",
-    "dark",
-    4.5,
-    "dämpad text i hero"
-  ],
-  [
-    "#FFFFFF",
-    "accent",
-    4.5,
-    "knapptext"
-  ],
-  [
-    "#FFFFFF",
-    "accent-hover",
-    4.5,
-    "knapptext hover"
-  ],
-  [
-    "accent-text",
-    "bg",
-    4.5,
-    "accentfärgad text"
-  ],
-  [
-    "accent-text",
-    "surface-2",
-    4.5,
-    "accentfärgad text i kort"
-  ],
-  [
-    "accent-dark",
-    "dark",
-    4.5,
-    "accent i hero (rubrikrad)"
-  ],
-  [
-    "accent",
-    "bg",
-    3,
-    "fokusring på ljus yta"
-  ],
-  [
-    "accent",
-    "surface",
-    3,
-    "fokusring på tonad yta"
-  ],
-  [
-    "accent-dark",
-    "dark",
-    3,
-    "fokusring på mörk yta"
-  ],
-  [
-    "line-strong",
-    "bg",
-    1,
-    "linjer (ej text)"
-  ],
-  [
-    "line-control",
-    "bg",
-    3,
-    "kant på spökknapp"
-  ],
-  [
-    "line-control",
-    "surface",
-    3,
-    "kant på spökknapp, tonad yta"
-  ],
-  [
-    "line-control",
-    "surface-2",
-    3,
-    "kant på spökknapp, kort"
-  ]
+  ["antracit", "vit", 4.5, "brödtext och rubriker på vitt"],
+  ["antracit", "gra-3", 4.5, "text på ljusgrå sektion"],
+  ["antracit-80", "vit", 4.5, "sekundär text på vitt"],
+  ["antracit-80", "gra-3", 4.5, "sekundär text på ljusgrå sektion"],
+  ["bla-text", "vit", 4.5, "blå etiketter på vitt"],
+  ["bla-text", "gra-3", 4.5, "blå etiketter på ljusgrå sektion"],
+  ["bla-text", "bla-ljusast", 4.5, "etikett i kompetenssteg"],
+  ["antracit", "bla-ljusast", 4.5, "namn i kompetenssteg"],
+  ["vit", "antracit", 4.5, "knappar, yrkesroller, fast mobilknapp"],
+  ["antracit", "#AECBD7", 4.5, "etiketter och sidhuvud mot himlens överkant"],
+  ["antracit-80", "#F2D9D5", 4.5, "hero-text mot solskenet"],
+  ["antracit", "#D7E5EB", 4.5, "visionens text mot himlens nederkant"],
+  ["antracit-80", "#D7E5EB", 4.5, "visionens brödtext mot himlens nederkant"],
+  ["rod", "vit", 3, "röd punkt och understreck, grafik"],
+  ["vit", "rod", 3, "spelikon på röd cirkel, grafik"],
+  ["antracit", "rod", 3, "rubrik som korsar solen, stor text"]
 ]

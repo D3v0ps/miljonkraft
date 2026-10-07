@@ -228,6 +228,8 @@ p { text-wrap: pretty; }
 .hero__sky canvas.is-ready { opacity: 1; }
 .hero__whiteout { position: absolute; inset: 0; z-index: -1; background: var(--vit); pointer-events: none; opacity: 0; }
 .hero__inner { position: relative; flex: 1; display: flex; flex-direction: column; gap: clamp(1.25rem, 3vh, 2.25rem); }
+/* Etiketterna ligger mot himlens mörkaste blå och sätts därför i antracit för kontrastens skull. */
+.hero .label { color: var(--antracit); }
 .hero__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 2rem; }
 
 /* Affischrubriken. Varje rad fyller sin bredd exakt (uppmätt i scripts/measure-type.mjs). */
@@ -396,12 +398,9 @@ html.js .manifest__fill { --f: clamp(0, calc(var(--p) * 3.2 - 0.5), 1); clip-pat
 /* Med skript: stegen tänds ett i taget medan man skrollar. Utan skript är alla fyllda. */
 .model__steps.is-scrolly .step__name { color: var(--gra-3); -webkit-text-stroke: 3px var(--antracit); paint-order: stroke fill; }
 .model__steps.is-scrolly .step__name::after { transform: scaleX(0); }
-.model__steps.is-scrolly .step__text { color: var(--antracit-50); }
 .model__steps.is-scrolly .step.is-active .step__name,
 .model__steps.is-scrolly .step.is-done .step__name { color: var(--antracit); -webkit-text-stroke: 0 transparent; }
 .model__steps.is-scrolly .step.is-active .step__name::after { transform: scaleX(1); }
-.model__steps.is-scrolly .step.is-active .step__text,
-.model__steps.is-scrolly .step.is-done .step__text { color: var(--antracit-80); }
 @media (forced-colors: active) { .model__steps.is-scrolly .step__name { color: CanvasText; -webkit-text-stroke: 0; } }
 
 /* ---------- Karriärstegen ---------- */

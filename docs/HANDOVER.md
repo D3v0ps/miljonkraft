@@ -1,79 +1,63 @@
 # Överlämning Miljonkraft.se
 
-Sammanställd 7 oktober 2026. Gäller koden på grenen `claude/relaxed-allen-juti3f`.
+Sammanställd 7 oktober 2026. Gäller affischversionen på grenen `claude/relaxed-allen-juti3f`, som också är sammanslagen till `main`. Vercel är kopplat till repot och bygger `main` till miljonkraft.se.
 
 ## 1. Vad som levererats
 
-- En komplett, statisk webbplats (Astro 5) med hela innehållet från masterprompten, fungerande navigation, FAQ, sidfot, en kort integritetssida och en 404-sida.
-- Bokningsmodul med tre lägen. Läget **contact_only** är aktivt: alla huvudknappar öppnar ett förifyllt mejl till Yacine. De andra två lägena (**external_link**, **shared_embed**) är byggda och testade med exempeladresser och aktiveras i `src/config/site.ts` när en riktig Bookings-länk finns.
-- Metadata, canonical, Open Graph med delningsbild 1200 × 630, favicon-set, webbmanifest, robots.txt, sitemap med verkligt ändringsdatum och JSON-LD (WebSite, WebPage, Organization, Person).
-- Verifieringsskript för webbläsare (skärmbilder, överrinning, axe, tangentbord, utan JavaScript, reducerad rörelse), kontrastkontroll, Lighthouse-rapporter och skärmbilder i `docs/`.
-
-Status per del, hållet isär enligt uppdraget:
+- En statisk webbplats (Astro) gjord som en ljus affisch i Miljonbemannings grafiska profil 3.0. Startsida, integritetssida och 404-sida.
+- Sektioner i ordning: affischen (hero), Samhällskraft, För företag, Filmen (visas när filmfilerna finns), Miljonmodellen, Karriärstegen, Där allt började (bevis), Vision, Föreslå ett samtal, Vanliga frågor, sidfot.
+- Bokningsmodul med tre lägen. **contact_only** är aktivt: alla huvudknappar öppnar ett förifyllt mejl till Yacine. **external_link** och **shared_embed** aktiveras i `src/config/site.ts` när en riktig Bookings-länk finns, se `docs/BOOKING_SETUP.md`.
+- Metadata, canonical, Open Graph med ny delningsbild, favicon-set ur MB-logotypen, webbmanifest, robots.txt, sitemap och JSON-LD.
+- Verifieringsskript, kontrastkontroll, Lighthouse-rapporter och skärmbilder i `docs/`.
 
 | Del | Status |
 | --- | --- |
-| Färdig kod | Klar och verifierad lokalt |
-| Fungerande kontakt | Klar. Telefonlänk, mejllänk och mejlförslag med förifyllt ämne fungerar |
-| Ansluten bokning | **Återstår.** Ingen verifierad Bookings-länk fanns. Anslutning beskrivs i `docs/BOOKING_SETUP.md` |
-| Genomförd bokningsverifiering | **Återstår.** Kan göras först när Bookings är anslutet |
-| Publicering på miljonkraft.se | **Återstår.** Domän- och värdåtkomst saknades i uppdraget |
+| Färdig kod | Klar och verifierad lokalt, sammanslagen till `main` |
+| Fungerande kontakt | Klar. Telefon, mejl och mejlförslag med förifyllt ämne |
+| Publicering | Vercel är kopplat av Karim. Varje push till `main` publiceras |
+| Ansluten bokning | **Återstår.** Ingen verifierad Bookings-länk finns |
+| Filmen | Se avsnitt 4 |
 
-## 2. Startpaket och skills, vad som faktiskt användes
+## 2. Beslut från Karim under arbetet
 
-Repot innehöll bara en README. Startpaketet (`START-HERE.md`, `templates/bootstrap-prompt.md`, `docs/PROJECT_BRIEF.md`, `docs/MAINTENANCE.md`) och den egna skillen **project-design** fanns varken i repot, i sessionens skillmappar eller som bilaga till mejlet med masterprompten (bilagan var enbart masterprompten). Kontrollen mot project-design och startpaketets egna instruktioner återstår därför.
+1. **Ljus, positiv affisch med wow-känsla** i stället för den första mörka versionen.
+2. **Grafisk profil ur valvet.** Färger, typsnitt, versaler i rubriker, högerställda informationsblock, röd punkt och rött understreck, logotypen i originalfil. Underlaget lästes ur Karims valv (Miljonbemannings grafiska profil 3.0).
+3. **Sidan ska inte läsas som ett bemanningsföretag.** Ny sektion Samhällskraft med Karims formulering: en samhällskraft som för samman lokala företag och människor, öppnar dörrar till arbete, ger företag kraft att växa och bygger ett samhälle där fler får möjlighet att bidra. Formuleringar om auktoriserat bemannings- och rekryteringsföretag och knappen till miljonbemanning.se är borttagna. Varumärket Miljonbemanning står kvar som avsändare.
+4. **ESF-villkoret är borttaget.** Meningen om att projektet startar om Svenska ESF-rådet beviljar stöd finns inte längre på sidan eller i filmen. Samarbetsavtalet med Botkyrka kommun står kvar, och visionsavsnittet beskriver fortfarande Miljonkraft Botkyrka som ett planerat projekt.
+5. **Bilder.** Egna bilder och illustrationer var tillåtna, liksom stockbilder. Sidan använder Miljonbemannings egen bildbank och egna linjeillustrationer. Stockbilder behövdes inte.
+6. **Pusha och slå samman till `main` alltid.**
 
-Skills vars instruktioner lästes i sin helhet från de publika källorna och användes:
+## 3. Designen i korthet
 
-| Skill | Användning |
+- **Affischen.** Tre meningar som var och en fyller sin bredd exakt, uppmätta i Montserrat med `scripts/measure-type.mjs`. Viktkontrast mellan 800 och 200. Röda punkter efter meningarna. MB-punkten blir en röd sol som stiger bakom raden Ett starkare Botkyrka.
+- **Himlen.** CSS-gradient i profilens blå toner med ett varmt sken. Ovanpå ritas en WebGL-himmel med mjuka moln och solstrålar (`src/scripts/sky.ts`). Den rör sig bara under inledningen, vid skroll och vid muspekare, aldrig i en evig loop. Den hoppar över sig själv på datorer utan grafikkort och vid reducerad rörelse.
+- **Rörelse.** Raderna stiger upp ur sina linjer, solen går upp, ordet SAMHÄLLSKRAFT fylls när man skrollar, Miljonmodellens steg tänds ett i taget, illustrationerna ritas fram, urtavlan i bokningsdelen fylls till en halv timme. Allt finns som stillbild utan JavaScript och med reducerad rörelse.
+- **Konturtext.** Variabla typsnitt har överlappande konturer. Konturord ritas därför med fyllning i bakgrundsfärg över en dubbelt så bred kontur (`paint-order`), så att inga inre linjer syns.
+
+## 4. Filmen
+
+Filmen tas fram av skripten i `scripts/film/` (se `scripts/film/README.md` när den finns): en deterministisk HTML-animation som renderas bild för bild i Chromium, och musik som syntetiseras i Python. All musik är egen och skapad i kod. Sektionen Filmen och länken Se filmen i heron visas automatiskt när `public/film/miljonkraft-film-1080.mp4` och postern finns. Ljudet startar bara när besökaren trycker på spela. Filmens text finns som textalternativ under spelaren.
+
+## 5. Bilder och rättigheter
+
+| Fil | Källa |
 | --- | --- |
-| design-taste-frontend (Taste v2) | Huvudsaklig formgivningsskill. Designläsning, dial-värden (variance 5, motion 3, density 4), accent- och radiedisciplin, eyebrow-restriktion, hero-disciplin, pre-flight-listan |
-| frontend-design (Anthropic) | Komplement. Ground i ämnet, en familj, undvik de generiska AI-utseendena, en orkestrerad rörelse |
-| web-design-guidelines (Vercel, command.md) | Granskningslista för tillgänglighet, fokus, formulär, rörelse, typografi |
-| animate (Emil Kowalski) | Beslut om rörelse. Kurvor, tider, reduced motion, pekargating |
-| playwright-cli (Microsoft) | Läst. Själva CLI:t installerades inte. Verifieringen gjordes med Playwright direkt i Node mot den förinstallerade Chromium, se `scripts/verify.mjs` |
-| fixing-accessibility, fixing-motion-performance, fixing-metadata (ui-skills) | Granskningsstöd i reviewrundorna |
-| performance-optimization (Addy Osmani) | Granskningsstöd för laddning och Core Web Vitals |
-| pick-ui-library | Läst som referens. Inget bibliotek behövdes |
+| `assets-src/bildbank/MB_bildbank_6-kontor.jpg`, `_9-lager`, `_10-transport`, `_33-mb-vast` | Miljonbemannings bildbank i SharePoint (Marknad & Kommunikation, Bilder, BILDBANK) |
+| `assets-src/logo/Logo_DARK-TERTIARY_MB-Miljonbemanning_2024.png` | Miljonbemannings grafiska profil, tertiär logotyp. Används oförändrad |
+| Illustrationer i Karriärstegen och Samhällskraft | Egna linjeteckningar i SVG, i koden |
+| Montserrat | SIL Open Font License |
 
-Inte använda: image-to-code (ingen visuell förlaga fanns), Awesome DESIGN.md (endast README läst), Expo-skills och plattformsskills (inte relevanta).
+Bilderna visar miljöer. Ingen bildtext antyder att personerna är deltagare. Kör `node scripts/build-images.mjs` efter byte av originalbild.
 
-## 3. Designriktning
+## 6. Var saker ändras
 
-Tre oberoende designförslag togs fram parallellt och bedömdes av två domare (en kundlins, en hantverkslins). De två starkaste:
+Se `README.md`. All text, kontaktuppgifter, bokningsläge och bilder anges i `src/config/site.ts`. Designvärden i `src/styles/global.css`. Ändras en affischrad, kör `node scripts/measure-type.mjs` så att raden fyller bredden igen.
 
-**Riktning A, Strecket.** Varumärkeskontinuitet först. Miljonbemannings skiffer och rödorange, Plus Jakarta Sans, det lilla strecket ur logotypen som enda motiv (ett streck markerar avsändaren, åtta stigande streck bär modellen). Mörk inledning och mörk bokningsdel som bokstöd. Domarpoäng 48 + 47.
+## 7. Återstår
 
-**Riktning B, Trappsteget.** Motiv först. En enda stigande trapplinje som börjar vid bokningsknappen, blir Miljonmodellens åtta steg och Karriärstegens exempel. Schibsted Grotesk i en familj, mörk inledning, ljusa varma läsytor, accenten bara som linje och markering. Domarpoäng 49 + 42.
-
-Domarna delade sig (kundlinsen valde B, hantverkslinsen A). Den byggda sidan är en syntes med **B som stomme**: trapplinjen som motiv, Schibsted Grotesk, mörk inledning och ljusa läsytor. Från A hämtades strecket som avsändarmarkering före bylinen och statusraden, den fasta mobilknappen, tyngre textvikt på mörk yta och en strikt accentdisciplin där den råa varumärkesfärgen aldrig används som text. Hantverksdomarens invändning mot B (att trappgeometrin inte höll ihop) är hanterad genom att samma stegproportion används i hero, Miljonmodellen och Karriärstegen, och genom att linjen landar i en fylld nod vid bokningsrubriken.
-
-Fem designbeslut:
-
-1. **En trapplinje är sidans huvudgrepp.** Åtta steg i heron, märket i sidhuvudet, Miljonmodellens rutnät som stiger fyra steg i taget, Karriärstegens exempel som en trappa. Linjen slutar i en ihålig nod, nästa steg som ännu inte är taget.
-2. **En typsnittsfamilj.** Schibsted Grotesk (variabel, självhostad, OFL). Rubriker i 800 med tät radhöjd, brödtext 16 till 17 px, högst 62 tecken per rad. Typsnittet är skandinaviskt, sakligt och har välritade å ä ö.
-3. **En mörk inledning, ljusa varma ytor, en accent.** Skiffer #161C21 i hero och sidfot, läsytor i #FAF8F5 och #F2EEE8. Accenten #D6341B på ljust och #FF6A4B på mörkt harmonierar med Miljonbemannings rödorange utan att vara deras officiella profil. Alla textpar är beräknade och klarar WCAG AA, se `node scripts/contrast.mjs`.
-4. **Alla åtta modellsteg syns alltid.** Fyra gånger två på dator som två sammanhängande trappor med sättsteg, två kolumner på surfplatta, en lodrät trappa på mobil där varje steg står ett snäpp längre till höger. Inget dragspel.
-5. **Få och precisa rörelser.** Trappan ritas upp en gång vid sidladdning, knappar ger återkoppling på 160 ms, menyn och FAQ-pilen på 220 ms. Allt stängs av under prefers-reduced-motion.
-
-## 4. Var saker ändras
-
-Se `README.md`. Kort: all text, kontaktuppgifter, produktionsadress och bokningsläge finns i `src/config/site.ts`. Designvärden i `src/styles/global.css`.
-
-## 5. Återstående externa anslutningar, exakta nästa steg
-
-1. **Microsoft Bookings.** Följ `docs/BOOKING_SETUP.md`. Kontrollera licens, skapa Shared Bookings-sidan med Yacine som personal, kopiera publik länk och inbäddningsadress till `booking` i `src/config/site.ts`, byt `mode`, bygg om, testa en godkänd bokning hela vägen till bekräftelse. En riktad sökning i Karims arbetsmejl hittade ingen befintlig bokningslänk för Yacine.
-2. **Domän och publicering.** Projektet är förberett för Vercel (`vercel.json` med Astro-preset, avslutande snedstreck och omdirigering från www till apex), se README.md. Driftsättningen kunde inte göras från den här sessionen eftersom ingen Vercel-inloggning eller token fanns. Steg: importera repot i Vercel (eller `vercel login`, `vercel link`, `vercel --prod`), lägg till domänerna miljonkraft.se och www.miljonkraft.se, sätt `PUBLIC_NOINDEX=1` för miljön Preview. Kontrollera efter första produktionsdeployen att saknad sida ger 404, att `/integritet` leder till `/integritet/` och att produktionen inte har `noindex`. Vercels Claude Code-plugin installerades i sessionens container med `npx plugins add vercel/vercel-plugin`, men containern är tillfällig, så kör kommandot på den egna datorn för att få `/deploy` och `/status`.
-3. **Google Search Console och Bing Webmaster Tools.** Verifiera domänen (DNS-post), skicka in `https://miljonkraft.se/sitemap-index.xml`. Inte genomfört, kräver kontoåtkomst.
-4. **Integritetsinformation.** Miljonbemanning.se hade ingen nåbar integritetspolicy att länka till (adressen `/privacy-policy/` svarar med startsidan). Sidan `/integritet/` beskriver sanningsenligt att webbplatsen inte samlar in uppgifter. Texten bör bekräftas av Miljonbemanning, och länken bytas om en central policy finns.
-5. **Sökrobotar för AI.** `robots.txt` tillåter alla robotar, både OAI-SearchBot (sök) och GPTBot (träning). Vill ni neka träning, lägg till `User-agent: GPTBot` och `Disallow: /` utan att röra sökroboten.
-6. **Bilder.** Inga publicerbara bilder fanns. Sidan bygger på typografi och egen grafik. Vill ni lägga till ett porträtt av Yacine eller miljöbilder från Alby finns naturliga platser i bokningssektionen och Om-sektionen. Lägg bilder i `public/` med angivna dimensioner.
-7. **Mätning.** Ingen mätning är inkopplad. Knapparna bär `data-event` med `contact_open` respektive `booking_open`. Genomförd bokning (`booking_complete`) får bara mätas med verifierat stöd från Bookings.
-
-## 6. Kända avvägningar
-
-- Heron har fem textelement (byline, rubrik, två stycken, knappar) eftersom masterprompten fastslår två stycken. Knappen ligger ovanför vikningen på 390 × 844, 768 och 1440 × 900. På 320 × 568 hamnar den strax under, och den fasta mobilknappen tar vid när hero-knappen passerats.
-- Rubriken står på tre rader, en mening per rad, från 768 px. Rubrikstorleken på dator är uppmätt så att "Ett starkare Botkyrka." ryms på en rad i textkolumnen, och knappen ligger ovanför vikningen på 1366 × 768 och 1024 × 768.
-- Rubriken är helt ljus. Accenten spenderas på knappen, trappans översta steg och avsändarmarkeringen, så att bokningsvägen är det starkaste accentmomentet i heron.
-- Trappan i heron bär Miljonmodellens åtta stegnamn som små etiketter på dator, så att motivet läses som modellen och inte som en tillväxtkurva. Etiketterna är dekorativa; stegen finns som text i avsnittet Miljonmodellen.
-- Mejlförslaget i contact_only innehåller inga kolon. Mallens rader är meningsstarter som ifyllaren fullföljer.
+1. **Microsoft Bookings.** Följ `docs/BOOKING_SETUP.md` och byt `mode` när en verifierad länk finns.
+2. **Domänkontroll på Vercel.** Kontrollera att miljonkraft.se och www pekar rätt, att www omdirigeras till apex, att saknad sida ger 404 och att produktionen inte har `noindex`. Sätt `PUBLIC_NOINDEX=1` för miljön Preview.
+3. **Porträtt av Yacine.** Ett riktigt foto skulle stärka bokningsdelen. Inget porträtt har skapats eller hämtats, eftersom ett påhittat ansikte inte får användas.
+4. **Search Console och Bing Webmaster Tools.** Verifiera domänen och skicka in sitemap.
+5. **Integritetsinformation.** Texten på `/integritet/` bör bekräftas av Miljonbemanning.
+6. **Mätning.** Ingen mätning är inkopplad. Knapparna bär `data-event` (`contact_open`, `booking_open`).

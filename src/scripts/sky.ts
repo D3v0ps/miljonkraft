@@ -16,7 +16,7 @@ uniform vec3 uSun;
 float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
   return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
 void main(){
   vec2 uv=gl_FragCoord.xy/uRes;
   float asp=uRes.x/uRes.y;
@@ -53,8 +53,12 @@ void main(){
 }`;
 
 export function startSky(canvas: HTMLCanvasElement, still: boolean) {
-  const gl = canvas.getContext('webgl', { antialias: false, alpha: false, premultipliedAlpha: false, powerPreference: 'low-power' });
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false, premultipliedAlpha: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: true });
   if (!gl) return;
+  // Mjukvarurendering (utan grafikkort) gör himlen tung för processorn. Då räcker CSS-himlen under.
+  const info = gl.getExtension('WEBGL_debug_renderer_info');
+  const renderer = info ? String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+  if (/swiftshader|llvmpipe|software|basic render/i.test(renderer)) return;
   const compile = (type: number, src: string) => {
     const s = gl.createShader(type)!;
     gl.shaderSource(s, src);
@@ -79,7 +83,8 @@ export function startSky(canvas: HTMLCanvasElement, still: boolean) {
 
   const hero = canvas.closest<HTMLElement>('[data-hero]');
   const sun = document.querySelector<HTMLElement>('[data-sun]');
-  const scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.55;
+  const small = window.matchMedia('(max-width: 899.98px)').matches;
+  const scale = Math.min(window.devicePixelRatio || 1, 1.5) * (small ? 0.4 : 0.55);
   let t = still ? 1 : 0;
   let p = 0;
   const ptr = { x: 0, y: 0 };
@@ -126,10 +131,18 @@ export function startSky(canvas: HTMLCanvasElement, still: boolean) {
   };
 
   resize();
+  const t0 = performance.now();
   draw();
+  gl.finish();
+  // Är en bild långsam att rita hoppar vi över inledningen och visar bara slutläget.
+  const slow = performance.now() - t0 > 24;
+  if (slow) {
+    t = 1;
+    draw();
+  }
   canvas.classList.add('is-ready');
 
-  if (!still) {
+  if (!still && !slow) {
     // Inledningen: himlen klarnar under knappt tre sekunder och stannar sedan.
     const start = performance.now();
     const dur = 2800;

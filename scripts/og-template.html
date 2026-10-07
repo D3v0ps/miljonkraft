@@ -2,27 +2,47 @@
 <html lang="sv-SE">
 <head>
 <meta charset="utf-8">
+<!-- Delningsbild 1200 × 630 i affischversionens form. Renderas av scripts/generate-og.mjs. -->
 <style>
-  @font-face { font-family: 'Schibsted Grotesk'; font-weight: 400 900; src: url('../public/fonts/schibsted-grotesk-latin-wght-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 100 900; src: url('../public/fonts/montserrat-latin-wght-normal.woff2') format('woff2'); }
   html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
-  body { font-family: 'Schibsted Grotesk', sans-serif; background: #161C21; color: #F4F1EC; position: relative; }
-  .byline { position: absolute; left: 80px; top: 72px; display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 500; color: #B8C0C7; }
-  .byline::before { content: ''; width: 28px; height: 4px; background: #FF6A4B; }
-  .brand { position: absolute; left: 80px; top: 112px; font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
-  h1 { position: absolute; left: 80px; top: 214px; margin: 0; font-size: 84px; line-height: 1.0; letter-spacing: -0.03em; font-weight: 800; }
-  h1 span { display: block; }
-  .stair { position: absolute; right: 40px; bottom: 0; width: 400px; height: 280px; }
+  body {
+    font-family: 'Montserrat', sans-serif; color: #1E252B; position: relative;
+    background:
+      radial-gradient(48% 70% at 80% 52%, rgba(255, 204, 198, 0.75), rgba(255, 204, 198, 0) 70%),
+      linear-gradient(180deg, #AECBD7 0%, #D7E5EB 42%, #EEF4F6 78%, #FFFFFF 100%);
+  }
+  .top { position: absolute; left: 72px; right: 72px; top: 56px; display: flex; justify-content: space-between; align-items: center; }
+  .top img { height: 40px; width: auto; display: block; }
+  .label { font-size: 17px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #376477; display: flex; align-items: center; gap: 12px; }
+  .label::before { content: ''; width: 11px; height: 11px; border-radius: 50%; background: #FF0C01; }
+  .poster { position: absolute; left: 72px; right: 72px; top: 178px; container-type: inline-size; }
+  .title { display: grid; grid-template-columns: 68fr 32fr; grid-template-areas: 'l1 sun' 'l2 sun' 'l3 l3'; line-height: 0.86; text-transform: uppercase; margin: 0; }
+  .l { display: block; white-space: nowrap; font-size: calc(var(--w) * 100cqw / var(--k)); letter-spacing: -0.04em; }
+  .l1 { grid-area: l1; --w: 0.68; font-weight: 800; }
+  .l2 { grid-area: l2; --w: 0.68; font-weight: 200; letter-spacing: -0.03em; padding-top: 0.06em; }
+  .l3 { grid-area: l3; --w: 1; font-weight: 800; padding-top: 0.04em; }
+  .dot { color: #FF0C01; }
+  .sunbox { grid-area: sun; position: relative; clip-path: inset(-80% -60% 0 -60%); }
+  .sun { position: absolute; left: 50%; bottom: 0; width: 86%; aspect-ratio: 1; border-radius: 50%; background: #FF0C01; translate: -50% 54%; box-shadow: 0 0 0 10px rgba(255, 12, 1, 0.08), 0 0 0 24px rgba(255, 12, 1, 0.04); }
+  .bottom { position: absolute; left: 72px; right: 72px; bottom: 52px; display: flex; justify-content: space-between; align-items: baseline; font-size: 22px; }
+  .bottom b { font-weight: 800; letter-spacing: 0.02em; }
+  .bottom span { font-weight: 300; }
 </style>
 </head>
 <body>
-  <p class="byline">Ett initiativ från Miljonbemanning</p>
-  <p class="brand">Miljonkraft Botkyrka</p>
-  <h1><span>Fler i arbete.</span><span>Starkare företag.</span><span>Ett starkare Botkyrka.</span></h1>
-  <svg class="stair" viewBox="0 0 640 400" preserveAspectRatio="xMidYMax meet">
-    <polyline points="10,386 10,344 87.5,344 87.5,302 165,302 165,260 242.5,260 242.5,218 320,218 320,176 397.5,176 397.5,134 475,134 475,92 552.5,92 552.5,50 630,50" fill="none" stroke="#B8C0C7" stroke-width="2.5"/>
-    <rect x="5" y="381" width="10" height="10" fill="#B8C0C7"/>
-    <line x1="552.5" y1="50" x2="630" y2="50" stroke="#FF6A4B" stroke-width="5"/>
-    <rect x="624" y="44" width="12" height="12" fill="none" stroke="#FF6A4B" stroke-width="2.5"/>
-  </svg>
+  <div class="top">
+    <img src="../public/img/mb-logo.png" alt="Miljonbemanning">
+    <p class="label">Miljonkraft Botkyrka</p>
+  </div>
+  <div class="poster">
+    <h1 class="title">
+      <span class="l l1" style="--k:7.632">Fler i arbete<span class="dot">.</span></span>
+      <span class="l l2" style="--k:10.078">Starkare företag<span class="dot">.</span></span>
+      <span class="l l3" style="--k:13.556">Ett starkare Botkyrka<span class="dot">.</span></span>
+      <span class="sunbox"><span class="sun"></span></span>
+    </h1>
+  </div>
+  <div class="bottom"><span>Ett initiativ från Miljonbemanning</span><b>miljonkraft.se</b></div>
 </body>
 </html>
