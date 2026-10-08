@@ -14,7 +14,7 @@ Redesignen Den röda tråden, 7 oktober 2026. Körningar mot det byggda resultat
 | Rörelse | Tråden ritas med skrollen i Chromium. Ritad andel stämmer med pennans läge (uppmätt avvikelse under 0,1 %). Miljonmodellens steg tänds när tråden passerar |
 | Reservläge utan scroll-driven animations | Blocken ritas med en kort övergång när de når pennan, modellstegen tänds (simulerat i Chromium) |
 | Reducerad rörelse | Inga element animerar, tråden står färdigritad |
-| Utan JavaScript | Rubrik, alla åtta modellsteg, projektstatus, telefon- och mejllänkar och knappen i sidhuvudet fungerar. Tråden står färdigritad |
+| Utan JavaScript | Rubrik, alla åtta modellsteg, telefon- och mejllänkar och knappen i sidhuvudet fungerar. Tråden står färdigritad |
 | Saknad sida | Svarar 404 och leder till startsidan och till mejlförslaget |
 | Lighthouse mobil (labb) | Performance 99, Accessibility 100, Best practices 100, SEO 100 |
 | Lighthouse dator (labb) | Performance 100, Accessibility 100, Best practices 100, SEO 100 |

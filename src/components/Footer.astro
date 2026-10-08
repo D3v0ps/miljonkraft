@@ -3,12 +3,9 @@ import { copy, site } from '../config/site';
 import { film } from '../lib/film';
 import MbLogo from './MbLogo.astro';
 const fo = copy.footer;
-// Ord med bindestreck, som ESF-rådet, bryts aldrig mitt i.
-const status = copy.status.text.join(' ').split(/(\S+-\S+)/);
 ---
 <footer class="foot">
   <div class="foot__in">
-    <p class="foot__status">{status.map((p) => (/-/.test(p) ? <span class="nw">{p}</span> : p))}</p>
     <div class="foot__row">
       <p class="foot__brand"><MbLogo height={28} alt="" /><span>{fo.byline}</span></p>
       <ul class="foot__links">

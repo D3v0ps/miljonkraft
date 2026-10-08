@@ -32,16 +32,16 @@ Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `c
 | 8. Riktningen | Botkyrka ska ha Sveriges lägsta arbetslöshet | Blir horisonten och löper ut ur sidan |
 | 9. Inbjudan | Berätta vad ni behöver. Vi börjar där. Yacine, knappen, telefon och mejl | En ny röd punkt som tänds |
 
-Sidfoten bär projektstatus och länkar till Miljonbemanning och integritet.
+Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen projektstatus visas, se beslut 2.
 
 ## 3. Beslut
 
-1. **Redesignbriefen gäller före tidigare beslut där de krockar.** Det gäller ESF-villkoret och filmen, se punkt 2 och 6.
-2. **ESF-villkoret är tillbaka, tyst i sidfoten.** Karim tog tidigare bort meningen om ESF. Redesignbriefen kräver uttryckligen att projektstatus står nära sidfoten med villkoret att genomförandet förutsätter att stöd beviljas. Texten lyder: Miljonbemanning och Botkyrka kommun har tecknat ett samarbetsavtal om Miljonkraft Botkyrka. Projektets genomförande förutsätter att Svenska ESF-rådet beviljar stöd. Den ändras eller tas bort på ett ställe, `copy.status` i `src/config/site.ts`.
+1. **Redesignbriefen gäller före tidigare beslut där de krockar.** Undantag är det Karim själv bestämt efter briefen, se punkt 2. Filmen påverkas, se punkt 6.
+2. **Ingen projektstatus på sidan (Karims beslut 8 oktober 2026).** Meningarna om samarbetsavtalet med Botkyrka kommun och om att genomförandet förutsätter stöd från Svenska ESF-rådet är borttagna från sidfoten, från llms.txt och från koden, trots att redesignbriefen bad om dem. Samma beslut tog Karim för affischversionen.
 3. **Ingen knapp heter Boka.** Ingen riktig bokning är ansluten, så knappen heter Föreslå ett 30-minuters samtal och öppnar ett förifyllt mejl till Yacine. När Bookings ansluts byter alla knappar automatiskt till Boka 30 min med Yacine.
 4. **En bild.** Bara västen med MB-punkten ur Miljonbemannings bildbank används. Lager- och transportbilderna i bildbanken liknar stockfoto och strider mot briefens krav på autentiska bilder.
 5. **Borttaget från startsidan:** affischheron, WebGL-himlen, Samhällskraft-sektionen, tickern, kort, urtavlan, citaten, utmärkelselistan, FAQ, mobilmenyn och den fasta mobilknappen.
-6. **Filmen visas inte längre.** Den gjordes för affischversionen med versaler, kort, numrerade steg och lagerbilder, och granskningen visade att den drar berättelsen åt det håll briefen vill bort från. Den saknar också syntolkning (WCAG 1.2.5). Filerna ligger kvar i `public/film` och dialogen finns i koden. Sätt `copy.film.showOnHome` till `true` i `src/config/site.ts` för att visa länken Se filmen i sidfoten igen. Bättre är att rendera om filmen i Den röda trådens uttryck med `scripts/film`.
+6. **Filmen visas inte längre.** Den gjordes för affischversionen med versaler, kort, numrerade steg och lagerbilder, och granskningen visade att den drar berättelsen åt det håll briefen vill bort från. Den saknar också syntolkning (WCAG 1.2.5). Filerna ligger kvar i `public/film` och dialogen finns i koden. Filmen har en scen med texten Samarbetsavtal med Botkyrka kommun, som ska tas bort om filmen görs om och visas igen. Sätt `copy.film.showOnHome` till `true` i `src/config/site.ts` för att visa länken Se filmen i sidfoten igen. Bättre är att rendera om filmen i Den röda trådens uttryck med `scripts/film`.
 7. **Kvar från tidigare beslut:** sidan ska inte läsas som ett bemanningsföretag, www.miljonkraft.se är primär domän, allt pushas och slås samman till `main`.
 
 ## 4. Rörelse
@@ -84,11 +84,10 @@ Se `README.md`. All text står i `src/config/site.ts`. Trådens form i varje kap
 ## 9. Uppgifter som en människa bör bekräfta
 
 1. **Bevis 12.** Miljonbemanning rangordnades först i alla tolv områden enligt Botkyrka kommuns tilldelningsbeslut 2026-08-27 (Dnr AVN/2026:00030). Sidan skriver "Enligt Botkyrka kommuns tilldelningsbeslut den 27 augusti 2026". Bekräfta att ramavtalet är undertecknat efter avtalsspärren innan formuleringen skärps.
-2. **ESF-texten.** Bekräfta att villkoret ska synas, se beslut 2.
-3. **Bildens användning.** Västbilden kommer ur Miljonbemannings egen bildbank. Bekräfta att personen på bilden godkänt användning på en publik webbplats.
-4. **Knapptexten.** Briefen skriver Föreslå ett 30-minuters samtal, vilket sidan använder. Språkgranskningen påpekade att formen blandar två skrivsätt (30-minuterssamtal eller 30 minuters samtal). Ändras i `src/lib/booking.ts` om uppdragsgivaren vill.
-5. **AI-sökrobotar.** `public/robots.txt` tillåter både OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning). Bekräfta eller blockera GPTBot separat.
-6. **Integritetstexten** på `/integritet/` bör bekräftas av Miljonbemanning.
+2. **Bildens användning.** Västbilden kommer ur Miljonbemannings egen bildbank. Bekräfta att personen på bilden godkänt användning på en publik webbplats.
+3. **Knapptexten.** Briefen skriver Föreslå ett 30-minuters samtal, vilket sidan använder. Språkgranskningen påpekade att formen blandar två skrivsätt (30-minuterssamtal eller 30 minuters samtal). Ändras i `src/lib/booking.ts` om uppdragsgivaren vill.
+4. **AI-sökrobotar.** `public/robots.txt` tillåter både OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning). Bekräfta eller blockera GPTBot separat.
+5. **Integritetstexten** på `/integritet/` bör bekräftas av Miljonbemanning.
 
 Adressen i JSON-LD är huvudkontoret, Albyvägen 3, 145 57 Norsborg, enligt miljonbemanning.se (kontrollerat 7 oktober 2026). MB.Restart i Alby ligger på Albyvägen 2.
 

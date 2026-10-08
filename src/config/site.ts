@@ -204,16 +204,6 @@ export const copy = {
     embedLoadLabel: 'Visa lediga tider',
     embedFallback: 'Kalendern kunde inte visas här. Använd länken ovan för att öppna bokningen i ett nytt fönster.',
   },
-  /**
-   * Projektstatus, tyst i sidfoten. Formuleringen får inte antyda att stöd är beviljat
-   * eller att kommunen står bakom sidans påståenden. Ändra här när beslutet kommer.
-   */
-  status: {
-    text: [
-      'Miljonbemanning och Botkyrka kommun har tecknat ett samarbetsavtal om Miljonkraft Botkyrka.',
-      'Projektets genomförande förutsätter att Svenska ESF-rådet beviljar stöd.',
-    ],
-  },
   film: {
     /**
      * Filmen är gjord för affischversionen (versaler, kort, numrerade steg, lagerbilder) och står i en

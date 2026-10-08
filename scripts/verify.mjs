@@ -205,7 +205,6 @@ for (const v of [widths[1], widths[3]]) {
     telLinks: [...document.querySelectorAll('a[href^="tel:"]')].map((a) => a.getAttribute('href')),
     mailLinks: [...document.querySelectorAll('a[href^="mailto:"]')].length,
     headerCtaVisible: (document.querySelector('[data-cta="header"]')?.getBoundingClientRect().height ?? 0) > 0,
-    statusVisible: (document.querySelector('.foot__status')?.getBoundingClientRect().height ?? 0) > 0,
     // Utan JavaScript ritas tråden ändå med CSS när sidan skrollas. Här kontrolleras att den inte döljs av skriptets reservläge.
     threadHiddenByFallback: document.documentElement.classList.contains('js'),
   }));
