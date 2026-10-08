@@ -1,110 +1,20 @@
 [
-  [
-    "antracit",
-    "vit",
-    4.5,
-    "brödtext och rubriker på vitt"
-  ],
-  [
-    "antracit",
-    "gra-3",
-    4.5,
-    "text på ljusgrå sektion"
-  ],
-  [
-    "antracit-80",
-    "vit",
-    4.5,
-    "sekundär text på vitt"
-  ],
-  [
-    "antracit-80",
-    "gra-3",
-    4.5,
-    "sekundär text på ljusgrå sektion"
-  ],
-  [
-    "bla-text",
-    "vit",
-    4.5,
-    "blå etiketter på vitt"
-  ],
-  [
-    "bla-text",
-    "gra-3",
-    4.5,
-    "blå etiketter på ljusgrå sektion"
-  ],
-  [
-    "bla-text",
-    "bla-ljusast",
-    4.5,
-    "etikett i kompetenssteg"
-  ],
-  [
-    "antracit",
-    "bla-ljusast",
-    4.5,
-    "namn i kompetenssteg"
-  ],
-  [
-    "bla-text",
-    "bla-ljusast",
-    4.5,
-    "källänk i citatsektionen"
-  ],
-  [
-    "antracit",
-    "bla-ljusast",
-    4.5,
-    "citat och status i citatsektionen"
-  ],
-  [
-    "vit",
-    "antracit",
-    4.5,
-    "knappar, yrkesroller, fast mobilknapp"
-  ],
-  [
-    "antracit",
-    "#AECBD7",
-    4.5,
-    "etiketter och sidhuvud mot himlens överkant"
-  ],
-  [
-    "antracit-80",
-    "#F2D9D5",
-    4.5,
-    "hero-text mot solskenet"
-  ],
-  [
-    "antracit",
-    "#D7E5EB",
-    4.5,
-    "visionens text mot himlens nederkant"
-  ],
-  [
-    "antracit-80",
-    "#D7E5EB",
-    4.5,
-    "visionens brödtext mot himlens nederkant"
-  ],
-  [
-    "rod",
-    "vit",
-    3,
-    "röd punkt och understreck, grafik"
-  ],
-  [
-    "vit",
-    "rod",
-    3,
-    "spelikon på röd cirkel, grafik"
-  ],
-  [
-    "antracit",
-    "rod",
-    3,
-    "rubrik som korsar solen, stor text"
-  ]
+  ["ink", "paper", 4.5, "brödtext och rubriker på gräddvitt"],
+  ["ink-2", "paper", 4.5, "sekundär text på gräddvitt"],
+  ["thread", "paper", 4.5, "röd huvudrubrik, siffror och länkunderstreck på gräddvitt"],
+  ["ink", "peach", 4.5, "text i persikofältet (kapitel 2)"],
+  ["ink-2", "peach", 4.5, "sekundär text i persikofältet"],
+  ["thread", "peach", 3, "röd stor text och tråd i persikofältet"],
+  ["ink", "yellow", 4.5, "text i de gula fälten (kapitel 6 och 9)"],
+  ["ink-2", "yellow", 4.5, "sekundär text i de gula fälten"],
+  ["thread", "yellow", 3, "rött kryss, tråd och stor text i de gula fälten"],
+  ["paper", "thread", 4.5, "text i det röda fältet och på knappar"],
+  ["peach", "thread", 3, "teorimeningen (stor text) och tråden i det röda fältet"],
+  ["#E5ADA5", "thread", 3, "oupplysta modellsteg (stor text) i det röda fältet"],
+  ["yellow", "thread", 3, "tända punkter i det röda fältet"],
+  ["quiet", "paper", 3, "oupplysta punkter och stor grå text på gräddvitt"],
+  ["ink", "peach-soft", 4.5, "text på himlens ljusa del (kapitel 8)"],
+  ["ink-2", "peach-soft", 4.5, "sekundär text på himlens ljusa del"],
+  ["ink", "salmon", 4.5, "text intill solen"],
+  ["thread", "line", 3, "fokusring mot sidfotens linje"]
 ]

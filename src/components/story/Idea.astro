@@ -1,12 +1,12 @@
 ---
-import { copy } from '../../config/site';
+import { copy, images } from '../../config/site';
 import { lane } from '../../lib/thread';
 import Thread from '../Thread.astro';
 import CtaLink from '../CtaLink.astro';
 const c = copy.idea;
+const art = images.torg;
 ---
 <section class="ch ch--idea" id={c.id} aria-labelledby="idea-h">
-  <div class="halo" aria-hidden="true"></div>
   <div class="seg seg--idea">
     <Thread class="t--idea" narrow={lane(14, 25, true)} />
     <span class="meet" aria-hidden="true"><span class="meet__a"></span><span class="meet__b"></span></span>
@@ -17,6 +17,13 @@ const c = copy.idea;
         <CtaLink class="btn--lg" cta="primary" />
         <a class="quiet-link" href={c.readMoreHref}>{c.readMore}</a>
       </p>
+      <figure class="idea__art">
+        <picture>
+          <source type="image/webp" srcset={art.widths.map((w) => `${art.src}-${w}.webp ${w}w`).join(', ')} sizes="(min-width: 960px) 460px, calc(100vw - 80px)" />
+          <img src={`${art.src}-800.jpg`} width={art.w} height={art.h} alt={art.alt} decoding="async" />
+        </picture>
+        <figcaption>{art.caption}</figcaption>
+      </figure>
     </div>
   </div>
 </section>

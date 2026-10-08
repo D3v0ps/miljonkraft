@@ -2,28 +2,29 @@
 <html lang="sv-SE">
 <head>
 <meta charset="utf-8">
-<!-- Delningsbild 1200 × 630 i berättelsens form: rubriken, den röda tråden och en mjuk cirkel. Renderas av scripts/generate-og.mjs. -->
+<!-- Delningsbild 1200 × 630 i den varma versionen: rubriken, den röda tråden och torget i valvform. Renderas av scripts/generate-og.mjs. -->
 <style>
   @font-face { font-family: 'Montserrat'; font-weight: 100 900; src: url('../public/fonts/montserrat-latin-wght-normal.woff2') format('woff2'); }
   html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
-  body { font-family: 'Montserrat', sans-serif; color: #1E252B; background: #FFFFFF; position: relative; }
-  .halo { position: absolute; width: 620px; height: 620px; border-radius: 50%; right: -210px; top: -250px; background: radial-gradient(circle at 38% 40%, #EEF4F7 0%, #D7E5EB 72%); }
-  .top { position: absolute; left: 132px; right: 72px; top: 52px; display: flex; align-items: center; gap: 16px; font-size: 22px; font-weight: 700; }
-  .top img { height: 30px; width: auto; display: block; }
+  body { font-family: 'Montserrat', sans-serif; color: #542219; background: #FFF9F2; position: relative; }
+  .top { position: absolute; left: 112px; top: 48px; display: flex; align-items: center; gap: 14px; font-size: 21px; }
+  .top img { height: 28px; width: auto; display: block; }
   .top b span { font-weight: 400; }
   svg { position: absolute; left: 0; top: 0; }
-  h1 { position: absolute; left: 132px; top: 150px; margin: 0; width: 900px; font-weight: 300; font-size: 76px; line-height: 1.04; letter-spacing: -0.032em; }
-  p { position: absolute; left: 132px; bottom: 54px; margin: 0; font-size: 22px; color: #494E52; }
+  h1 { position: absolute; left: 112px; top: 140px; margin: 0; width: 560px; font-weight: 600; font-size: 64px; text-wrap: balance; line-height: 1.02; letter-spacing: -0.045em; color: #B92E24; }
+  p { position: absolute; left: 112px; bottom: 56px; margin: 0; width: 600px; font-size: 21px; line-height: 1.45; color: #70584E; }
+  .art { position: absolute; right: 72px; top: 70px; width: 400px; height: 500px; border-radius: 48% 48% 22px 22px; overflow: hidden; background: #F5D5C5; }
+  .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
 </style>
 </head>
 <body>
-  <div class="halo"></div>
   <div class="top"><img src="../public/img/mb-logo.png" alt=""><b>Miljonkraft <span>Botkyrka</span></b></div>
   <svg width="1200" height="630" viewBox="0 0 1200 630" aria-hidden="true">
-    <path d="M86 190 C86 330 100 380 100 470 C100 560 86 590 86 640" fill="none" stroke="#FF0C01" stroke-width="2.5"/>
-    <circle cx="86" cy="190" r="8" fill="#FF0C01"/>
+    <path d="M70 172 C70 320 84 380 84 470 C84 560 70 590 70 640" fill="none" stroke="#B92E24" stroke-width="3"/>
+    <circle cx="70" cy="172" r="8" fill="#B92E24"/>
   </svg>
   <h1>När människor och möjligheter hittar varandra, växer en plats.</h1>
   <p>Ett initiativ från Miljonbemanning med rötterna i Alby</p>
+  <div class="art"><img src="../public/img/torg-800.webp" alt=""></div>
 </body>
 </html>

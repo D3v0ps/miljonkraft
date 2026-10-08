@@ -4,7 +4,7 @@ import { lane } from '../../lib/thread';
 import Thread from '../Thread.astro';
 const c = copy.model;
 ---
-<section class="ch" id={c.id} aria-labelledby="model-h">
+<section class="ch ch--red" id={c.id} aria-labelledby="model-h">
   <div class="seg">
     <Thread narrow={lane(14)} />
     <div class="seg__in">

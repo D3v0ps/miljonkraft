@@ -5,8 +5,8 @@
   "lang": "sv-SE",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#FFFFFF",
-  "theme_color": "#FFFFFF",
+  "background_color": "#FFF9F2",
+  "theme_color": "#FFF9F2",
   "icons": [
     {
       "src": "/icon-192.png",

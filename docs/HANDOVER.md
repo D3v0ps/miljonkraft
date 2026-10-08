@@ -22,15 +22,15 @@ Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `c
 
 | Kapitel | Innehåll | Trådens form |
 | --- | --- | --- |
-| 1. Idén | När människor och möjligheter hittar varandra, växer en plats. Knapp och Läs vår idé | Två röda punkter möts och blir tråden |
-| 2. Härifrån | Resan som började i Alby 2012. Bilden av västen med MB-punkten, bredvid texten på dator och under texten på mobil. Potential finns överallt. Möjligheten gör det inte. | Löper vidare längs vänsterkanten |
+| 1. Idén | När människor och möjligheter hittar varandra, växer en plats. Knapp och Läs vår idé. Torg-illustrationen i valvform | Två röda punkter möts och blir tråden |
+| 2. Härifrån | Persikofält. Resan som började i Alby 2012. Potential finns överallt. Möjligheten gör det inte. | Löper vidare längs vänsterkanten |
 | 3. Kretsloppet | Invånare, Miljonkraft och lokala företag | En ögla runt de tre orden |
-| 4. Miljonmodellen | Teori mot verklighet. De åtta stegen Nå, Förstå, Rikta, Bevisa, Utveckla, Övergå, Bära, Växa | Bär stegen. Varje ord tänds när tråden passerar |
+| 4. Miljonmodellen | Tegelrött fält. Teori mot verklighet. De åtta stegen Nå, Förstå, Rikta, Bevisa, Utveckla, Övergå, Bära, Växa | Bär stegen. Varje ord tänds när tråden passerar |
 | 5. Karriärstegen | Första jobbet är början. Lager, truck och lagersystem, koordinator, transportplanering, märkt som exempel | En trappa uppåt (dator) eller framåt (mobil) |
-| 6. Nyttan | Affärsnytta × samhällsnytta | Tråden delar sig och korsas vid krysset, ett ord i varje ögla |
+| 6. Nyttan | Smörgult fält. Affärsnytta × samhällsnytta | Tråden delar sig och korsas vid krysset, ett ord i varje ögla |
 | 7. Bevisen | 2012, 2023 och 12 | En punkt per bevis |
-| 8. Riktningen | Botkyrka ska ha Sveriges lägsta arbetslöshet | Blir horisonten och löper ut ur sidan |
-| 9. Inbjudan | Berätta vad ni behöver. Vi börjar där. Yacine, knappen, telefon och mejl | En ny röd punkt som tänds |
+| 8. Riktningen | Gryningshimmel. Botkyrka ska ha Sveriges lägsta arbetslöshet | Blir horisonten och löper ut ur sidan |
+| 9. Inbjudan | Smörgult fält. Berätta vad ni behöver. Vi börjar där. Yacine, knappen, telefon och mejl | En ny röd punkt som tänds |
 
 Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen projektstatus visas, se beslut 2.
 
@@ -39,10 +39,10 @@ Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen
 1. **Redesignbriefen gäller före tidigare beslut där de krockar.** Undantag är det Karim själv bestämt efter briefen, se punkt 2. Filmen påverkas, se punkt 6.
 2. **Ingen projektstatus på sidan (Karims beslut 8 oktober 2026).** Meningarna om samarbetsavtalet med Botkyrka kommun och om att genomförandet förutsätter stöd från Svenska ESF-rådet är borttagna från sidfoten, från llms.txt och från koden, trots att redesignbriefen bad om dem. Samma beslut tog Karim för affischversionen.
 3. **Ingen knapp heter Boka.** Ingen riktig bokning är ansluten, så knappen heter Föreslå ett 30-minuters samtal och öppnar ett förifyllt mejl till Yacine. När Bookings ansluts byter alla knappar automatiskt till Boka 30 min med Yacine.
-4. **En bild.** Bara västen med MB-punkten ur Miljonbemannings bildbank används. Lager- och transportbilderna i bildbanken liknar stockfoto och strider mot briefens krav på autentiska bilder.
+4. **En bild, en illustration.** Sidan visar torg-illustrationen från Yacines förhandsversion, märkt Illustration, i heron. Västbilden och bildbankens lager- och transportbilder används inte.
 5. **Borttaget från startsidan:** affischheron, WebGL-himlen, Samhällskraft-sektionen, tickern, kort, urtavlan, citaten, utmärkelselistan, FAQ, mobilmenyn och den fasta mobilknappen.
 6. **Filmen visas inte längre.** Den gjordes för affischversionen med versaler, kort, numrerade steg och lagerbilder, och granskningen visade att den drar berättelsen åt det håll briefen vill bort från. Den saknar också syntolkning (WCAG 1.2.5). Filerna ligger kvar i `public/film` och dialogen finns i koden. Filmen har en scen med texten Samarbetsavtal med Botkyrka kommun, som ska tas bort om filmen görs om och visas igen. Sätt `copy.film.showOnHome` till `true` i `src/config/site.ts` för att visa länken Se filmen i sidfoten igen. Bättre är att rendera om filmen i Den röda trådens uttryck med `scripts/film`.
-7. **Bilden är liten och lugn (Karims beslut 8 oktober 2026).** Den fyllde tidigare hela skärmen och upplevdes som för stor på en 27-tumsskärm. Nu står den bredvid texten i kapitel 2 på dator, högst 400 px bred, och under texten på mobil och surfplatta, högst 560 px bred. Ingen inzoomning.
+7. **Varm färg och känsla från Yacines version (Karims beslut 8 oktober 2026).** Karim gav sidan 5 av 10 och bad att få med färgen, känslan och bilderna från Yacines förhandsversion, utom den röda rosetten, med copyn oförändrad. Sidan har nu gräddvit grund, vinröd text, tegelröd tråd och färgfält i persika, tegel och smörgult, se `docs/DESIGN_PLAN.md`. Bilder får aldrig fylla hela skärmen. Montserrat är kvar som Miljonbemannings typsnitt.
 8. **Kvar från tidigare beslut:** sidan ska inte läsas som ett bemanningsföretag, www.miljonkraft.se är primär domän, allt pushas och slås samman till `main`.
 
 ## 4. Rörelse
@@ -71,7 +71,8 @@ Läget är `contact_only`. Ingen publicerad Bookings-sida för Yacine har hittat
 
 | Fil | Källa |
 | --- | --- |
-| `assets-src/bildbank/MB_bildbank_33-mb-vast.jpg` | Miljonbemannings bildbank i SharePoint (Marknad & Kommunikation, Bilder, BILDBANK) |
+| `assets-src/illustration/torg.webp` | Illustrationen av ett torg, hämtad från Yacines förhandsversion av Miljonkraft (miljonkraft-preview på Vercel). Utsnitten i `public/img/torg-*` skapas av `scripts/build-images.mjs` |
+| `assets-src/bildbank/MB_bildbank_33-mb-vast.jpg` | Miljonbemannings bildbank i SharePoint. Används inte längre på sidan |
 | `assets-src/logo/Logo_DARK-TERTIARY_MB-Miljonbemanning_2024.png` | Miljonbemannings grafiska profil, tertiär logotyp, oförändrad |
 | Tråden, öglorna, trappan och horisonten | Egna SVG-linjer i koden |
 | Montserrat | SIL Open Font License |
@@ -85,7 +86,7 @@ Se `README.md`. All text står i `src/config/site.ts`. Trådens form i varje kap
 ## 9. Uppgifter som en människa bör bekräfta
 
 1. **Bevis 12.** Miljonbemanning rangordnades först i alla tolv områden enligt Botkyrka kommuns tilldelningsbeslut 2026-08-27 (Dnr AVN/2026:00030). Sidan skriver "Enligt Botkyrka kommuns tilldelningsbeslut den 27 augusti 2026". Bekräfta att ramavtalet är undertecknat efter avtalsspärren innan formuleringen skärps.
-2. **Bildens användning.** Västbilden kommer ur Miljonbemannings egen bildbank. Bekräfta att personen på bilden godkänt användning på en publik webbplats.
+2. **Illustrationens ursprung.** Torg-illustrationen kommer från Yacines förhandsversion. Bekräfta hur den är framtagen och att den får användas på den publika sidan.
 3. **Knapptexten.** Briefen skriver Föreslå ett 30-minuters samtal, vilket sidan använder. Språkgranskningen påpekade att formen blandar två skrivsätt (30-minuterssamtal eller 30 minuters samtal). Ändras i `src/lib/booking.ts` om uppdragsgivaren vill.
 4. **AI-sökrobotar.** `public/robots.txt` tillåter både OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning). Bekräfta eller blockera GPTBot separat.
 5. **Integritetstexten** på `/integritet/` bör bekräftas av Miljonbemanning.

@@ -14,7 +14,29 @@ Redesign av www.miljonkraft.se, oktober 2026. Planen skrevs före koden enligt s
 
 Den röda punkten och det röda understrecket finns redan i Miljonbemannings grafiska profil, och "den röda tråden" är ett svenskt uttryck för det som håller ihop en berättelse.
 
-## Tokens
+## Varm version (8 oktober 2026)
+
+Karim gav sidan 5 av 10 och pekade på Yacines förhandsversion: behåll copyn men ta med färgen, känslan och bilderna, utom den röda rosetten. Konceptet med tråden och all text är kvar. Det här ändrades:
+
+| Namn | Hex | Roll |
+| --- | --- | --- |
+| Grädde | `#FFF9F2` | Grundyta |
+| Vinröd | `#542219` | Text |
+| Brun | `#70584E` | Sekundär text |
+| Tegel | `#B92E24` | Tråden, huvudrubriken, siffror, knappar och det röda fältet |
+| Persika | `#F5D5C5` | Fältet i kapitel 2, tråden i det röda fältet |
+| Smörgul | `#F3E6B4` | Fälten i kapitel 6 och 9, punkten i knapparna |
+| Laxrosa | `#EEAB90` | Solens kant |
+
+- **Färgfält med mjukt rundade hörn**: persika för Vi kommer härifrån, tegelrött för Miljonmodellen, smörgult för Affärsnytta × samhällsnytta och för inbjudan, en gryningshimmel från grädde till persika för Vår riktning. Det övre vänstra hörnet är litet så att tråden aldrig skärs av.
+- **Tyngre typografi**: Montserrat i vikt 600 med tät spärrning. Huvudrubriken står i tegelrött. Montserrat är kvar eftersom det är Miljonbemannings typsnitt. Yacines version använder Manrope.
+- **Bilden**: torg-illustrationen från Yacines version i en valvform bredvid rubriken, märkt Illustration. Västbilden är borttagen.
+- **Knappar**: tegelröda med en smörgul punkt. Sidhuvudets knapp är en lätt kontur.
+- **I det röda fältet** byter tråden till persika, tända steg blir gräddvita och punkterna smörgula.
+
+Avsnitten nedan beskriver den första versionen.
+
+## Tokens (första versionen)
 
 | Namn | Hex | Roll |
 | --- | --- | --- |

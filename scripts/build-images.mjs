@@ -22,6 +22,14 @@ for (const [src, name, position, widths] of photos) {
   await sharp(src).resize({ width: 1200 }).jpeg({ quality: 78, mozjpeg: true }).toFile(`public/img/${name}-1200.jpg`);
 }
 
+// Illustrationen av ett torg (från Yacines förhandsversion av Miljonkraft, se docs/HANDOVER.md).
+// Visas kvadratisk i en valvform, därför ett kvadratiskt utsnitt kring människorna i mitten och till höger.
+const torgArea = { left: 280, top: 0, width: 800, height: 800 };
+for (const w of [480, 640, 800]) {
+  await sharp('assets-src/illustration/torg.webp').extract(torgArea).resize({ width: w }).webp({ quality: 66, effort: 6 }).toFile(`public/img/torg-${w}.webp`);
+}
+await sharp('assets-src/illustration/torg.webp').extract(torgArea).jpeg({ quality: 78, mozjpeg: true }).toFile('public/img/torg-800.jpg');
+
 // Stående beskärningar för höga paneler. [källfil, utnamn, utsnitt i originalet (1920 × 1080), bredder]
 const portraits = [
   ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast-portrait', { left: 548, top: 0, width: 864, height: 1080 }, [600, 720, 864]],

@@ -5,7 +5,7 @@ import Thread from '../Thread.astro';
 const c = copy.value;
 const pos = (i: number) => `--nx:${weave.narrowPos[i][0]}%;--ny:${weave.narrowPos[i][1]}%;--wx:${weave.widePos[i][0]}%;--wy:${weave.widePos[i][1]}%`;
 ---
-<section class="ch" id={c.id} aria-labelledby="value-h">
+<section class="ch ch--yellow" id={c.id} aria-labelledby="value-h">
   <div class="seg seg--weave">
     <Thread narrow={weave.narrow} vb={weave.narrowVb} wide={weave.wide} vbWide={weave.wideVb} />
     <h2 id="value-h" class="weave">

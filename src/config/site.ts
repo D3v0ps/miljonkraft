@@ -33,7 +33,7 @@ export const site = {
     ogImage: '/og.png',
     ogImageAlt:
       'När människor och möjligheter hittar varandra, växer en plats. Miljonkraft Botkyrka, ett initiativ från Miljonbemanning.',
-    themeColor: '#FFFFFF',
+    themeColor: '#FFF9F2',
   },
 } as const;
 
@@ -234,6 +234,15 @@ export const copy = {
  * Originalet ligger i assets-src/bildbank och bearbetas med scripts/build-images.mjs.
  */
 export const images = {
+  /** Illustration av ett torg med människor som möts. Från Yacines förhandsversion av Miljonkraft. */
+  torg: {
+    src: '/img/torg',
+    w: 800,
+    h: 800,
+    widths: [480, 640, 800],
+    alt: 'Illustration av ett solbelyst torg mellan flerfamiljshus, med träd, en fontän och människor som möts, vilar och går förbi.',
+    caption: 'Illustration',
+  },
   mbVast: {
     src: '/img/mb-vast',
     w: 1400,
