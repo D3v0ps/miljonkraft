@@ -61,6 +61,16 @@ if (!reduce && 'ResizeObserver' in window) {
   document.querySelectorAll('.t').forEach((t) => ro.observe(t));
 }
 
+/* ---------- Inledningen ger vika för skrollen ---------- */
+// Skrollar besökaren innan inledningen är klar visas trådens början direkt i stället för efter 3 s.
+// Bara inledningens egna animationer avslutas, inte de skrollstyrda banorna.
+if (!reduce) {
+  const endIntro = () =>
+    document.querySelectorAll('.t--idea, .meet span').forEach((el) => el.getAnimations().forEach((a) => a.finish()));
+  if (window.scrollY > 0) endIntro();
+  else window.addEventListener('scroll', endIntro, { once: true, passive: true });
+}
+
 /* ---------- Reserv: rita varje block när det når pennan på 65 % av fönstret ---------- */
 if (!scrollDriven && !reduce && 'IntersectionObserver' in window) {
   const io = new IntersectionObserver(

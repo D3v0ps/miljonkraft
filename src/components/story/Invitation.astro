@@ -1,9 +1,10 @@
 ---
-import { contact, copy } from '../../config/site';
+import { contact, copy, images } from '../../config/site';
 import { resolveBooking } from '../../lib/booking';
 import CtaLink from '../CtaLink.astro';
 const b = resolveBooking();
 const c = copy.invitation;
+const samtal = images.samtal;
 const [user, domain] = contact.email.split('@');
 ---
 <section class="ch ch--invite ch--yellow" id={c.id} aria-labelledby="invite-h">
@@ -18,12 +19,20 @@ const [user, domain] = contact.email.split('@');
           {b.mode !== 'shared_embed' && <p class="invite__action"><CtaLink class="btn--lg" cta="invitation" /></p>}
           <p class="invite__instruction">{b.isReal ? c.instructionReal : c.instructionContact}</p>
         </div>
-        <address class="contact">
-          <p class="contact__name">{contact.name}</p>
-          <p class="contact__role">{contact.role}, {contact.organization}</p>
-          <p><a href={contact.phoneHref}>{contact.phoneDisplay}</a></p>
-          <p><a href={`mailto:${contact.email}`}>{user}@<wbr />{domain}</a></p>
-        </address>
+        <div class="invite__side">
+          <figure class="invite__art">
+            <picture>
+              <source type="image/webp" srcset={`${samtal.src}.webp`} />
+              <img src={`${samtal.src}.jpg`} width={samtal.w} height={samtal.h} alt={samtal.alt} loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+          <address class="contact">
+            <p class="contact__name">{contact.name}</p>
+            <p class="contact__role">{contact.role}, {contact.organization}</p>
+            <p><a href={contact.phoneHref}>{contact.phoneDisplay}</a></p>
+            <p><a href={`mailto:${contact.email}`}>{user}@<wbr />{domain}</a></p>
+          </address>
+        </div>
       </div>
 
       {b.mode === 'shared_embed' && (

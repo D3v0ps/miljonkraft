@@ -157,6 +157,30 @@ for (const v of widths) {
   await ctx.close();
 }
 
+// Kontrast: axe hoppar över text som tråden ligger nära. Här döljs tråden i ett eget pass,
+// och bara regeln color-contrast körs.
+{
+  report.contrast = {};
+  for (const [w, h] of [[390, 844], [1440, 900]]) {
+    const ctx = await browser.newContext({ viewport: { width: w, height: h }, reducedMotion: 'reduce' });
+    const page = await ctx.newPage();
+    await page.goto(baseUrl, { waitUntil: 'networkidle' });
+    await page.addStyleTag({ content: '.t{visibility:hidden!important}' });
+    await page.addScriptTag({ content: axeSource });
+    const r = await page.evaluate(async () => {
+      // Himlens gradient, bilden, krysset, solen och kretsloppets skivor (bakgrund i ::before)
+      // kan axe inte avgöra. Färgparen för dem står i scripts/contrast-pairs.json.
+      const skipSel = '.seg--sky, .idea__art, .weave__x, .beyond, .cycle__node';
+      const skip = (t) => document.querySelector(t)?.closest(skipSel);
+      const res = await window.axe.run(document, { runOnly: { type: 'rule', values: ['color-contrast'] } });
+      const pick = (list) => list.flatMap((x) => x.nodes.map((n) => n.target.join(' '))).filter((t) => !skip(t));
+      return { violations: pick(res.violations), incomplete: pick(res.incomplete) };
+    });
+    report.contrast[w] = r;
+    await ctx.close();
+  }
+}
+
 // Zoom 200 % på en 1440-skärm motsvarar ungefär 720 px CSS-bredd.
 {
   const ctx = await browser.newContext({ viewport: { width: 720, height: 450 }, deviceScaleFactor: 2 });
@@ -284,6 +308,10 @@ if (report.reducedMotion.elementsStillAnimating) problems.push(`${report.reduced
 if (!report.reducedMotion.threadDrawn) problems.push('Med reducerad rörelse är tråden inte färdigritad');
 if (report.meta.visibleWords < 350 || report.meta.visibleWords > 500) problems.push(`Synliga ord ${report.meta.visibleWords}, briefen anger 350 till 500`);
 if (report.meta.h1Count !== 1) problems.push(`${report.meta.h1Count} h1 på startsidan`);
+for (const [w, r] of Object.entries(report.contrast)) {
+  if (r.violations.length) problems.push(`Kontrast vid ${w}: ${r.violations.slice(0, 3).join(', ')}`);
+  if (r.incomplete.length) problems.push(`Kontrast kunde inte avgöras vid ${w}: ${r.incomplete.slice(0, 3).join(', ')}`);
+}
 if (report.motion.supported) {
   if (report.motion.top.anim !== 'thread-draw' || report.motion.top.hdr !== 'hdr-bg') problems.push(`Skrollstyrd animation saknas (${report.motion.top.anim}, ${report.motion.top.hdr})`);
   if (!report.motion.top.len) problems.push('Trådens längd är inte mätt (--len saknas)');

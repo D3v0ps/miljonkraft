@@ -48,22 +48,24 @@
   --font: 'Montserrat', 'Montserrat Fallback', 'Helvetica Neue', Arial, sans-serif;
 
   /* Typskala */
-  --fs-body: clamp(1.0625rem, 0.95rem + 0.45vw, 1.375rem);
+  /* Stora, täta rubriker mot liten och luftig text, som i Yacines version. */
+  --fs-body: clamp(1.0625rem, 1rem + 0.12vw, 1.125rem);
   --fs-small: 0.9375rem;
-  --fs-lead: clamp(1.25rem, 1.02rem + 1vw, 1.875rem);
-  --fs-h1: clamp(2.25rem, 1.05rem + 5.2vw, 6rem);
-  --fs-h2: clamp(1.875rem, 1.25rem + 2.8vw, 3.75rem);
-  --fs-h2xl: clamp(2.125rem, 1.15rem + 4.2vw, 5.25rem);
+  --fs-lead: clamp(1.1875rem, 1rem + 0.62vw, 1.5rem);
+  --fs-h1: clamp(2.0625rem, -0.2rem + 11.4vw, 6rem);
+  --fs-h2: clamp(2.125rem, 1.1rem + 3.9vw, 4.5rem);
+  --fs-h2xl: clamp(2.5rem, 1.1rem + 5.4vw, 6rem);
   --fs-stanza: clamp(1.75rem, 1.1rem + 2.8vw, 3.5rem);
 
   /* Rytm */
   --pad: clamp(16px, 5vw, 64px);
-  --max: 1152px;
-  --hdr: 64px;
-  --s1: clamp(104px, 22vh, 240px);
+  --max: 1312px;
+  --hdr: 76px;
+  --s1: clamp(88px, 16vh, 168px);
   --s2: clamp(32px, 6vh, 64px);
-  --dot: 12px;
-  --lane-w: 2px;
+  --dot: 16px;
+  /* Tråden har kropp, som linjerna i Yacines version. */
+  --lane-w: 3px;
 
   /* Rörelse */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -71,6 +73,8 @@
 
   color-scheme: light;
 }
+
+@media (min-width: 700px) { :root { --lane-w: 4px; } }
 
 /* ---------- Grund ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -139,21 +143,38 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 }
 .btn--sm { min-height: 40px; padding: 0.5em 1.05em; font-size: 0.875rem; white-space: nowrap; }
 /* Sidhuvudets knapp är en lätt kontur, som i Yacines version. */
-.btn--line { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn--line { background: transparent; color: var(--ink); border: 1px solid var(--quiet); }
 .btn--line::before { background: var(--thread); }
 .nw { white-space: nowrap; }
-.btn--lg { min-height: 56px; padding: 0.9em 1.6em; font-size: 1.0625rem; }
+.btn--lg { min-height: 64px; padding: 0.5rem 0.6rem 0.5rem 1.6rem; gap: 1.5rem; font-size: 1.0625rem; }
+/* Den stora knappen får en rund smörgul pil i stället för punkten. */
+.btn--lg::before { display: none; }
+.btn__arrow {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--yellow); color: var(--thread); transition: transform 200ms var(--ease-out);
+}
+.btn__arrow svg { width: 20px; height: 20px; }
+@media (hover: hover) and (pointer: fine) {
+  .btn--lg:hover .btn__arrow { transform: translateX(3px); }
+}
 .cta-short { display: none; }
 @media (max-width: 479.98px) {
-  .btn--lg { font-size: 0.9375rem; padding-inline: 1.15em; }
+  .btn--lg { font-size: 0.9375rem; padding: 0.4rem 0.4rem 0.4rem 1.15em; gap: 0.75rem; }
+  .btn__arrow { width: 34px; height: 34px; }
+  .btn__arrow svg { width: 16px; height: 16px; }
 }
 
 
-/* Tyst länk med profilens röda understreck. */
-.quiet-link {
-  display: inline-block; padding-block: 0.4em;
-  font-weight: 600; text-decoration-line: underline; text-decoration-color: var(--thread);
-  text-decoration-thickness: 2px; text-underline-offset: 0.35em;
+/* Tyst länk med en tegelröd rund pil, som i Yacines version. */
+.quiet-link { display: inline-flex; align-items: center; gap: 0.9rem; padding-block: 0.2em; font-weight: 600; text-decoration: none; }
+.quiet-link__icon {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--thread); color: var(--paper); transition: transform 200ms var(--ease-out);
+}
+.quiet-link__icon svg { width: 18px; height: 18px; }
+@media (hover: hover) and (pointer: fine) {
+  .quiet-link:hover .quiet-link__icon { transform: translateY(2px); }
+  .quiet-link:hover { text-decoration: underline; text-decoration-color: var(--thread); text-underline-offset: 0.3em; }
 }
 
 /* ---------- Sidhuvud ---------- */
@@ -166,18 +187,21 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
   width: min(100% - 2 * var(--pad), var(--max)); margin-inline: auto;
   height: var(--hdr); display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
-.brand { display: inline-flex; align-items: center; gap: 0.7rem; color: var(--ink); text-decoration: none; font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.005em; white-space: nowrap; }
+.brand { display: inline-flex; align-items: center; gap: 0.7rem; color: var(--ink); text-decoration: none; font-size: 1.25rem; font-weight: 700; letter-spacing: -0.04em; white-space: nowrap; }
+/* Logotypen får aldrig tryckas ihop. */
+.brand picture { flex: none; }
 .brand img { height: 22px; width: auto; }
-.brand__place { font-weight: 400; }
+.brand__name { color: var(--thread); }
+.brand__place { color: var(--ink); font-weight: 400; }
 .hdr .cta-full { display: none; }
 .hdr .cta-short { display: inline; }
 @media (min-width: 720px) {
   .hdr .cta-full { display: inline; }
   .hdr .cta-short { display: none; }
 }
-@media (max-width: 419.98px) {
+@media (max-width: 479.98px) {
   .brand__place { display: none; }
-  .brand { gap: 0.55rem; }
+  .brand { gap: 0.55rem; font-size: 1rem; }
 }
 @media (max-width: 359.98px) {
   .brand { gap: 0.45rem; }
@@ -195,11 +219,13 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 /* ---------- Kapitel och block ---------- */
 .ch { position: relative; }
 /* Färgfälten. Mjukt rundade hörn som i Yacines version. Det övre vänstra hörnet är litet så att tråden i vänsterkanten aldrig skärs av. */
-.ch--peach { --panel-bg: var(--peach); background: var(--peach); border-radius: 2rem var(--panel-r) 2rem 2rem; }
-.ch--yellow { --panel-bg: var(--yellow); background: var(--yellow); border-radius: 2rem var(--panel-r) 0 0; }
+/* Varje fält har en egen form. Det röda fältet är rakt och klipper trådens överhäng så att färgbytet blir skarpt. */
+.ch--peach { --panel-bg: var(--peach); background: var(--peach); border-radius: var(--panel-r) 0 var(--panel-r) 0; }
+.ch--yellow { --panel-bg: var(--yellow); background: var(--yellow); border-radius: 0 var(--panel-r) 0 var(--panel-r); }
+.ch--invite.ch--yellow { border-radius: var(--panel-r) var(--panel-r) 0 0; }
 .ch--red {
-  --panel-bg: var(--thread); background: var(--thread); color: var(--paper); border-radius: 2rem var(--panel-r) 2rem 2rem;
-  --lit-from: #E5ADA5; --lit-to: var(--paper); --dot-from: #E5ADA5; --dot-to: var(--yellow);
+  --panel-bg: var(--thread); background: var(--thread); color: var(--paper); overflow: clip;
+  --lit-from: #EBBDB5; --lit-to: var(--paper); --dot-from: #EBBDB5; --dot-to: var(--yellow);
 }
 .ch--red .t path { stroke: var(--peach); }
 .ch--red :focus-visible { outline-color: var(--paper); }
@@ -219,14 +245,14 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 .seg__in { position: relative; z-index: 1; padding: var(--s2) 0 var(--s2) var(--indent); }
 .ch > .seg:first-child > .seg__in, .ch > .sky > .seg:first-child > .seg__in { padding-top: var(--s1); }
 
-.h2 { font-size: var(--fs-h2); line-height: 1.06; letter-spacing: -0.035em; max-width: 19ch; }
-.h2--xl { font-size: var(--fs-h2xl); line-height: 1.02; letter-spacing: -0.04em; max-width: 15ch; }
-.body { font-size: var(--fs-body); line-height: 1.6; max-width: 34em; }
+.h2 { font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.05em; max-width: 19ch; }
+.h2--xl { font-size: var(--fs-h2xl); line-height: 1; letter-spacing: -0.055em; max-width: 15ch; }
+.body { font-size: var(--fs-body); line-height: 1.75; max-width: 34em; }
 .body + .body { margin-top: 1em; }
-.lead { font-size: var(--fs-lead); line-height: 1.4; letter-spacing: -0.01em; max-width: 25em; }
+.lead { font-size: var(--fs-lead); line-height: 1.45; letter-spacing: -0.02em; max-width: 25em; }
 .caption { margin-top: 1.5rem; font-size: var(--fs-small); color: var(--ink-2); max-width: 34em; }
 .caption strong { color: var(--ink); font-weight: 600; }
-.statement { font-size: var(--fs-lead); font-weight: 600; line-height: 1.35; letter-spacing: -0.012em; max-width: 24em; }
+.statement { font-size: var(--fs-lead); font-weight: 600; line-height: 1.35; letter-spacing: -0.02em; max-width: 24em; text-wrap: balance; }
 .statement span { display: block; }
 .statement--solo { margin-bottom: 1.25em; }
 @media (min-width: 960px) {
@@ -246,11 +272,12 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 /* ---------- 1. Idén ---------- */
 .ch--idea { overflow: clip; }
 .seg--idea { --idea-pt: clamp(56px, 13vh, 150px); min-height: calc(100svh - var(--hdr) - var(--s1)); display: flex; align-items: flex-start; }
-.seg--idea .seg__in { padding-top: var(--idea-pt); padding-bottom: clamp(56px, 10vh, 120px); }
+/* Hög specificitet, annars vinner kapitlens gemensamma toppmarginal och tråden börjar ovanför rubriken. */
+.ch.ch--idea > .seg.seg--idea > .seg__in { padding-top: var(--idea-pt); padding-bottom: clamp(56px, 10vh, 120px); }
 /* Tråden börjar vid rubrikens första rad. */
 .t--idea { top: calc(var(--idea-pt) + var(--fs-h1) * 0.52); }
-.idea__h { font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.045em; max-width: 16ch; color: var(--thread); }
-.idea__lead { margin-top: clamp(1.5rem, 4vh, 2.5rem); font-size: var(--fs-lead); line-height: 1.4; max-width: 26em; color: var(--ink-2); }
+.idea__h { font-size: var(--fs-h1); line-height: 0.98; letter-spacing: -0.055em; max-width: 16ch; color: var(--thread); }
+.idea__lead { margin-top: clamp(1.5rem, 4vh, 2.5rem); font-size: var(--fs-lead); line-height: 1.45; max-width: 26em; color: var(--ink); }
 .idea__actions { margin-top: clamp(2rem, 5vh, 3rem); display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem; }
 .meet {
   position: absolute; z-index: 2;
@@ -260,18 +287,23 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 }
 .meet span { position: absolute; inset: 0; border-radius: 50%; background: var(--thread); }
 /* Illustrationen i en valvform, som i Yacines version. Under knappen på mobil, till höger om texten på dator. */
-.idea__art { margin-top: clamp(2.5rem, 6vh, 3.5rem); width: min(100%, 520px); position: relative; }
-.idea__art img { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: 50% 50%; border-radius: 48% 48% 1.25rem 1.25rem; background: var(--peach); }
+.idea__art { margin-top: clamp(2.5rem, 6vh, 3.5rem); width: min(100%, 520px); position: relative; isolation: isolate; }
+.idea__art img { width: 100%; aspect-ratio: 17 / 20; object-fit: cover; border-radius: 48% 48% 1.25rem 1.25rem / 40% 40% 1.25rem 1.25rem; background: var(--peach); }
 .idea__art figcaption {
   position: absolute; right: 0.9rem; bottom: 0.8rem; padding: 0.15rem 0.6rem; border-radius: 999px;
   background: rgb(255 249 242 / 0.88); color: var(--ink-2); font-size: 0.75rem; font-weight: 600;
 }
 @media (min-width: 960px) {
   /* Bredvid illustrationen är spalten smalare. Rubriken, tråden och punkterna läser samma storlek. */
-  .seg--idea { --fs-h1: clamp(2.75rem, 1rem + 3.4vw, 4.25rem); }
-  .seg__in.idea { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(2rem, 5cqi, 4.5rem); align-items: start; }
+  .seg--idea { --fs-h1: clamp(3rem, 0.8rem + 3.9vw, 4.75rem); }
+  .seg__in.idea { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: clamp(2rem, 5cqi, 4.5rem); align-items: start; }
   .idea > :not(.idea__art) { grid-column: 1; }
-  .idea__art { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; justify-self: end; width: 100%; max-width: 460px; }
+  .idea__art { grid-column: 2; grid-row: 1 / span 3; margin-top: 0; justify-self: end; width: 100%; max-width: 560px; }
+  /* En smörgul sol bakom valvet. */
+  .idea__art::before {
+    content: ''; position: absolute; z-index: -1; left: clamp(-3.5rem, -3.5vw, -2rem); top: 14%;
+    width: clamp(8rem, 12vw, 11rem); aspect-ratio: 1; border-radius: 50%; background: var(--yellow);
+  }
 }
 
 /* ---------- 2. Härifrån ---------- */
@@ -279,7 +311,7 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 @media (min-width: 960px) {
   .origin__body { margin-left: min(34cqi, 400px); }
 }
-.conviction { font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -0.035em; font-weight: 500; padding-top: clamp(24px, 6vh, 64px); padding-bottom: clamp(24px, 6vh, 72px); }
+.conviction { font-size: var(--fs-h2); line-height: 1.06; letter-spacing: -0.05em; font-weight: 500; padding-top: clamp(24px, 6vh, 64px); padding-bottom: clamp(24px, 6vh, 72px); }
 .conviction span { display: block; }
 .conviction span + span { font-weight: 700; color: var(--thread); }
 
@@ -290,6 +322,20 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
   font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.75rem); line-height: 1.2; white-space: nowrap; z-index: 1;
 }
 .cycle__node { font-weight: 500; }
+/* Tre färgade skivor, som de tre ringarna i Yacines version. Under 700 px brickor som ryms i öglan. */
+@media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
+  .cycle__node::before {
+    content: ''; position: absolute; left: 50%; top: 50%; width: 9.2em; aspect-ratio: 1; border-radius: 50%;
+    translate: -50% -50%; z-index: -1; background: var(--peach);
+  }
+  .cycle__node:nth-child(2)::before { background: var(--yellow); }
+  .cycle__node:nth-child(3)::before { background: #F7C9BE; }
+}
+@media not ((min-width: 700px) or ((min-width: 640px) and (orientation: landscape))) {
+  .cycle__node { background: var(--peach); padding: 0.35em 0.9em; border-radius: 999px; }
+  .cycle__node:nth-child(2) { background: var(--yellow); }
+  .cycle__node:nth-child(3) { background: #F7C9BE; }
+}
 .cycle__node--core { font-weight: 700; letter-spacing: -0.01em; color: var(--thread); }
 @media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .seg--cycle { aspect-ratio: 2000 / 900; }
@@ -324,6 +370,7 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
   position: absolute; left: 22px; top: 0; transform: translateY(-50%);
   width: max-content; max-width: calc(100cqi - 100% - 40px);
   font-size: clamp(1rem, 0.85rem + 0.7vw, 1.375rem); font-weight: 600; line-height: 1.25; hyphens: manual;
+  background: var(--yellow); padding: 0.4em 0.85em; border-radius: 1.1em;
 }
 /* Etiketten får ta platsen till höger om sin punkt. */
 .career__step:nth-child(2) .career__label { max-width: calc(89cqi - 30px); }
@@ -344,7 +391,7 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 .weave { position: absolute; inset: 0; z-index: 1; margin: 0; font-weight: 600; }
 .weave__word {
   position: absolute; left: var(--nx); top: var(--ny); transform: translate(-50%, -50%);
-  font-size: clamp(1.125rem, 0.75rem + 1.9vw, 2.5rem); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; line-height: 1;
+  font-size: clamp(1.5rem, 0.9rem + 3vw, 4rem); letter-spacing: -0.04em; white-space: nowrap; line-height: 1;
 }
 /* Krysset står där trådarna korsas. Trådarna går bakom det. */
 .weave__x {
@@ -354,7 +401,7 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 }
 @media (min-width: 700px), (min-width: 640px) and (orientation: landscape) {
   .seg--weave { aspect-ratio: 2000 / 700; }
-  .weave__word { left: var(--wx); top: var(--wy); font-size: clamp(1.25rem, 3.4cqi, 2.625rem); }
+  .weave__word { left: var(--wx); top: var(--wy); font-size: clamp(1.75rem, 4.6cqi, 4rem); }
 }
 
 /* ---------- 7. Bevisen ---------- */
@@ -371,7 +418,9 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 
 /* ---------- 8. Riktningen ---------- */
 .sky { background: linear-gradient(180deg, var(--paper) 0%, var(--peach-soft) 45%, var(--peach) 100%); }
-.kicker { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 1.25rem; }
+.kicker { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9375rem; font-weight: 600; color: var(--ink); margin-bottom: 1.25rem; }
+/* En liten ögla av tråden, som i Yacines version. */
+.kicker::before { content: ''; flex: none; width: 20px; height: 13px; border: 2px solid var(--thread); border-radius: 50%; transform: rotate(-30deg); }
 .seg--sky .lead { margin-top: clamp(1.5rem, 4vh, 2.5rem); }
 .seg--horizon { height: clamp(200px, 38vh, 400px); }
 .sun {
@@ -380,7 +429,7 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 }
 .sun__disc {
   position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, #FBEBC0 0%, var(--yellow) 30%, var(--salmon) 100%);
+  background: var(--yellow); box-shadow: inset 0 0 0 14px var(--salmon);
 }
 .beyond { font-size: var(--fs-lead); line-height: 1.4; max-width: 24em; padding-top: clamp(16px, 4vh, 40px); }
 .seg--ground .seg__in { padding-bottom: var(--s2); }
@@ -396,12 +445,21 @@ h1, h2, h3, p, li { overflow-wrap: anywhere; }
 .invite__action { margin-top: clamp(1.75rem, 4vh, 2.5rem); }
 .invite__instruction { margin-top: 1rem; font-size: var(--fs-small); color: var(--ink-2); max-width: 30em; }
 .invite__format { margin-top: 1rem; font-weight: 600; }
+/* Närbild ur illustrationen ovanför kontaktuppgifterna, bredvid rubriken från 1200 px. */
+.invite__art { margin-bottom: 1.75rem; width: min(100%, 380px); }
+.invite__art img { width: 100%; aspect-ratio: 400 / 470; object-fit: cover; border-radius: 2rem var(--panel-r) 2rem 2rem; background: var(--peach); }
 .contact { font-size: var(--fs-body); line-height: 1.55; }
 .contact__name { font-weight: 600; }
 .contact__role { color: var(--ink-2); margin-bottom: 0.75rem; }
 .contact a { display: inline-block; padding-block: 0.2em; text-decoration-color: var(--thread); text-decoration-thickness: 2px; text-underline-offset: 0.3em; font-weight: 500; }
 @media (min-width: 1200px) {
-  .invite__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); column-gap: clamp(2rem, 6cqi, 6rem); align-items: end; }
+  .seg__in.invite { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); grid-template-rows: auto 1fr; column-gap: clamp(2rem, 6cqi, 6rem); }
+  .invite > h2 { grid-column: 1; grid-row: 1; }
+  .invite__grid { display: contents; }
+  .invite__main { grid-column: 1; grid-row: 2; margin-top: clamp(2rem, 6vh, 3.5rem); }
+  .invite__side { grid-column: 2; grid-row: 1 / span 2; align-self: start; justify-self: end; width: min(100%, 420px); }
+  .invite__art { width: 100%; }
+  .invite .embed { grid-column: 1 / -1; }
 }
 .embed { margin-top: 2.5rem; }
 .embed__frame { min-height: var(--embed-height, 1100px); background: var(--paper); display: grid; place-items: center; }

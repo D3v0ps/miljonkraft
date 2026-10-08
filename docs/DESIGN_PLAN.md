@@ -16,7 +16,7 @@ Den röda punkten och det röda understrecket finns redan i Miljonbemannings gra
 
 ## Varm version (8 oktober 2026)
 
-Karim gav sidan 5 av 10 och pekade på Yacines förhandsversion: behåll copyn men ta med färgen, känslan och bilderna, utom den röda rosetten. Konceptet med tråden och all text är kvar. Det här ändrades:
+Karim gav sidan 5 av 10 och pekade på Yacines förhandsversion: "Behåll copyn som du har, men det finns mycket av färg och känsla som du kan ta med från den här hemsidan som jag länkar ovan som vi saknar. Bilderna på den här hemsidan är mycket bättre att ta inspiration av, förutom den röda rosetten högst upp." Konceptet med tråden och all text är kvar. Illustrationen från Yacines version återanvänds i utsnitt, vilket går längre än inspiration och ska bekräftas (se `docs/HANDOVER.md` avsnitt 9). Det här ändrades:
 
 | Namn | Hex | Roll |
 | --- | --- | --- |
@@ -28,11 +28,14 @@ Karim gav sidan 5 av 10 och pekade på Yacines förhandsversion: behåll copyn m
 | Smörgul | `#F3E6B4` | Fälten i kapitel 6 och 9, punkten i knapparna |
 | Laxrosa | `#EEAB90` | Solens kant |
 
-- **Färgfält med mjukt rundade hörn**: persika för Vi kommer härifrån, tegelrött för Miljonmodellen, smörgult för Affärsnytta × samhällsnytta och för inbjudan, en gryningshimmel från grädde till persika för Vår riktning. Det övre vänstra hörnet är litet så att tråden aldrig skärs av.
-- **Tyngre typografi**: Montserrat i vikt 600 med tät spärrning. Huvudrubriken står i tegelrött. Montserrat är kvar eftersom det är Miljonbemannings typsnitt. Yacines version använder Manrope.
-- **Bilden**: torg-illustrationen från Yacines version i en valvform bredvid rubriken, märkt Illustration. Västbilden är borttagen.
-- **Knappar**: tegelröda med en smörgul punkt. Sidhuvudets knapp är en lätt kontur.
+- **Färgfält med stora rundade hörn** i växlande hörn: persika för Vi kommer härifrån, tegelrött för Miljonmodellen, smörgult för Affärsnytta × samhällsnytta och för inbjudan, en gryningshimmel från grädde till persika för Vår riktning. Det röda fältet är rakt så att trådens färgbyte inte får någon skarv.
+- **Typografi med referensens kontrast**: Montserrat i vikt 600 med tät spärrning, större rubriker och mindre, lugnare brödtext. Huvudrubriken står i tegelrött och har fyra rader vid alla bredder från 320 px. Inga versaler. Montserrat är kvar eftersom det är Miljonbemannings typsnitt. Yacines version använder Manrope.
+- **Bilderna**: torg-illustrationen från Yacines version i ett stort valv bredvid rubriken, med en smörgul sol bakom och märkt Illustration. Samma illustration kommer tillbaka i inbjudan som en närbild på två personer som samtalar, så att berättelsen går från platsen till samtalet. Västbilden är borttagen. Bilder fyller aldrig hela skärmen.
+- **Tråden** är 3 px på mobil och 4 px från 700 px, så att den bär som ett band.
+- **Kretsloppet** har fyllda skivor bakom orden och **karriärstegen** smörgula etiketter, så att inga kapitel blir bleka.
+- **Knappar**: tegelröda med en smörgul rund pil. Läs vår idé har en röd rund pil nedåt. Sidhuvudets knapp är en lätt kontur.
 - **I det röda fältet** byter tråden till persika, tända steg blir gräddvita och punkterna smörgula.
+- **Detaljer**: rubriken Vår riktning har en liten ögla av tråden, solen vid horisonten är platt med en laxrosa kant, och avstånden mellan kapitlen är kortare.
 
 Avsnitten nedan beskriver den första versionen.
 

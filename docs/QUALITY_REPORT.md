@@ -1,15 +1,16 @@
 # Kvalitetsrapport Miljonkraft.se
 
-Redesignen Den röda tråden, 7 oktober 2026. Körningar mot det byggda resultatet (`npm run build`, förhandsvisning via `astro preview` på localhost). Skärmbilderna i `docs/screenshots/` och rapporterna i `docs/verification/` kommer från de sista körningarna.
+Redesignen Den röda tråden i den varma versionen, 8 oktober 2026. Körningar mot det byggda resultatet (`npm run build`, förhandsvisning via `astro preview` på localhost). Skärmbilderna i `docs/screenshots/` och rapporterna i `docs/verification/` kommer från de sista körningarna.
 
 ## Sammanfattning
 
 | Kontroll | Resultat |
 | --- | --- |
 | Bygge och typkontroll | `npm run build` och `npx astro check` utan fel |
-| Synliga ord på startsidan | 397, inom briefens 350 till 500 (räknas av `scripts/verify.mjs`) |
+| Synliga ord på startsidan | 379, inom briefens 350 till 500 (räknas av `scripts/verify.mjs`). Copyn är oförändrad i den varma versionen |
 | Horisontell överrinning vid 320, 390, 768, 1440, 1920 och 200 % zoom | Ingen |
 | axe-core (WCAG 2.0, 2.1, 2.2 A och AA samt best practice) vid 320, 390, 768, 1440, 1920 | 0 regelbrott, efter att hela sidan skrollats |
+| Kontrast | Ett eget pass i `scripts/verify.mjs` döljer tråden och kör axe:s kontrastregel vid 390 och 1440: 0 fel. Himlens gradient, solen och kretsloppets skivor kan axe inte avgöra. De kontrolleras i stället som färgpar i `scripts/contrast-pairs.json` (`node scripts/contrast.mjs`). Alla par klarar AA |
 | Tangentbord | Synlig fokusring på alla fokuserade element, inga för små mål, sidhuvudets knapp syns efter skroll på mobil |
 | Rörelse | Tråden ritas med skrollen i Chromium. Ritad andel stämmer med pennans läge (uppmätt avvikelse under 0,1 %). Miljonmodellens steg tänds när tråden passerar |
 | Reservläge utan scroll-driven animations | Blocken ritas med en kort övergång när de når pennan, modellstegen tänds (simulerat i Chromium) |
@@ -25,15 +26,17 @@ Lighthouse 13.5 i headless Chromium mot `http://127.0.0.1:4321/`. Mobilprofilen 
 
 | Mått | Mobil | Dator | Briefens mål |
 | --- | --- | --- | --- |
-| Largest Contentful Paint | 1,2 s | 0,3 s | högst 2,5 s |
+| Largest Contentful Paint | 1,8 s | 0,4 s | högst 2,5 s |
 | Cumulative Layout Shift | 0 | 0 | högst 0,1 |
-| Total Blocking Time | 0 ms | 0 ms | INP högst 200 ms (fältmått) |
-| First Contentful Paint | 0,7 s | 0,2 s | |
-| Överförd vikt vid första visning | 74 KB | 85 KB | |
+| Total Blocking Time | 20 ms | 0 ms | INP högst 200 ms (fältmått) |
+| First Contentful Paint | 0,8 s | 0,2 s | |
+| Överförd vikt vid första visning | 149 KB | 149 KB | |
+
+Värdena kommer från de sparade rapporterna `docs/verification/lighthouse-mobile.json` och `lighthouse-desktop.json`. Två extra mobilkörningar gav Performance 100, LCP 1,7 till 1,8 s och 0 ms blockering. Vikten har ökat från 74 KB, eftersom illustrationen i heron väger 88 KB (51 KB på mobil). Utsnittet i inbjudan laddas först när man skrollar dit.
 
 INP kan bara mätas med verkliga besök. Sidan har inga tunga skript: tråden ritas i CSS och skriptet mäter bara banornas längd vid start och vid storleksändring. Mätningen skalar om varje bana till skärmens mått och läser längden med ett enda anrop, 6 ms med fyrdubbel processorbroms. En tidigare version samplade punkt för punkt och tog 1,4 s på en långsam telefon, vilket gav en lång uppgift i en av Lighthouse-körningarna.
 
-## Granskning
+## Granskning av redesignen, 7 oktober 2026
 
 Sex oberoende granskare gick igenom sidan: efterlevnad av briefen och design, text och fakta, tillgänglighet, rörelse och prestanda, SEO och bokning, samt mobil och responsiv layout. Varje granskares fynd prövades av en motläsare som försökte återskapa och motbevisa dem. En kreativ chef vägde till sist ihop resultatet och föreslog tre förbättringar.
 
@@ -43,9 +46,19 @@ Sex oberoende granskare gick igenom sidan: efterlevnad av briefen och design, te
 - **Övrigt rättat.** Synligt × i Affärsnytta × samhällsnytta. Huvudkontorets adress i JSON-LD. Filmen dold, eftersom den hör till affischversionen och saknar syntolkning. Ord som klipptes vid förstorat textavstånd. Tomrummet efter inledningen. De liggande figurerna används även på liggande telefoner. Knappen behåller hela texten vid 320 px. Bevisens punkter ligger mitt för siffrorna. Kontaktkolumnen. Bevisens årtal i rubrikerna för skärmläsare. Sidhuvudets länk fungerar från undersidorna även med inbäddad bokning. Integritetstexten följer bokningsläget. Mötesraden utan mittpunkt.
 - **Kreativa chefens förslag som byggdes.** Inledningens två punkter kommer från sidhuvudet och från vecket. Den sista punkten tänds vid inbjudan. Förslaget om en röd penna på trådens spets byggdes inte, för att hålla rörelsen återhållsam.
 
+## Varm version, 8 oktober 2026
+
+Karim gav sidan 5 av 10 och pekade på färgen, känslan och bilderna i Yacines förhandsversion. Fyra granskare jämförde sidan med referensen och letade efter fel i tillgänglighet och layout, i rörelsen och i text och ursprung. Varje granskares fynd prövades av en motläsare. En kreativ chef testade ändringarna i den byggda sidan och satte ihop en åtgärdslista.
+
+- 32 fynd, varav 30 bekräftade. Alla 30 är åtgärdade.
+- **Fel som rättades.** Trådens startpunkt i heron låg 50 till 97 px ovanför rubriken. Nu ligger den 1 till 3 px från första radens mitt. Huvudrubriken bröts i fem eller sex rader vid 320 px. Nu har den fyra rader vid alla bredder från 320 till 2560 px. Det fanns en skarv i trådens färgbyte vid det röda fältets kant. Heronens tråd var dold i 2,5 s om man skrollade direkt efter laddning. Nu avslutas inledningen vid första skrollen.
+- **Formen från referensen.** Torget i ett stort valv (513 × 603 px vid 1440 i stället för 413 × 413) och en närbild ur samma illustration i inbjudan. Tjockare tråd. Färgfält med stora hörn. Skivor i kretsloppet och gula etiketter på karriärstegen. Runda pilknappar. Större rubriker och mindre brödtext. Inga versaler.
+- **Tillgänglighet.** Ny kontrastkontroll i `scripts/verify.mjs`, eftersom axe hoppade över text nära tråden. Oupplysta modellsteg i det röda fältet har nu bättre marginal (3,59:1 för stor text). Bildens alt-text upprepar inte längre ordet Illustration.
+- **Text.** Ingen synlig copy är ändrad. Det nya är bildens alt-text, alt-texten för delningsbilden och etiketten Illustration på delningsbilden.
+
 ## Efter publiceringen
 
-- **Bilden** fyllde hela skärmen och var för stor på en 27-tumsskärm. Den står nu i textens spalt och tar 31 % av höjden vid 2560 × 1440, 49 % vid 1440 × 900 och 25 % på en telefon.
+- **Västbilden** fyllde hela skärmen och var för stor på en 27-tumsskärm. Den krymptes först och är nu borttagen från sidan. Bilder fyller aldrig hela skärmen i den varma versionen.
 
 ## Medvetet lämnat
 

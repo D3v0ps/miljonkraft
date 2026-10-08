@@ -1,12 +1,12 @@
 # Miljonkraft.se
 
-Berättelsen om Miljonkraft Botkyrka, ett initiativ från Miljonbemanning. En lång, ljus sida i nio kapitel där en röd tråd bär berättelsen från idén till inbjudan. Statisk webbplats byggd med Astro, vanlig CSS, lite TypeScript och Montserrat i Miljonbemannings grafiska profil 3.0. Ingen databas, ingen inloggning, inget CMS.
+Berättelsen om Miljonkraft Botkyrka, ett initiativ från Miljonbemanning. En lång, varm sida i nio kapitel där en röd tråd bär berättelsen från idén till inbjudan, med färgfält i persika, tegel och smörgult och en illustration av ett torg. Statisk webbplats byggd med Astro, vanlig CSS, lite TypeScript och Montserrat i Miljonbemannings grafiska profil 3.0. Ingen databas, ingen inloggning, inget CMS.
 
 Designen beskrivs i `docs/DESIGN_PLAN.md`.
 
 ## Kom igång
 
-Kräver Node 20 eller senare.
+Kräver Node 22.12 eller senare (Astros krav).
 
 ```bash
 npm install
@@ -31,7 +31,9 @@ Förhandsvisning som inte ska indexeras byggs med `PUBLIC_NOINDEX=1 npm run buil
 | Den röda trådens form i varje kapitel | `src/lib/thread.ts` (se kommentaren överst) och `src/components/Thread.astro` |
 | Rörelse | `src/styles/global.css` (avsnittet Rörelse). Reserv för äldre webbläsare och filmens dialog i `src/scripts/main.ts` |
 | Filmen på startsidan (dold i dag) | `src/config/site.ts` (`copy.film.showOnHome`) |
-| robots.txt, webbmanifest, typsnitt, delningsbild | `public/` |
+| Illustrationen och dess utsnitt | Original i `assets-src/illustration/torg.webp`. `scripts/build-images.mjs` skapar `public/img/torg-valv-*` (valvet i heron), `torg-samtal-*` (inbjudan) och `torg-800.webp` (delningsbilden) |
+| Delningsbilden | `scripts/og-template.html`, skapa `public/og.png` med `node scripts/generate-og.mjs` |
+| robots.txt, webbmanifest, typsnitt | `public/` |
 
 ## Skript
 
@@ -39,7 +41,7 @@ Förhandsvisning som inte ska indexeras byggs med `PUBLIC_NOINDEX=1 npm run buil
 node scripts/build-images.mjs     # bilder ur assets-src/ till public/img/, favicon-set ur MB-logotypen
 node scripts/generate-og.mjs      # skapar public/og.png från scripts/og-template.html
 node scripts/contrast.mjs         # WCAG-kontrast för färgparen i scripts/contrast-pairs.json
-node scripts/verify.mjs URL       # skärmbilder, överrinning, axe, tangentbord, utan JS, reducerad rörelse, ordbudget
+node scripts/verify.mjs URL       # skärmbilder, överrinning, axe, kontrast, tangentbord, utan JS, rörelse, ordbudget
 ```
 
 Lighthouse körs mot en lokal förhandsvisning:

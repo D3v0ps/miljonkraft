@@ -15,12 +15,12 @@ const art = images.torg;
       <p class="idea__lead">{c.lead}</p>
       <p class="idea__actions">
         <CtaLink class="btn--lg" cta="primary" />
-        <a class="quiet-link" href={c.readMoreHref}>{c.readMore}</a>
+        <a class="quiet-link" href={c.readMoreHref}><span class="quiet-link__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6" /></svg></span>{c.readMore}</a>
       </p>
       <figure class="idea__art">
         <picture>
-          <source type="image/webp" srcset={art.widths.map((w) => `${art.src}-${w}.webp ${w}w`).join(', ')} sizes="(min-width: 960px) 460px, calc(100vw - 80px)" />
-          <img src={`${art.src}-800.jpg`} width={art.w} height={art.h} alt={art.alt} decoding="async" />
+          <source type="image/webp" srcset={art.widths.map((w) => `${art.src}-${w}.webp ${w}w`).join(', ')} sizes="(min-width: 960px) 560px, calc(100vw - 80px)" />
+          <img src={`${art.src}-680.jpg`} width={art.w} height={art.h} alt={art.alt} decoding="async" />
         </picture>
         <figcaption>{art.caption}</figcaption>
       </figure>

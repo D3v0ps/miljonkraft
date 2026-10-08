@@ -22,8 +22,10 @@ export const site = {
   tagline: 'Ett initiativ från Miljonbemanning',
   locale: 'sv_SE',
   lang: 'sv-SE',
-  /** Verkligt ändringsdatum för innehållet (ISO-datum). Uppdateras manuellt vid innehållsändring. */
-  lastModified: '2026-10-07',
+  /** Verkligt ändringsdatum för startsidan (ISO-datum). Uppdateras manuellt vid innehållsändring. */
+  lastModified: '2026-10-08',
+  /** Ändringsdatum för integritetssidan, som har eget innehåll. */
+  privacyModified: '2026-10-07',
   /** Årtal i sidfoten. */
   copyrightYear: 2026,
   meta: {
@@ -32,7 +34,7 @@ export const site = {
       'Miljonkraft Botkyrka kopplar lokala företag med människor som vill arbeta och utvecklas. Ett initiativ från Miljonbemanning med rötterna i Alby.',
     ogImage: '/og.png',
     ogImageAlt:
-      'När människor och möjligheter hittar varandra, växer en plats. Miljonkraft Botkyrka, ett initiativ från Miljonbemanning.',
+      'När människor och möjligheter hittar varandra, växer en plats. Bredvid rubriken en illustration av ett solbelyst torg där människor möts. Miljonkraft Botkyrka, ett initiativ från Miljonbemanning.',
     themeColor: '#FFF9F2',
   },
 } as const;
@@ -230,25 +232,24 @@ export const copy = {
 } as const;
 
 /**
- * Bild ur Miljonbemannings bildbank i SharePoint (Marknad & Kommunikation › Bilder › BILDBANK).
- * Originalet ligger i assets-src/bildbank och bearbetas med scripts/build-images.mjs.
+ * Illustrationen kommer från Yacines förhandsversion av Miljonkraft (assets-src/illustration/torg.webp).
+ * Utsnitten skapas med scripts/build-images.mjs. Den visas alltid märkt som illustration.
  */
 export const images = {
-  /** Illustration av ett torg med människor som möts. Från Yacines förhandsversion av Miljonkraft. */
+  /** Heron: stående utsnitt av torget i valvform. */
   torg: {
-    src: '/img/torg',
-    w: 800,
+    src: '/img/torg-valv',
+    w: 680,
     h: 800,
-    widths: [480, 640, 800],
-    alt: 'Illustration av ett solbelyst torg mellan flerfamiljshus, med träd, en fontän och människor som möts, vilar och går förbi.',
+    widths: [480, 680],
+    alt: 'Ett solbelyst torg mellan flerfamiljshus, med träd, en fontän och människor som möts, vilar och går förbi.',
     caption: 'Illustration',
   },
-  mbVast: {
-    src: '/img/mb-vast',
-    w: 1400,
-    h: 788,
-    alt: 'Ryggen på en person i Miljonbemannings väst med märket MB och en röd punkt.',
-    file: 'MB_bildbank_33.jpg',
+  /** Inbjudan: närbild på två personer som samtalar, ur samma illustration. */
+  samtal: {
+    src: '/img/torg-samtal-400',
+    w: 400,
+    h: 470,
+    alt: 'Utsnitt ur illustrationen av torget: två personer står och samtalar.',
   },
-  mbVastPortrait: { src: '/img/mb-vast-portrait', w: 864, h: 1080, widths: [600, 720, 864] },
 } as const;

@@ -10,11 +10,14 @@
   ["thread", "yellow", 3, "rött kryss, tråd och stor text i de gula fälten"],
   ["paper", "thread", 4.5, "text i det röda fältet och på knappar"],
   ["peach", "thread", 3, "teorimeningen (stor text) och tråden i det röda fältet"],
-  ["#E5ADA5", "thread", 3, "oupplysta modellsteg (stor text) i det röda fältet"],
+  ["#EBBDB5", "thread", 3, "oupplysta modellsteg (stor text) i det röda fältet"],
   ["yellow", "thread", 3, "tända punkter i det röda fältet"],
   ["quiet", "paper", 3, "oupplysta punkter och stor grå text på gräddvitt"],
   ["ink", "peach-soft", 4.5, "text på himlens ljusa del (kapitel 8)"],
   ["ink-2", "peach-soft", 4.5, "sekundär text på himlens ljusa del"],
   ["ink", "salmon", 4.5, "text intill solen"],
-  ["thread", "line", 3, "fokusring mot sidfotens linje"]
+  ["thread", "line", 3, "fokusring mot sidfotens linje"],
+  ["ink", "#F7C9BE", 4.5, "Lokala företag på den rosa skivan i kretsloppet"],
+  ["thread", "yellow", 4.5, "Miljonkraft i tegelrött på den gula skivan och pilen i knappen"],
+  ["quiet", "paper", 3, "kontur runt sidhuvudets knapp"]
 ]

@@ -1,6 +1,6 @@
 {
   "baseUrl": "http://127.0.0.1:4321/",
-  "checkedAt": "2026-10-08T08:01:30.137Z",
+  "checkedAt": "2026-10-08T09:08:22.835Z",
   "viewports": {
     "320": {
       "overflow": {
@@ -23,13 +23,13 @@
         ]
       },
       "metrics": {
-        "h1Lines": 6,
-        "h1FontSize": "36px",
+        "h1Lines": 4,
+        "h1FontSize": "33.28px",
         "bodyFontSize": "17px",
-        "ctaVisibleInFirstScreen": false,
-        "ctaHeight": 65,
-        "pageHeight": 8339,
-        "navHeight": 64
+        "ctaVisibleInFirstScreen": true,
+        "ctaHeight": 64,
+        "pageHeight": 8477,
+        "navHeight": 76
       },
       "consoleErrors": [],
       "failedRequests": [],
@@ -57,12 +57,12 @@
       },
       "metrics": {
         "h1Lines": 4,
-        "h1FontSize": "37.08px",
+        "h1FontSize": "41.26px",
         "bodyFontSize": "17px",
         "ctaVisibleInFirstScreen": true,
-        "ctaHeight": 56,
-        "pageHeight": 9355,
-        "navHeight": 64
+        "ctaHeight": 64,
+        "pageHeight": 9482,
+        "navHeight": 76
       },
       "consoleErrors": [],
       "failedRequests": [],
@@ -90,12 +90,12 @@
       },
       "metrics": {
         "h1Lines": 4,
-        "h1FontSize": "56.736px",
-        "bodyFontSize": "18.656px",
+        "h1FontSize": "84.352px",
+        "bodyFontSize": "17px",
         "ctaVisibleInFirstScreen": true,
-        "ctaHeight": 56,
-        "pageHeight": 9352,
-        "navHeight": 64
+        "ctaHeight": 64,
+        "pageHeight": 9403,
+        "navHeight": 76
       },
       "consoleErrors": [],
       "failedRequests": [],
@@ -110,25 +110,25 @@
           {
             "tag": "path",
             "cls": "[object SVGAnimatedString]",
-            "right": 2102,
-            "left": 173
+            "right": 2294,
+            "left": 97
           },
           {
             "tag": "path",
             "cls": "[object SVGAnimatedString]",
-            "right": 1958,
-            "left": 29
+            "right": 2230,
+            "left": 33
           }
         ]
       },
       "metrics": {
         "h1Lines": 4,
-        "h1FontSize": "64.96px",
-        "bodyFontSize": "21.68px",
+        "h1FontSize": "68.96px",
+        "bodyFontSize": "17.728px",
         "ctaVisibleInFirstScreen": true,
-        "ctaHeight": 56,
-        "pageHeight": 9373,
-        "navHeight": 64
+        "ctaHeight": 64,
+        "pageHeight": 9063,
+        "navHeight": 76
       },
       "consoleErrors": [],
       "failedRequests": [],
@@ -143,25 +143,25 @@
           {
             "tag": "path",
             "cls": "[object SVGAnimatedString]",
-            "right": 2342,
-            "left": 413
+            "right": 2534,
+            "left": 337
           },
           {
             "tag": "path",
             "cls": "[object SVGAnimatedString]",
-            "right": 1958,
-            "left": 29
+            "right": 2230,
+            "left": 33
           }
         ]
       },
       "metrics": {
         "h1Lines": 4,
-        "h1FontSize": "68px",
-        "bodyFontSize": "22px",
+        "h1FontSize": "76px",
+        "bodyFontSize": "18px",
         "ctaVisibleInFirstScreen": true,
-        "ctaHeight": 56,
-        "pageHeight": 10144,
-        "navHeight": 64
+        "ctaHeight": 64,
+        "pageHeight": 9635,
+        "navHeight": 76
       },
       "consoleErrors": [],
       "failedRequests": [],
@@ -208,9 +208,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 156,
-          "h": 24,
-          "top": 20
+          "w": 155,
+          "h": 26,
+          "top": 25
         },
         {
           "tag": "a",
@@ -220,7 +220,7 @@
           "hidden": false,
           "w": 153,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -228,9 +228,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 619
+          "w": 308,
+          "h": 64,
+          "top": 534
         },
         {
           "tag": "a",
@@ -238,9 +238,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 93,
-          "h": 41,
-          "top": 695
+          "w": 151,
+          "h": 51,
+          "top": 618
         },
         {
           "tag": "a",
@@ -248,9 +248,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 8491
+          "w": 308,
+          "h": 64,
+          "top": 8261
         },
         {
           "tag": "a",
@@ -260,7 +260,7 @@
           "hidden": false,
           "w": 114,
           "h": 33,
-          "top": 8777
+          "top": 8955
         },
         {
           "tag": "a",
@@ -270,7 +270,7 @@
           "hidden": false,
           "w": 317,
           "h": 59,
-          "top": 8810
+          "top": 8988
         },
         {
           "tag": "a",
@@ -280,7 +280,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9223
+          "top": 9351
         },
         {
           "tag": "a",
@@ -290,7 +290,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9223
+          "top": 9351
         },
         {
           "tag": "a",
@@ -308,9 +308,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 156,
-          "h": 24,
-          "top": 20
+          "w": 155,
+          "h": 26,
+          "top": 25
         },
         {
           "tag": "a",
@@ -320,7 +320,7 @@
           "hidden": false,
           "w": 153,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -328,9 +328,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 610
+          "w": 308,
+          "h": 64,
+          "top": 525
         },
         {
           "tag": "a",
@@ -338,9 +338,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 93,
-          "h": 41,
-          "top": 686
+          "w": 151,
+          "h": 51,
+          "top": 609
         },
         {
           "tag": "a",
@@ -348,9 +348,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 8482
+          "w": 308,
+          "h": 64,
+          "top": 8223
         },
         {
           "tag": "a",
@@ -360,7 +360,7 @@
           "hidden": false,
           "w": 114,
           "h": 33,
-          "top": 8768
+          "top": 8917
         },
         {
           "tag": "a",
@@ -370,7 +370,7 @@
           "hidden": false,
           "w": 317,
           "h": 59,
-          "top": 8792
+          "top": 8950
         },
         {
           "tag": "a",
@@ -380,7 +380,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9205
+          "top": 9313
         },
         {
           "tag": "a",
@@ -390,7 +390,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9205
+          "top": 9313
         },
         {
           "tag": "a",
@@ -400,7 +400,7 @@
           "hidden": false,
           "w": 213,
           "h": 54,
-          "top": -2
+          "top": -30
         },
         {
           "tag": "a",
@@ -408,9 +408,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 156,
-          "h": 24,
-          "top": 20
+          "w": 155,
+          "h": 26,
+          "top": 25
         },
         {
           "tag": "a",
@@ -420,7 +420,7 @@
           "hidden": false,
           "w": 153,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -428,9 +428,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 592
+          "w": 308,
+          "h": 64,
+          "top": 479
         },
         {
           "tag": "a",
@@ -438,9 +438,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 93,
-          "h": 41,
-          "top": 668
+          "w": 151,
+          "h": 51,
+          "top": 563
         },
         {
           "tag": "a",
@@ -448,9 +448,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 8464
+          "w": 308,
+          "h": 64,
+          "top": 8206
         },
         {
           "tag": "a",
@@ -460,7 +460,7 @@
           "hidden": false,
           "w": 114,
           "h": 33,
-          "top": 8750
+          "top": 8900
         },
         {
           "tag": "a",
@@ -470,7 +470,7 @@
           "hidden": false,
           "w": 317,
           "h": 59,
-          "top": 8783
+          "top": 8935
         },
         {
           "tag": "a",
@@ -480,7 +480,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9196
+          "top": 9298
         },
         {
           "tag": "a",
@@ -490,7 +490,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9198
+          "top": 9298
         },
         {
           "tag": "a",
@@ -500,7 +500,7 @@
           "hidden": false,
           "w": 213,
           "h": 54,
-          "top": -9
+          "top": -37
         },
         {
           "tag": "a",
@@ -508,9 +508,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 156,
-          "h": 24,
-          "top": 20
+          "w": 155,
+          "h": 26,
+          "top": 25
         },
         {
           "tag": "a",
@@ -520,7 +520,7 @@
           "hidden": false,
           "w": 153,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -528,9 +528,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 594
+          "w": 308,
+          "h": 64,
+          "top": 472
         },
         {
           "tag": "a",
@@ -538,9 +538,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 93,
-          "h": 41,
-          "top": 661
+          "w": 151,
+          "h": 51,
+          "top": 556
         },
         {
           "tag": "a",
@@ -548,9 +548,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 291,
-          "h": 56,
-          "top": 8457
+          "w": 308,
+          "h": 64,
+          "top": 8199
         },
         {
           "tag": "a",
@@ -560,7 +560,7 @@
           "hidden": false,
           "w": 114,
           "h": 33,
-          "top": 8743
+          "top": 8893
         },
         {
           "tag": "a",
@@ -570,7 +570,7 @@
           "hidden": false,
           "w": 317,
           "h": 59,
-          "top": 8776
+          "top": 8928
         },
         {
           "tag": "a",
@@ -580,7 +580,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9189
+          "top": 9291
         },
         {
           "tag": "a",
@@ -590,7 +590,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9189
+          "top": 9291
         },
         {
           "tag": "a",
@@ -600,7 +600,7 @@
           "hidden": false,
           "w": 213,
           "h": 54,
-          "top": -16
+          "top": -44
         }
       ],
       "menu": null,
@@ -615,8 +615,8 @@
           "href": "#innehall",
           "hasRing": true,
           "hidden": false,
-          "w": 262,
-          "h": 62,
+          "w": 221,
+          "h": 56,
           "top": 16
         },
         {
@@ -625,9 +625,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 229,
-          "h": 24,
-          "top": 20
+          "w": 267,
+          "h": 32,
+          "top": 22
         },
         {
           "tag": "a",
@@ -637,7 +637,7 @@
           "hidden": false,
           "w": 269,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -645,9 +645,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 777
+          "w": 374,
+          "h": 64,
+          "top": 705
         },
         {
           "tag": "a",
@@ -655,9 +655,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 118,
-          "h": 52,
-          "top": 779
+          "w": 155,
+          "h": 51,
+          "top": 712
         },
         {
           "tag": "a",
@@ -665,9 +665,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 8901
+          "w": 374,
+          "h": 64,
+          "top": 8597
         },
         {
           "tag": "a",
@@ -675,9 +675,9 @@
           "href": "tel:+46762943431",
           "hasRing": true,
           "hidden": false,
-          "w": 145,
-          "h": 42,
-          "top": 8936
+          "w": 119,
+          "h": 35,
+          "top": 8695
         },
         {
           "tag": "a",
@@ -685,9 +685,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
           "hasRing": true,
           "hidden": false,
-          "w": 433,
-          "h": 42,
-          "top": 8978
+          "w": 354,
+          "h": 35,
+          "top": 8730
         },
         {
           "tag": "a",
@@ -697,7 +697,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9283
+          "top": 8972
         },
         {
           "tag": "a",
@@ -707,7 +707,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9283
+          "top": 8972
         },
         {
           "tag": "a",
@@ -715,9 +715,9 @@
           "href": "#innehall",
           "hasRing": true,
           "hidden": false,
-          "w": 262,
-          "h": 62,
-          "top": 16
+          "w": 221,
+          "h": 56,
+          "top": 7
         },
         {
           "tag": "a",
@@ -725,9 +725,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 229,
-          "h": 24,
-          "top": 20
+          "w": 267,
+          "h": 32,
+          "top": 22
         },
         {
           "tag": "a",
@@ -737,7 +737,7 @@
           "hidden": false,
           "w": 269,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -745,9 +745,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 767
+          "w": 374,
+          "h": 64,
+          "top": 696
         },
         {
           "tag": "a",
@@ -755,9 +755,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 118,
-          "h": 52,
-          "top": 769
+          "w": 155,
+          "h": 51,
+          "top": 704
         },
         {
           "tag": "a",
@@ -765,9 +765,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 8892
+          "w": 374,
+          "h": 64,
+          "top": 8590
         },
         {
           "tag": "a",
@@ -775,9 +775,9 @@
           "href": "tel:+46762943431",
           "hasRing": true,
           "hidden": false,
-          "w": 145,
-          "h": 42,
-          "top": 8899
+          "w": 119,
+          "h": 35,
+          "top": 8688
         },
         {
           "tag": "a",
@@ -785,9 +785,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
           "hasRing": true,
           "hidden": false,
-          "w": 433,
-          "h": 42,
-          "top": 8941
+          "w": 354,
+          "h": 35,
+          "top": 8723
         },
         {
           "tag": "a",
@@ -797,7 +797,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9246
+          "top": 8970
         },
         {
           "tag": "a",
@@ -807,7 +807,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9246
+          "top": 8970
         },
         {
           "tag": "a",
@@ -815,9 +815,9 @@
           "href": "#innehall",
           "hasRing": true,
           "hidden": false,
-          "w": 262,
-          "h": 62,
-          "top": -30
+          "w": 221,
+          "h": 56,
+          "top": 14
         },
         {
           "tag": "a",
@@ -825,9 +825,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 229,
-          "h": 24,
-          "top": 20
+          "w": 267,
+          "h": 32,
+          "top": 22
         },
         {
           "tag": "a",
@@ -837,7 +837,7 @@
           "hidden": false,
           "w": 269,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -845,9 +845,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 730
+          "w": 374,
+          "h": 64,
+          "top": 694
         },
         {
           "tag": "a",
@@ -855,9 +855,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 118,
-          "h": 52,
-          "top": 734
+          "w": 155,
+          "h": 51,
+          "top": 700
         },
         {
           "tag": "a",
@@ -865,9 +865,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 8857
+          "w": 374,
+          "h": 64,
+          "top": 8586
         },
         {
           "tag": "a",
@@ -875,9 +875,9 @@
           "href": "tel:+46762943431",
           "hasRing": true,
           "hidden": false,
-          "w": 145,
-          "h": 42,
-          "top": 8892
+          "w": 119,
+          "h": 35,
+          "top": 8686
         },
         {
           "tag": "a",
@@ -885,9 +885,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
           "hasRing": true,
           "hidden": false,
-          "w": 433,
-          "h": 42,
-          "top": 8934
+          "w": 354,
+          "h": 35,
+          "top": 8721
         },
         {
           "tag": "a",
@@ -897,7 +897,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9239
+          "top": 8963
         },
         {
           "tag": "a",
@@ -907,7 +907,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9239
+          "top": 8963
         },
         {
           "tag": "a",
@@ -915,9 +915,9 @@
           "href": "#innehall",
           "hasRing": true,
           "hidden": false,
-          "w": 262,
-          "h": 62,
-          "top": -22
+          "w": 221,
+          "h": 56,
+          "top": -2
         },
         {
           "tag": "a",
@@ -925,9 +925,9 @@
           "href": "#top",
           "hasRing": true,
           "hidden": false,
-          "w": 229,
-          "h": 24,
-          "top": 20
+          "w": 267,
+          "h": 32,
+          "top": 22
         },
         {
           "tag": "a",
@@ -937,7 +937,7 @@
           "hidden": false,
           "w": 269,
           "h": 40,
-          "top": 12
+          "top": 18
         },
         {
           "tag": "a",
@@ -945,9 +945,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 738
+          "w": 374,
+          "h": 64,
+          "top": 687
         },
         {
           "tag": "a",
@@ -955,9 +955,9 @@
           "href": "#harifran",
           "hasRing": true,
           "hidden": false,
-          "w": 118,
-          "h": 52,
-          "top": 731
+          "w": 155,
+          "h": 51,
+          "top": 693
         },
         {
           "tag": "a",
@@ -965,9 +965,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se?subject=F%C3%B6rslag%20p%C3%A5%20ett%20samtal%20om%20Miljonkraft%20Botkyrka&body=Hej%20Yacine%2C%0D%0A%0D%0AVi%20vill%20g%C3%A4rna%20ta%20ett%20samtal%20p%C3%A5%2030%20minuter%20om%20v%C3%A5rt%20f%C3%B6retag%20och%20vad%20vi%20beh%C3%B6ver%20fram%C3%B6ver.%0D%0A%0D%0AV%C3%A5rt%20f%C3%B6retag%20heter%20%0D%0ADu%20n%C3%A5r%20mig%20p%C3%A5%20%0D%0ATider%20som%20passar%20oss%20%C3%A4r%20%0D%0AVi%20ses%20helst%20digitalt%2C%20hos%20oss%20eller%20hos%20er%20i%20Alby%20%28stryk%20det%20som%20inte%20passar%29%0D%0A%0D%0AV%C3%A4nliga%20h%C3%A4lsningar%0D%0A",
           "hasRing": true,
           "hidden": false,
-          "w": 345,
-          "h": 56,
-          "top": 8854
+          "w": 374,
+          "h": 64,
+          "top": 8581
         },
         {
           "tag": "a",
@@ -975,9 +975,9 @@
           "href": "tel:+46762943431",
           "hasRing": true,
           "hidden": false,
-          "w": 145,
-          "h": 42,
-          "top": 8889
+          "w": 119,
+          "h": 35,
+          "top": 8679
         },
         {
           "tag": "a",
@@ -985,9 +985,9 @@
           "href": "mailto:Yacine.Laghmari@miljonbemanning.se",
           "hasRing": true,
           "hidden": false,
-          "w": 433,
-          "h": 42,
-          "top": 8931
+          "w": 354,
+          "h": 35,
+          "top": 8714
         },
         {
           "tag": "a",
@@ -997,7 +997,7 @@
           "hidden": false,
           "w": 136,
           "h": 37,
-          "top": 9236
+          "top": 8956
         },
         {
           "tag": "a",
@@ -1007,7 +1007,7 @@
           "hidden": false,
           "w": 72,
           "h": 37,
-          "top": 9236
+          "top": 8962
         },
         {
           "tag": "a",
@@ -1015,9 +1015,9 @@
           "href": "#innehall",
           "hasRing": true,
           "hidden": false,
-          "w": 262,
-          "h": 62,
-          "top": -29
+          "w": 221,
+          "h": 56,
+          "top": 6
         }
       ],
       "menu": null,
@@ -1101,15 +1101,25 @@
       "anim": "thread-draw",
       "len": "664px",
       "offset": "664px",
-      "stepColor": "rgb(229, 173, 165)",
+      "stepColor": "rgb(235, 189, 181)",
       "hdr": "hdr-bg"
     },
     "mid": {
       "anim": "thread-draw",
       "len": "664px",
-      "offset": "435.33px",
+      "offset": "435.647px",
       "stepColor": "rgb(255, 249, 242)",
       "hdr": "hdr-bg"
+    }
+  },
+  "contrast": {
+    "390": {
+      "violations": [],
+      "incomplete": []
+    },
+    "1440": {
+      "violations": [],
+      "incomplete": []
     }
   },
   "meta": {

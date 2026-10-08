@@ -1,6 +1,6 @@
 # Överlämning Miljonkraft.se
 
-Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `claude/relaxed-allen-juti3f`, sammanslagen till `main`. Vercel publicerar `main` på www.miljonkraft.se.
+Sammanställd 7 oktober 2026, uppdaterad 8 oktober 2026 (varm version). Gäller redesignen Den röda tråden på grenen `claude/relaxed-allen-juti3f`, sammanslagen till `main`. Vercel publicerar `main` på www.miljonkraft.se.
 
 ## 1. Vad som levererats
 
@@ -8,7 +8,7 @@ Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `c
 - En röd tråd bär sidan från första till sista kapitlet. Den ritas med besökarens egen skroll.
 - Integritetssidan och 404-sidan har samma form som startsidan.
 - Bokningsmodulen, metadata, sitemap, robots.txt, favicons och filmen är kvar. Titel, beskrivning, delningsbild och JSON-LD är nya enligt briefen.
-- Cirka 400 synliga ord på startsidan, inom briefens ram på 350 till 500. Ordbudgeten kontrolleras automatiskt av `scripts/verify.mjs`.
+- Cirka 380 synliga ord på startsidan, inom briefens ram på 350 till 500. Ordbudgeten kontrolleras automatiskt av `scripts/verify.mjs`.
 
 | Del | Status |
 | --- | --- |
@@ -16,7 +16,7 @@ Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `c
 | Kontakt | Klar. Telefon, mejl och mejlförslag med förifyllt ämne |
 | Publicering | Vercel publicerar varje push till `main` |
 | Ansluten bokning | **Återstår.** Ingen verifierad Bookings-länk finns, se avsnitt 5 |
-| Granskning | Sex granskare med var sin motläsare och en kreativ chef. 33 bekräftade fynd är åtgärdade, se `docs/QUALITY_REPORT.md` |
+| Granskning | Redesignen: sex granskare med var sin motläsare och en kreativ chef, 33 bekräftade fynd åtgärdade. Varm version: fyra granskare med motläsare och en kreativ chef, 30 bekräftade fynd åtgärdade. Se `docs/QUALITY_REPORT.md` |
 
 ## 2. Berättelsen
 
@@ -30,7 +30,7 @@ Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `c
 | 6. Nyttan | Smörgult fält. Affärsnytta × samhällsnytta | Tråden delar sig och korsas vid krysset, ett ord i varje ögla |
 | 7. Bevisen | 2012, 2023 och 12 | En punkt per bevis |
 | 8. Riktningen | Gryningshimmel. Botkyrka ska ha Sveriges lägsta arbetslöshet | Blir horisonten och löper ut ur sidan |
-| 9. Inbjudan | Smörgult fält. Berätta vad ni behöver. Vi börjar där. Yacine, knappen, telefon och mejl | En ny röd punkt som tänds |
+| 9. Inbjudan | Smörgult fält. Berätta vad ni behöver. Vi börjar där. Yacine, knappen, telefon och mejl. Utsnitt ur illustrationen med två personer som samtalar | En ny röd punkt som tänds |
 
 Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen projektstatus visas, se beslut 2.
 
@@ -39,10 +39,10 @@ Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen
 1. **Redesignbriefen gäller före tidigare beslut där de krockar.** Undantag är det Karim själv bestämt efter briefen, se punkt 2. Filmen påverkas, se punkt 6.
 2. **Ingen projektstatus på sidan (Karims beslut 8 oktober 2026).** Meningarna om samarbetsavtalet med Botkyrka kommun och om att genomförandet förutsätter stöd från Svenska ESF-rådet är borttagna från sidfoten, från llms.txt och från koden, trots att redesignbriefen bad om dem. Samma beslut tog Karim för affischversionen.
 3. **Ingen knapp heter Boka.** Ingen riktig bokning är ansluten, så knappen heter Föreslå ett 30-minuters samtal och öppnar ett förifyllt mejl till Yacine. När Bookings ansluts byter alla knappar automatiskt till Boka 30 min med Yacine.
-4. **En bild, en illustration.** Sidan visar torg-illustrationen från Yacines förhandsversion, märkt Illustration, i heron. Västbilden och bildbankens lager- och transportbilder används inte.
+4. **Bara illustrationen.** Sidans enda bild är torg-illustrationen från Yacines förhandsversion, i två utsnitt: torget i valvform i heron, märkt Illustration, och paret som samtalar i inbjudan. Västbilden och bildbankens lager- och transportbilder visas inte på sidan.
 5. **Borttaget från startsidan:** affischheron, WebGL-himlen, Samhällskraft-sektionen, tickern, kort, urtavlan, citaten, utmärkelselistan, FAQ, mobilmenyn och den fasta mobilknappen.
 6. **Filmen visas inte längre.** Den gjordes för affischversionen med versaler, kort, numrerade steg och lagerbilder, och granskningen visade att den drar berättelsen åt det håll briefen vill bort från. Den saknar också syntolkning (WCAG 1.2.5). Filerna ligger kvar i `public/film` och dialogen finns i koden. Filmen har en scen med texten Samarbetsavtal med Botkyrka kommun, som ska tas bort om filmen görs om och visas igen. Sätt `copy.film.showOnHome` till `true` i `src/config/site.ts` för att visa länken Se filmen i sidfoten igen. Bättre är att rendera om filmen i Den röda trådens uttryck med `scripts/film`.
-7. **Varm färg och känsla från Yacines version (Karims beslut 8 oktober 2026).** Karim gav sidan 5 av 10 och bad att få med färgen, känslan och bilderna från Yacines förhandsversion, utom den röda rosetten, med copyn oförändrad. Sidan har nu gräddvit grund, vinröd text, tegelröd tråd och färgfält i persika, tegel och smörgult, se `docs/DESIGN_PLAN.md`. Bilder får aldrig fylla hela skärmen. Montserrat är kvar som Miljonbemannings typsnitt.
+7. **Varm färg och känsla från Yacines version (Karims beslut 8 oktober 2026).** Karim gav sidan 5 av 10 och skrev: "Behåll copyn som du har, men det finns mycket av färg och känsla som du kan ta med från den här hemsidan som jag länkar ovan som vi saknar. Bilderna på den här hemsidan är mycket bättre att ta inspiration av, förutom den röda rosetten högst upp." Sidan återanvänder Yacines illustrationsfil i utsnitt i stället för att bara hämta inspiration ur den. Det går längre än Karims ord och ska bekräftas, se avsnitt 9. Sidan har nu gräddvit grund, vinröd text, tegelröd tråd och färgfält i persika, tegel och smörgult, se `docs/DESIGN_PLAN.md`. Bilder får aldrig fylla hela skärmen. Montserrat är kvar som Miljonbemannings typsnitt.
 8. **Kvar från tidigare beslut:** sidan ska inte läsas som ett bemanningsföretag, www.miljonkraft.se är primär domän, allt pushas och slås samman till `main`.
 
 ## 4. Rörelse
@@ -53,7 +53,7 @@ Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen
 - Bara `stroke-dashoffset`, `transform`, `opacity`, `clip-path` och färg animeras.
 - Webbläsare utan stöd för scroll-driven animations ritar varje block med en kort övergång när det når pennan (IntersectionObserver i `src/scripts/main.ts`).
 - Med reducerad rörelse, i utskrift och om skriptet inte laddas står tråden färdigritad och allt innehåll syns.
-- Inledningen spelas en gång: rubriken tonar fram, två punkter möts vid rubrikens första rad och tråden börjar.
+- Inledningen spelas en gång: rubriken tonar fram, två punkter möts vid rubrikens första rad och tråden börjar. Skrollar besökaren innan den är klar avslutas den direkt.
 
 ## 5. Bokning
 
@@ -63,7 +63,8 @@ Läget är `contact_only`. Ingen publicerad Bookings-sida för Yacine har hittat
 
 - Titel: Miljonkraft Botkyrka | När människor och möjligheter möts.
 - Beskrivning: Miljonkraft Botkyrka kopplar lokala företag med människor som vill arbeta och utvecklas. Ett initiativ från Miljonbemanning med rötterna i Alby.
-- En H1, kapitel som `section` med egna rubriker, canonical på www, Open Graph med ny delningsbild.
+- En H1, kapitel som `section` med egna rubriker, canonical på www, Open Graph med ny delningsbild. Delningsbilden visar rubriken och torg-illustrationen i valv, märkt Illustration.
+- Ändringsdatum per sida i `src/config/site.ts`: `lastModified` för startsidan och `privacyModified` för integritetssidan. Båda används i sitemap och JSON-LD.
 - JSON-LD: Organization (Miljonbemanning, med beskrivning ur företagets mejlsignatur, adress, grundår och ContactPoint), WebSite, WebPage och Person (Yacine). Ingen FAQ-markering eftersom sidan saknar synliga frågor och svar.
 - `public/llms.txt` sammanfattar sidan för AI-sök med samma sanna uppgifter.
 
@@ -71,8 +72,9 @@ Läget är `contact_only`. Ingen publicerad Bookings-sida för Yacine har hittat
 
 | Fil | Källa |
 | --- | --- |
-| `assets-src/illustration/torg.webp` | Illustrationen av ett torg, hämtad från Yacines förhandsversion av Miljonkraft (miljonkraft-preview på Vercel). Utsnitten i `public/img/torg-*` skapas av `scripts/build-images.mjs` |
-| `assets-src/bildbank/MB_bildbank_33-mb-vast.jpg` | Miljonbemannings bildbank i SharePoint. Används inte längre på sidan |
+| `assets-src/illustration/torg.webp` | Illustrationen av ett torg, hämtad oförändrad från Yacines förhandsversion av Miljonkraft (miljonkraft-preview på Vercel). Filen saknar metadata om upphov. `scripts/build-images.mjs` skapar utsnitten `public/img/torg-valv-*` (heron), `public/img/torg-samtal-*` (inbjudan) och `public/img/torg-800.webp` |
+| `public/og.png` | Delningsbilden. Visar samma illustration. Skapas av `scripts/generate-og.mjs` ur `scripts/og-template.html` |
+| `assets-src/bildbank/MB_bildbank_33-mb-vast.jpg` | Miljonbemannings bildbank i SharePoint. Visas inte på sidan, men filerna `public/img/mb-vast-*` publiceras fortfarande och filmen visar bilden |
 | `assets-src/logo/Logo_DARK-TERTIARY_MB-Miljonbemanning_2024.png` | Miljonbemannings grafiska profil, tertiär logotyp, oförändrad |
 | Tråden, öglorna, trappan och horisonten | Egna SVG-linjer i koden |
 | Montserrat | SIL Open Font License |
@@ -86,10 +88,16 @@ Se `README.md`. All text står i `src/config/site.ts`. Trådens form i varje kap
 ## 9. Uppgifter som en människa bör bekräfta
 
 1. **Bevis 12.** Miljonbemanning rangordnades först i alla tolv områden enligt Botkyrka kommuns tilldelningsbeslut 2026-08-27 (Dnr AVN/2026:00030). Sidan skriver "Enligt Botkyrka kommuns tilldelningsbeslut den 27 augusti 2026". Bekräfta att ramavtalet är undertecknat efter avtalsspärren innan formuleringen skärps.
-2. **Illustrationens ursprung.** Torg-illustrationen kommer från Yacines förhandsversion. Bekräfta hur den är framtagen och att den får användas på den publika sidan.
-3. **Knapptexten.** Briefen skriver Föreslå ett 30-minuters samtal, vilket sidan använder. Språkgranskningen påpekade att formen blandar två skrivsätt (30-minuterssamtal eller 30 minuters samtal). Ändras i `src/lib/booking.ts` om uppdragsgivaren vill.
-4. **AI-sökrobotar.** `public/robots.txt` tillåter både OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning). Bekräfta eller blockera GPTBot separat.
-5. **Integritetstexten** på `/integritet/` bör bekräftas av Miljonbemanning.
+2. **Illustrationens ursprung.** Torg-illustrationen kommer från Yacines förhandsversion och syns på sidan och i delningsbilden. Fråga Yacine:
+   - Vem gjorde illustrationen, och är den gjord med AI?
+   - Får den användas kommersiellt på www.miljonkraft.se och i `public/og.png`, som delas i sociala medier?
+   - Bygger den på ett foto, en annan bild eller en namngiven konstnärs stil?
+   - Behöver den märkas som AI-genererad utöver märkningen Illustration?
+   Byt till en annan bild om svaret är oklart.
+3. **Västbilden.** Bilden med västen används inte på sidan men publiceras fortfarande i `public/img/mb-vast-*` och syns i filmen. Bekräfta att personen på bilden godkänt användningen, eller ta bort filerna och bilden ur filmen.
+4. **Knapptexten.** Briefen skriver Föreslå ett 30-minuters samtal, vilket sidan använder. Språkgranskningen påpekade att formen blandar två skrivsätt (30-minuterssamtal eller 30 minuters samtal). Ändras i `src/lib/booking.ts` om uppdragsgivaren vill.
+5. **AI-sökrobotar.** `public/robots.txt` tillåter både OAI-SearchBot (ChatGPT-sök) och GPTBot (modellträning). Bekräfta eller blockera GPTBot separat.
+6. **Integritetstexten** på `/integritet/` bör bekräftas av Miljonbemanning.
 
 Adressen i JSON-LD är huvudkontoret, Albyvägen 3, 145 57 Norsborg, enligt miljonbemanning.se (kontrollerat 7 oktober 2026). MB.Restart i Alby ligger på Albyvägen 2.
 

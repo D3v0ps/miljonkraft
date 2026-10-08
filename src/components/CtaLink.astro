@@ -20,4 +20,8 @@ const parts = b.ctaFull.split(/(\S+-\S+)/);
 >
   <span class="cta-full">{parts.map((p) => (/-/.test(p) ? <span class="nw">{p}</span> : p))}</span><span class="cta-short">{b.ctaShort}</span>
   {b.external && <span class="visually-hidden"> (öppnas i nytt fönster)</span>}
+  {/* Stora knappar får en rund pil som i Yacines version. Pilen pekar framåt, eftersom knappen öppnar ett mejl och inte en annan sida. */}
+  {className.includes('btn--lg') && (
+    <span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span>
+  )}
 </a>

@@ -23,12 +23,19 @@ for (const [src, name, position, widths] of photos) {
 }
 
 // Illustrationen av ett torg (från Yacines förhandsversion av Miljonkraft, se docs/HANDOVER.md).
-// Visas kvadratisk i en valvform, därför ett kvadratiskt utsnitt kring människorna i mitten och till höger.
-const torgArea = { left: 280, top: 0, width: 800, height: 800 };
-for (const w of [480, 640, 800]) {
-  await sharp('assets-src/illustration/torg.webp').extract(torgArea).resize({ width: w }).webp({ quality: 66, effort: 6 }).toFile(`public/img/torg-${w}.webp`);
+const torg = 'assets-src/illustration/torg.webp';
+// Heron: stående utsnitt i valvform med barnet, familjen, fontänen och paret.
+const torgValv = { left: 350, top: 0, width: 680, height: 800 };
+for (const w of [480, 680]) {
+  await sharp(torg).extract(torgValv).resize({ width: w }).webp({ quality: 66, effort: 6 }).toFile(`public/img/torg-valv-${w}.webp`);
 }
-await sharp('assets-src/illustration/torg.webp').extract(torgArea).jpeg({ quality: 78, mozjpeg: true }).toFile('public/img/torg-800.jpg');
+await sharp(torg).extract(torgValv).jpeg({ quality: 78, mozjpeg: true }).toFile('public/img/torg-valv-680.jpg');
+// Inbjudan: närbild på paret som samtalar.
+const torgSamtal = { left: 780, top: 330, width: 400, height: 470 };
+await sharp(torg).extract(torgSamtal).webp({ quality: 70, effort: 6 }).toFile('public/img/torg-samtal-400.webp');
+await sharp(torg).extract(torgSamtal).jpeg({ quality: 80, mozjpeg: true }).toFile('public/img/torg-samtal-400.jpg');
+// Delningsbilden (scripts/og-template.html): kvadratiskt utsnitt.
+await sharp(torg).extract({ left: 280, top: 0, width: 800, height: 800 }).webp({ quality: 70, effort: 6 }).toFile('public/img/torg-800.webp');
 
 // Stående beskärningar för höga paneler. [källfil, utnamn, utsnitt i originalet (1920 × 1080), bredder]
 const portraits = [

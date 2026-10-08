@@ -21,7 +21,8 @@ export default defineConfig({
       serialize(item) {
         // Verkligt ändringsdatum för innehållet. Uppdateras manuellt i site.ts
         // när innehållet faktiskt ändras, inte vid varje bygge.
-        item.lastmod = site.lastModified;
+        // Integritetssidan har sitt eget datum.
+        item.lastmod = item.url.includes('/integritet') ? site.privacyModified : site.lastModified;
         return item;
       },
     }),
