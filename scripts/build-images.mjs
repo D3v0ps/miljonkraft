@@ -12,7 +12,7 @@ const photos = [
   // [källfil, utnamn, beskärning i procent från toppen (fokus), bredder]
   ['assets-src/bildbank/MB_bildbank_9-lager.jpg', 'lager', 'attention', [640, 1200]],
   ['assets-src/bildbank/MB_bildbank_10-transport.jpg', 'transport', 'attention', [640, 1200]],
-  ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast', 'centre', [720, 1400, 1920]],
+  ['assets-src/bildbank/MB_bildbank_33-mb-vast.jpg', 'mb-vast', 'centre', [720, 1400]],
   ['assets-src/bildbank/MB_bildbank_6-kontor.jpg', 'kontor', 'attention', [720, 1400]],
 ];
 for (const [src, name, position, widths] of photos) {

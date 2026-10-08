@@ -23,7 +23,7 @@ Sammanställd 7 oktober 2026. Gäller redesignen Den röda tråden på grenen `c
 | Kapitel | Innehåll | Trådens form |
 | --- | --- | --- |
 | 1. Idén | När människor och möjligheter hittar varandra, växer en plats. Knapp och Läs vår idé | Två röda punkter möts och blir tråden |
-| 2. Härifrån | Resan som började i Alby 2012. Bilden av västen med MB-punkten över hela skärmen. Potential finns överallt. Möjligheten gör det inte. | Går bakom bilden och kommer ut under den. Bilden zoomar långsamt in mot den röda punkten |
+| 2. Härifrån | Resan som började i Alby 2012. Bilden av västen med MB-punkten, bredvid texten på dator och under texten på mobil. Potential finns överallt. Möjligheten gör det inte. | Löper vidare längs vänsterkanten |
 | 3. Kretsloppet | Invånare, Miljonkraft och lokala företag | En ögla runt de tre orden |
 | 4. Miljonmodellen | Teori mot verklighet. De åtta stegen Nå, Förstå, Rikta, Bevisa, Utveckla, Övergå, Bära, Växa | Bär stegen. Varje ord tänds när tråden passerar |
 | 5. Karriärstegen | Första jobbet är början. Lager, truck och lagersystem, koordinator, transportplanering, märkt som exempel | En trappa uppåt (dator) eller framåt (mobil) |
@@ -42,7 +42,8 @@ Sidfoten bär avsändaren och länkar till Miljonbemanning och integritet. Ingen
 4. **En bild.** Bara västen med MB-punkten ur Miljonbemannings bildbank används. Lager- och transportbilderna i bildbanken liknar stockfoto och strider mot briefens krav på autentiska bilder.
 5. **Borttaget från startsidan:** affischheron, WebGL-himlen, Samhällskraft-sektionen, tickern, kort, urtavlan, citaten, utmärkelselistan, FAQ, mobilmenyn och den fasta mobilknappen.
 6. **Filmen visas inte längre.** Den gjordes för affischversionen med versaler, kort, numrerade steg och lagerbilder, och granskningen visade att den drar berättelsen åt det håll briefen vill bort från. Den saknar också syntolkning (WCAG 1.2.5). Filerna ligger kvar i `public/film` och dialogen finns i koden. Filmen har en scen med texten Samarbetsavtal med Botkyrka kommun, som ska tas bort om filmen görs om och visas igen. Sätt `copy.film.showOnHome` till `true` i `src/config/site.ts` för att visa länken Se filmen i sidfoten igen. Bättre är att rendera om filmen i Den röda trådens uttryck med `scripts/film`.
-7. **Kvar från tidigare beslut:** sidan ska inte läsas som ett bemanningsföretag, www.miljonkraft.se är primär domän, allt pushas och slås samman till `main`.
+7. **Bilden är liten och lugn (Karims beslut 8 oktober 2026).** Den fyllde tidigare hela skärmen och upplevdes som för stor på en 27-tumsskärm. Nu står den bredvid texten i kapitel 2 på dator, högst 400 px bred, och under texten på mobil och surfplatta, högst 560 px bred. Ingen inzoomning.
+8. **Kvar från tidigare beslut:** sidan ska inte läsas som ett bemanningsföretag, www.miljonkraft.se är primär domän, allt pushas och slås samman till `main`.
 
 ## 4. Rörelse
 

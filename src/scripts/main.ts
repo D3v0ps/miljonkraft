@@ -9,24 +9,44 @@ const scrollDriven = typeof CSS !== 'undefined' && CSS.supports('animation-timel
 
 /* ---------- Trådens längd på skärmen ---------- */
 // Banorna ritas med vector-effect: non-scaling-stroke i SVG:er som sträcks olika i bredd och höjd.
-// Streckningen räknas då i skärmpixlar, så varje banas längd mäts här och sätts som --len.
+// Streckningen räknas då i skärmpixlar, så varje banas längd sätts här som --len.
+// Banan skalas om till skärmens mått och mäts med ett enda getTotalLength-anrop, vilket är
+// både exakt och billigt (punktvis sampling tog över en sekund på en långsam telefon).
 // Utan mätt längd står tråden färdigritad (se global.css, avsnittet Rörelse).
+const SVG_NS = 'http://www.w3.org/2000/svg';
+let probe: SVGPathElement | null = null;
+function probePath(): SVGPathElement {
+  if (probe) return probe;
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;pointer-events:none';
+  probe = document.createElementNS(SVG_NS, 'path');
+  svg.appendChild(probe);
+  document.body.appendChild(svg);
+  return probe;
+}
+// Banorna i src/lib/thread.ts använder bara absoluta M, L, C, Q och A (utan rotation),
+// så en skalning av koordinaterna ger exakt samma form som på skärmen.
+function scalePath(d: string, sx: number, sy: number): string {
+  return d.replace(/([MLCQA])([^MLCQA]*)/g, (_, cmd: string, args: string) => {
+    const n = args.trim().split(/[\s,]+/).filter(Boolean).map(Number);
+    if (cmd === 'A') {
+      const out: number[] = [];
+      for (let i = 0; i + 6 < n.length; i += 7) out.push(n[i] * sx, n[i + 1] * sy, n[i + 2], n[i + 3], n[i + 4], n[i + 5] * sx, n[i + 6] * sy);
+      return cmd + out.join(' ');
+    }
+    return cmd + n.map((v, i) => (i % 2 ? v * sy : v * sx)).join(' ');
+  });
+}
 function measure(svg: SVGSVGElement) {
   const vb = svg.viewBox.baseVal;
   const sx = svg.clientWidth / vb.width;
   const sy = svg.clientHeight / vb.height;
   if (!sx || !sy) return; // Varianten för den andra brytpunkten är dold.
+  const tool = probePath();
   svg.querySelectorAll('path').forEach((p) => {
-    const total = p.getTotalLength();
-    const n = Math.min(400, Math.max(24, Math.round(total / 6)));
-    let len = 0;
-    let prev = p.getPointAtLength(0);
-    for (let i = 1; i <= n; i++) {
-      const q = p.getPointAtLength((total * i) / n);
-      len += Math.hypot((q.x - prev.x) * sx, (q.y - prev.y) * sy);
-      prev = q;
-    }
-    p.style.setProperty('--len', `${Math.ceil(len) + 2}px`);
+    tool.setAttribute('d', scalePath(p.getAttribute('d') || '', sx, sy));
+    p.style.setProperty('--len', `${Math.ceil(tool.getTotalLength()) + 2}px`);
   });
 }
 if (!reduce && 'ResizeObserver' in window) {

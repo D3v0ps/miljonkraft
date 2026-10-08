@@ -98,7 +98,7 @@ På mobil följer tråden samma fil längs vänsterkanten. Kretsloppet blir en s
 
 ## Efter granskningen
 
-- Bilden från Alby fyller nu en skärm och zoomar långsamt in mot västens röda punkt medan man skrollar, sidans enda kameraåkning.
+- Bilden från Alby står i textens spalt, bredvid texten på dator och under texten på mobil. En version som fyllde hela skärmen med inzoomning prövades men var för stor på stora skärmar och togs bort efter Karims synpunkt.
 - Krysset i Affärsnytta × samhällsnytta står synligt där trådarna korsas.
 - De två punkterna i inledningen kommer från sidhuvudet och från vecket innan de möts.
 - Den sista röda punkten tänds när man når inbjudan, på samma sätt som Miljonmodellens steg.

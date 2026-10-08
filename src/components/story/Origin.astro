@@ -10,16 +10,18 @@ const portrait = images.mbVastPortrait;
   <div class="seg">
     <Thread narrow={lane(-12)} />
     <div class="seg__in origin">
-      <h2 id="origin-h" class="h2">{c.heading}</h2>
-      <p class="body origin__body">{c.body}</p>
+      <div class="origin__text">
+        <h2 id="origin-h" class="h2">{c.heading}</h2>
+        <p class="body origin__body">{c.body}</p>
+      </div>
+      {/* Bilden står i textens spalt och bredvid texten på dator, aldrig över hela skärmen. */}
+      <picture class="origin__photo">
+        <source media="(min-width: 960px)" type="image/webp" srcset={portrait.widths.map((w) => `${portrait.src}-${w}.webp ${w}w`).join(', ')} sizes="400px" />
+        <source type="image/webp" srcset={`${img.src}-720.webp 720w, ${img.src}-1400.webp 1400w`} sizes="(min-width: 700px) 560px, calc(100vw - 80px)" />
+        <img src={`${img.src}-1200.jpg`} width={img.w} height={img.h} alt={img.alt} loading="lazy" decoding="async" />
+      </picture>
     </div>
   </div>
-  {/* Bilden ligger över hela bredden. Tråden går bakom den och fortsätter under. */}
-  <picture class="photo">
-    <source media="(max-width: 639.98px), (max-width: 699.98px) and (orientation: portrait)" type="image/webp" srcset={portrait.widths.map((w) => `${portrait.src}-${w}.webp ${w}w`).join(', ')} sizes="100vw" />
-    <source type="image/webp" srcset={`${img.src}-720.webp 720w, ${img.src}-1400.webp 1400w, ${img.src}-1920.webp 1920w`} sizes="100vw" />
-    <img src={`${img.src}-1200.jpg`} width={img.w} height={img.h} alt={img.alt} loading="lazy" decoding="async" />
-  </picture>
   <div class="seg">
     <Thread narrow={lane(14)} />
     <div class="seg__in">
